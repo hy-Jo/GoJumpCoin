@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class TestCon {
 	
 	public TestCon() {
-		System.out.println("TestController 호출");
+		System.out.println("Main Controller 호출");
 	}
 	
 	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
