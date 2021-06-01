@@ -11,18 +11,18 @@
   crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
-	$('li:nth-child(3)').addClass('active');
-	$('li:nth-child(3)').css('background','black');
+	$('li:nth-child(2)').addClass('active');
+	$('li:nth-child(2)').css('background','black');
 });
 </script>
 </head>
 <body>
- <div class="container-fluid text-center">
+<div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
     </div>
     <div class="col-sm-8 text-left"> 
-      <p>코인동향페이지입니다</p>
+      <p>코인맵페이지입니다</p>
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">

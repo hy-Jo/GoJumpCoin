@@ -8,10 +8,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+
   <style>
   /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
-
       background-color: #F20C34;
       border-color: #FFFFFF;
     }
@@ -36,6 +37,7 @@
     }
 
   </style>
+  
 </head>
 <body>
 
@@ -53,8 +55,8 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/">코인시세정보</a></li>
-        <li><a href="#">코인맵</a></li>
+        <li><a href="/">코인시세정보</a></li>
+        <li><a href="/coinmap">코인맵</a></li>
         <li><a href="/coinflow">코인동향</a></li>
         <li><a href="#">Contact</a></li>
       </ul>

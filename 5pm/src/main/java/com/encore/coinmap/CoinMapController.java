@@ -20,9 +20,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class CoinMapCon {
+public class CoinMapController {
 	
+	public CoinMapController() {
+		System.out.println("CoinMapController 호출");
+	}
 	
+	@RequestMapping(value = {"/coinmap"}, method = RequestMethod.GET)
+	public String home() {
+	    return "/coinmap";
+	}
 
 }
 

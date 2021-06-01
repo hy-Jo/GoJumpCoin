@@ -18,4 +18,8 @@
     <put-attribute name="title" value="코인동향"/>
     <put-attribute name="body"  value="/WEB-INF/views/coinflow/coinflow.jsp" />
   </definition>
+  <definition name="/coinmap" extends="main">
+    <put-attribute name="title" value="코인맵"/>
+    <put-attribute name="body"  value="/WEB-INF/views/coinmap/coinmap.jsp" />
+  </definition>
 </tiles-definitions>
