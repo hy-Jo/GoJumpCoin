@@ -22,4 +22,8 @@
     <put-attribute name="title" value="코인맵"/>
     <put-attribute name="body"  value="/WEB-INF/views/coinmap/coinmap.jsp" />
   </definition>
+  <definition name="/contact" extends="main">
+    <put-attribute name="title" value="contact"/>
+    <put-attribute name="body"  value="/WEB-INF/views/contact.jsp" />
+  </definition>
 </tiles-definitions>
