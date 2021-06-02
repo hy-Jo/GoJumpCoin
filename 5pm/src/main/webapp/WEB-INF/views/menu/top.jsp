@@ -59,7 +59,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="/">코인시세정보</a></li>
+        <li><a href="/coinchart">코인시세정보</a></li>
         <li><a href="/coinmap">코인맵</a></li>
         <li><a href="/coinflow">코인동향</a></li>
         <li><a href="/contact">Contact</a></li>

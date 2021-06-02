@@ -21,7 +21,7 @@ function key() {
 
 
   }
-  /*console.log(obj);*/
+  console.log(obj);
 }
 
 key();
