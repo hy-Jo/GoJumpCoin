@@ -12,6 +12,7 @@ $(document).ready(function(){
 	$('li:nth-child(2)').css('background','black');
 });
 </script>
+<script src="${pageContext.request.contextPath}/js/coinmap.js"></script>
 </head>
 <body>
 <div class="container-fluid text-center">    
@@ -20,6 +21,7 @@ $(document).ready(function(){
     </div>
     <div class="col-sm-8 text-left"> 
       <p>코인맵페이지입니다</p>
+      <div id="chart_div"></div>
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">
