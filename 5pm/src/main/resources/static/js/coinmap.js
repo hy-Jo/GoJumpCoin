@@ -18,20 +18,37 @@
                });
        }*/
 
-function key() {
+
   /*
    */
-  var request = new XMLHttpRequest();
-  var url = 'https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest?CMC_PRO_API_KEY=4adf43b1-a8f9-4cf4-89a1-c161c38ec59b';
-  //var url = 'https://api.upbit.com/v1/candles/minutes/1?market='+coinName+'&count=1';
+	var request = new XMLHttpRequest();
+	//const fs = require('fs');
+	var url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=4adf43b1-a8f9-4cf4-89a1-c161c38ec59b&convert=KRW';
+	var test = 'https://sandbox-api.coinmarketcap.com/v2/cryptocurrency?CMC_PRO_API_KEY=b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c';
+	
+	request.open("GET", test, false);
+	
+	  request.send();
+	
+	  var obj = JSON.parse(request.responseText);
+	
+	  console.log(obj);
+	
+/*	fs.writeFile('student-3.json', obj, (err) => {
+	    if (err) throw err;
+	    console.log('Data written to file');
+});
+*/
 
-  request.open("GET", url);
 
-  request.send();
+/*"use strict";
 
-  var obj = JSON.parse(request.responseText);
+let url = "https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest?CMC_PRO_API_KEY=4adf43b1-a8f9-4cf4-89a1-c161c38ec59b&convert=KRW";
 
-  console.log(obj);
-}
-
-key();
+fetch(url)
+.then(function(resp){
+	return resp.json();
+})
+.then(function(data){
+	console.log(data);
+})*/
