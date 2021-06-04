@@ -29,11 +29,7 @@ public class CoinController {
 	    public String home() {
 	        return "/coinchart";
 	    }
-	    
-	    @RequestMapping(value = {"/coinmap"}, method = RequestMethod.GET)
-	    public String home() {
-	        return "/coinmap";
-	    }
+
 	
 }
 
