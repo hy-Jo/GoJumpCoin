@@ -7,15 +7,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class CoinflowAPITest {
 
-	static final String CANDLE_API_URL = "https://api.upbit.com/v1/candles/";
+class CoinflowAPITest {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -36,41 +37,47 @@ class CoinflowAPITest {
 	@Test
 	void testIncreaseRate() {
 		//~가격 - 전날종가(?) 아니면 현가. 일단 전날종가로
-				//https://api.upbit.com/v1/candles/weeks?market=KRW-BTC&count=1
-				try {
-					//URL url = new URL(CANDLE_API_URL+"weeks?/market=KRW-BTC&count=1");
-					URL url = new URL("https://api.upbit.com/v1/candles/weeks?market=KRW-BTC&count=1");
-					HttpURLConnection con = (HttpURLConnection)url.openConnection();
-					con.setConnectTimeout(5000);
-					con.setReadTimeout(5000);
-					//con.addRequestProperty("KRW-BTC", "weeks");	
-					con.setRequestMethod("GET");
-					con.setDoOutput(false);
-					
-					StringBuilder sb = new StringBuilder();
-
-					
-					if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-						BufferedReader br = new BufferedReader(
-								new InputStreamReader(con.getInputStream(), "utf-8"));
-						String line = "";
-						while ((line = br.readLine()) != null) {
-							sb.append(line).append("\n");
-						}
-						br.close();
-						System.out.println("" + sb.toString());
-					} else {
-						System.out.println(con.getResponseMessage());
-					}
-					
-				}catch(Exception e) {
-					System.err.println(e.toString());
-				}
+		//https://api.upbit.com/v1/candles/weeks?market=KRW-BTC&count=1
+//JSONObject json = null; return 타입이 JSONArray여서 이걸로 받아줌
+		/*
+		 * JSONArray json = null; try { //URL url = new
+		 * URL(CANDLE_API_URL+"weeks?/market=KRW-BTC&count=1");https://api.upbit.com/v1/
+		 * market/all URL url = new
+		 * URL("https://api.upbit.com/v1/candles/weeks?market=KRW-BTC&count=1");
+		 * HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		 * con.setConnectTimeout(5000); con.setReadTimeout(5000);
+		 * //con.addRequestProperty("KRW-BTC", "weeks"); con.setRequestMethod("GET");
+		 * con.setDoOutput(false);
+		 * 
+		 * StringBuilder sb = new StringBuilder();
+		 * 
+		 * 
+		 * if(con.getResponseCode() == HttpURLConnection.HTTP_OK) { BufferedReader br =
+		 * new BufferedReader( new InputStreamReader(con.getInputStream(), "utf-8"));
+		 * String line = ""; while ((line = br.readLine()) != null) {
+		 * sb.append(line).append("\n"); } br.close(); System.out.println("" +
+		 * sb.toString()); json = new JSONArray(sb.toString()); //JSONObject obj =
+		 * jsonArray.getJSONObject(0); 하나씩 가져오려면 System.out.println(json); } else {
+		 * System.out.println(con.getResponseMessage()); }
+		 * 
+		 * }catch(Exception e) { System.err.println(e.toString()); }
+		 */	
+	CoinflowServiceImpl service = new CoinflowServiceImpl();
+	service.increaseRate("KRW-BTC","", null);
 	}
 
 	@Test
 	void testIncreaseRateW() {
-		fail("Not yet implemented");
+		for(int i=0;  i<=117; i++) {
+			System.out.println("count"+i);
+			try {
+				Thread.sleep(500); // 중지시켜서 요청수를 한번 체크 -> 0.25초는 안되고 0.5초는 117회 요청이됨. 대신 오래걸림
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			testIncreaseRate();
+		}
 	}
 
 	@Test
