@@ -3,6 +3,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+.tableWrapper {
+    
+    width: 100%;
+    height: 350px;
+    overflow: auto;
+    table-layout:fixed;
+}
+
+#userListTable {
+    width: 500px;
+    border: 0px;
+    border-collapse: collapse;
+}
+
+#userListTable th {
+    position: sticky;
+    top: 0px;
+}
+</style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script
@@ -18,18 +38,43 @@ $(document).ready(function(){
 </head>
 <body>
 
+
 <div class="container-fluid text-center">    
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-    </div>
-    <div class="col-sm-8 text-left"> 
+ <!--    <div class="col-sm-2 sidenav">
+    </div> -->
+     
       <h1>실시간 시세 표</h1>
       <p>시세표(USD,KRW,거래량,김치프리미엄)</p>
-      <br>
+    <!-- 채팅창 BEGIN-->
+    <div class="col-sm-8 text-left">
+    <!-- 채팅창 END-->   
+      
+      <!-- 코인 table BEGIN-->
+         <div class="tableWrapper">
+				<table class="table table-hover" id="userListTable">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">코인이름</th>
+							<th scope="col">KRW</th>
+							<th scope="col">USD</th>
+							<th scope="col">거래량</th>
+							<th scope="col">김치프리미엄</th>
+						</tr>
+					</thead>
+
+					<!-- coin key API BEGIN -->
+					<script src=/js/coinKey.js></script>
+					<!-- coin key API END-->
+
+				</table>
+				</div>
+			<!-- 코인 table END-->
+			
+				<br>
       <h2>실시간 차트</h2>
-      <!-- coin key API BEGIN -->
-      <script src="/js/coinKey.js"></script>
-      <!-- coin key API END-->
+      
       <hr>
         <!-- TradingView Widget BEGIN -->
         <div class="tradingview-widget-container">
