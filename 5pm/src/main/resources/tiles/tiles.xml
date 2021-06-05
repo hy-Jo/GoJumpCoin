@@ -26,9 +26,15 @@
     <put-attribute name="title" value="contact"/>
     <put-attribute name="body"  value="/WEB-INF/views/contact.jsp" />
   </definition>
+<<<<<<< HEAD
   
   <definition name="/coinchart" extends="main">
     <put-attribute name="title" value="contact"/>
     <put-attribute name="body"  value="/WEB-INF/views/coinchart.jsp" />
+=======
+  <definition name="/coinchart" extends="main">
+    <put-attribute name="title" value="코인차트"/>
+    <put-attribute name="body"  value="/WEB-INF/views/coin/coinchart.jsp" />
+>>>>>>> cd39aba059c9b9380677ce769d8873a9ac3d4921
   </definition>
 </tiles-definitions>

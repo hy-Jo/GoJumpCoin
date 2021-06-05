@@ -5,16 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-  src="https://code.jquery.com/jquery-3.6.0.js"
-  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  crossorigin="anonymous"></script>
+
 <script>
 $(document).ready(function(){
 	$('li:nth-child(2)').addClass('active');
 	$('li:nth-child(2)').css('background','black');
 });
 </script>
+<script src="${pageContext.request.contextPath}/js/coinmap.js"></script>
 </head>
 <body>
 <div class="container-fluid text-center">    
@@ -23,11 +21,16 @@ $(document).ready(function(){
     </div>
     <div class="col-sm-8 text-left"> 
       <p>코인맵페이지입니다</p>
+<<<<<<< HEAD
+       <script src="/js/coinmap.js"></script>
+=======
+      <div id="chart_div"></div>
+>>>>>>> 49bd7a359d6796707772a074ec2cb84928fcff25
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">
         <p>채팅창</p>
-      </div>
+      </div>gi
     </div>
   </div>
 </div>

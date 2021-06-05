@@ -1,126 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-<style type="text/css">
-@import url(https://fonts.googleapis.com/css?family=Roboto);
-body {
-  font-family: 'Roboto', sans-serif;
-  overflow:hidden;
-}
-h2.title {
-  width:12em;
-  text-align: center;
-  margin:0 auto;
-  font-size:2em;
-  text-transform:uppercase;
-}
-.subtitle {
-  width:30rem;
-  margin:0 auto;
-  padding:1rem;
-
-}
-.button-group {
-  width:300px;
-  margin: 0 auto;
-}
-.button {
-  text-transform:uppercase;
-  font-family: 'Roboto', sans-serif;
-}
-.button[data-mode="true"] {
-  color: #fff;
-  background-color: #282566;
-  border-color: #204d74;
-  border-style: inset;
-}
-
-.floatingMenu {
-  background-color: #3F3F3F;
-  z-index:100000;
-  display:none;
-  width:5rem;
-  position: absolute;
-  top:0;
-  left:0;
-  a {
-    color: white;
-  }
-  a[data-mode="false"], a[data-mode="false"]:hover {
-    color: red;
-  }
-  a:hover{
-    color: grey;
-  }
-
-}
-table.dataTable span.highlight {
-  background-color: #FFFF88;
-}
-
-</style>
-
-<script>
-$(document).ready(function(){
-	$('li:nth-child(3)').addClass('active');
-	$('li:nth-child(3)').css('background','black');
-});
-</script>
-</head>
-<body>
- <div class="container-fluid text-center">
-  <div class="row content">
-    <div class="col-sm-2 sidenav">
-    </div>
-    <div class="col-sm-8 text-left"> 
-      <h2 class="title">기간별 상승률</h2>
-    <div class="button-group text-center">
-        <a class="button table-type pagingTable">Paging</a>
-        <a class="button table-type bigTable">Big Table</a>
-        <a class="button table-type fullTable" data-mode="true">Full Reqs</a>
-    </div>
-    <div class="table">
-
-        <table id="superTable" class="display" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Extn.</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-            </thead>
-        </table>
-    </div>
-    <div class="floatingMenu">
-        <ul class="menu vertical">
-            <li><a data-mode="true" data-column="0">Name</a></li>
-            <li><a data-mode="true" data-column="1">Position</a></li>
-            <li><a data-mode="true" data-column="2">Office</a></li>
-            <li><a data-mode="true" data-column="3">Age</a></li>
-            <li><a data-mode="true" data-column="4">Start date</a></li>
-            <li><a data-mode="true" data-column="5">Salary</a></li>
-        </ul>
-    </div>
-    </div>
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>채팅창</p>
-      </div>
-    </div>
-  </div>
-</div>
-</body>
-<script>
-//$.noConflict(); //오류추가라인
-
+/**
+ * 
+ */
 var smallTable = [
     {
       "name": "Tiger Nixon",
@@ -983,6 +863,7 @@ $(document).ready(function() {
   }
   showFullTable();
 });
+$(document).foundation();
 
 /*
 *
@@ -1000,5 +881,3 @@ Done - 7.	Columns can be toggled (hidden/shown) (using a column picker) ** Right
  12.	Fixed columns
 
  */
-</script>
-</html>

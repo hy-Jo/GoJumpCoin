@@ -80,11 +80,15 @@ async function coinPrice() { // We need to wrap the loop into an async function 
     }
     
   }
+<<<<<<< HEAD
   document.write('</tbody>');
     /*for (var i = 0; i < 3; i++) {
     console.log(i);
      // then the created Promise can be awaited
   }*/
+=======
+  console.log(obj);
+>>>>>>> cd39aba059c9b9380677ce769d8873a9ac3d4921
 }
 
 coinPrice();
