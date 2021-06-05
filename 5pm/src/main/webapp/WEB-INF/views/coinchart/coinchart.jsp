@@ -1,89 +1,80 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+  pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <style>
 .tableWrapper {
-    
-    width: 100%;
-    height: 350px;
-    overflow: auto;
-    table-layout:fixed;
+  height: 350px;  
+  overflow: auto;
+  table-layout: fixed;
 }
 
 #userListTable {
-    width: 500px;
-    border: 0px;
-    border-collapse: collapse;
+  
+  border: 0px;
+  border-collapse: collapse;
 }
 
 #userListTable th {
-    position: sticky;
-    top: 0px;
+  position: sticky;
+  top: 0px;
+  background-color: #f0f0f1 !important;
 }
 </style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script
-  src="https://code.jquery.com/jquery-3.6.0.js"
-  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
-	$('li:nth-child(1)').addClass('active');
-	$('li:nth-child(1)').css('background','black');
+  $('li:nth-child(1)').addClass('active');
+  $('li:nth-child(1)').css('background','black');
 });
 </script>
 </head>
 <body>
 
-
 <div class="container-fluid text-center">    
   <div class="row content">
- <!--    <div class="col-sm-2 sidenav">
-    </div> -->
-     
+    <div class="col-sm-2 sidenav">
+    </div>
+    <div class="col-sm-8 text-left"> 
       <h1>실시간 시세 표</h1>
-      <p>시세표(USD,KRW,거래량,김치프리미엄)</p>
-    <!-- 채팅창 BEGIN-->
-    <div class="col-sm-8 text-left">
-    <!-- 채팅창 END-->   
-      
-      <!-- 코인 table BEGIN-->
-         <div class="tableWrapper">
-				<table class="table table-hover" id="userListTable">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">코인이름</th>
-							<th scope="col">KRW</th>
-							<th scope="col">USD</th>
-							<th scope="col">거래량</th>
-							<th scope="col">김치프리미엄</th>
-						</tr>
-					</thead>
+        <p>시세표(USD,KRW,거래량,김치프리미엄)</p>
 
-					<!-- coin key API BEGIN -->
-					<script src=/js/coinKey.js></script>
-					<!-- coin key API END-->
+        <!-- 코인 table BEGIN-->
+        <div class="tableWrapper">
+          <table class="table table-hover" id="userListTable">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">코인이름</th>
+                <th scope="col">KRW</th>
+                <th scope="col">USD</th>
+                <th scope="col">거래량</th>
+                <th scope="col">김치프리미엄</th>
+              </tr>
+            </thead>
 
-				</table>
-				</div>
-			<!-- 코인 table END-->
-			
-				<br>
-      <h2>실시간 차트</h2>
-      
+            <!-- coin key API BEGIN -->
+            <script src=/js/coinKey.js></script>
+            <!-- coin key API END-->
+
+          </table>
+        </div>
+
+        <!-- 코인 table END-->
       <hr>
+      <h2>실시간 차트</h2>
+
+        <hr>
         <!-- TradingView Widget BEGIN -->
         <div class="tradingview-widget-container">
           <div id="tradingview_cef4d"></div>
           <script type="text/javascript"
             src="https://s3.tradingview.com/tv.js"></script>
           <script type="text/javascript">
-          var symbol="BTCKRW";
-          //alert(symbol);
+            var symbol = "BTCKRW";
+            //alert(symbol);
             new TradingView.widget({
               "width" : screen.width.half,
               "height" : screen.height.half,
@@ -101,8 +92,7 @@ $(document).ready(function(){
             //console.log(TradingView.symbol);
           </script>
         </div>
-        <!-- TradingView Widget END -->
-      </div>
+    </div>
     <div class="col-sm-2 sidenav">
       <div class="well">
         <p>채팅창</p>
@@ -110,7 +100,6 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
-
 
 
 </body>

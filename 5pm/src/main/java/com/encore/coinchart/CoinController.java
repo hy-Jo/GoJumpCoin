@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class CoinController {
-<<<<<<< HEAD
     
     public CoinController() { System.out.println("CoinController 호출"); }
      
@@ -30,18 +29,8 @@ public class CoinController {
         return "/coinchart";
     }
     
-=======
-	  public CoinController() {
-	        System.out.println("CoinController 호출");
-	    }
-
-	    @RequestMapping(value = {"/coinchart"}, method = RequestMethod.GET)
-	    public String home() {
-	        return "/coinchart";
-	    }
 
 	
->>>>>>> cd39aba059c9b9380677ce769d8873a9ac3d4921
 }
 
 
