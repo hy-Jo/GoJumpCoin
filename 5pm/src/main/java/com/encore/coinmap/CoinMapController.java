@@ -36,6 +36,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+<<<<<<< HEAD
+=======
+
+>>>>>>> jhy_branch
 
 <<<<<<< HEAD
 =======
@@ -78,8 +82,13 @@ public class CoinMapController {
 			String returnLine;
 			while((returnLine = br.readLine()) != null) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 				result.append(returnLine.toString() + "\n");
 				result.append("\n");
+=======
+				result.append(returnLine + "\n");
+				
+>>>>>>> jhy_branch
 =======
 				result.append(returnLine + "\n");
 				
