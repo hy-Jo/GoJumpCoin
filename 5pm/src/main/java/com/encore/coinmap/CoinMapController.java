@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 
-@RestController
+//@RestController
 @CrossOrigin("*")
 @Controller
 public class CoinMapController {
@@ -59,7 +59,7 @@ public class CoinMapController {
 			
 			String returnLine;
 			while((returnLine = br.readLine()) != null) {
-				result.append(returnLine + "\n");
+				result.append(returnLine.toString() + "\n");
 				result.append("\n");
 			}
 			fw.write(result.toString());
@@ -73,7 +73,7 @@ public class CoinMapController {
 		}
 		
 		
-	    return "/coinchart";
+	    return "/coinmap";
 	}
 
 }
