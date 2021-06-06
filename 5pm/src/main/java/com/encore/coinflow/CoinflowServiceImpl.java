@@ -4,16 +4,21 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.json.JSONArray;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("com.encore.coinflow.CoinflowService")
+@Service("com.encore.coinflow.CoinflowServiceImpl")
 public class CoinflowServiceImpl implements CoinflowService{
 
 	static final String CANDLE_API_URL = "https://api.upbit.com/v1/candles/";
+	
+	@Autowired
+	private CoinflowMapper mapper;
 	
 	/**
 	 * name : 비트코인 이름
@@ -24,7 +29,6 @@ public class CoinflowServiceImpl implements CoinflowService{
 	public double increaseRate(String name,String interval,Date now) {
 		//~가격 - 전날종가(?) 아니면 현가. 일단 전날종가로
 		//https://api.upbit.com/v1/candles/weeks?market=KRW-BTC&count=1
-		//JSONObject json = null; return 타입이 JSONArray여서 이걸로 받아줌
 		JSONArray json = null;
 		try {
 			//URL url = new URL(CANDLE_API_URL+"weeks?/market=KRW-BTC&count=1");https://api.upbit.com/v1/market/all
@@ -59,6 +63,16 @@ public class CoinflowServiceImpl implements CoinflowService{
 			System.err.println(e.toString());
 		}
 		return 0;
+	}
+
+	@Override
+	public List<String> coinMarketList() {
+		List<CoinflowVO> coinflowlist = this.mapper.coinlist();
+		ArrayList<String> list = new ArrayList<String>();
+		for(CoinflowVO coin : coinflowlist) {
+			list.add(coin.getMarket());
+		}
+		return list;
 	}
 	
 	}
