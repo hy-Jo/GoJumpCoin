@@ -19,8 +19,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.jasper.tagplugins.jstl.core.Url;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,12 +35,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 //@RestController
 @CrossOrigin("*")
 @Controller
+
 public class CoinMapController {
-	
+	private CoinMapService coinMapService;
 
 	public CoinMapController() {
 		System.out.println("CoinMapController 호출");
@@ -45,9 +53,13 @@ public class CoinMapController {
 	public String home() {
 	
 		StringBuffer result = new StringBuffer();
+		String currency = "KRW";
 
 		try {
-			String urlstr = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=4adf43b1-a8f9-4cf4-89a1-c161c38ec59b&convert=KRW";
+			//String urlstr = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=4adf43b1-a8f9-4cf4-89a1-c161c38ec59b&convert=KRW";
+			String urlstr = "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c&convert="
+							+currency;
+			ObjectMapper mapper = new ObjectMapper();
 			File file = new File("src/main/resources/static/assets/coinmap_data.json");
 			FileWriter fw = new FileWriter(file);
 			URL url = new URL(urlstr);
@@ -55,14 +67,29 @@ public class CoinMapController {
 			urlconnection.setRequestMethod("GET");
 			
 			
+			//InputStreamReader is = new InputStreamReader(urlconnection.getInputStream(), "UTF-8");
 			BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
+
+			
 			
 			String returnLine;
 			while((returnLine = br.readLine()) != null) {
-				result.append(returnLine.toString() + "\n");
-				result.append("\n");
+				result.append(returnLine + "\n");
+				
 			}
-			fw.write(result.toString());
+			//String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(result.toString());
+			//JSONArray jsonArray = new JSONArray();
+			
+			//JSONArray jsonArr = (JSONArray) new JSONParser().parse( result.toString() );
+			//fw.write(result.toString());
+			
+			JSONParser parser = new JSONParser(); 
+			JSONObject json = (JSONObject) parser.parse(result.toString());
+			//System.out.println(object);
+			//JSONArray jsonArray = new JSONArray(json.toJSONString("object"));
+			//fw.write(object.);
+			fw.write(json.toString());
+			System.out.println(result.toString());
 			System.out.println(file.getAbsolutePath());
 			System.out.println("file created");
 			fw.flush();
