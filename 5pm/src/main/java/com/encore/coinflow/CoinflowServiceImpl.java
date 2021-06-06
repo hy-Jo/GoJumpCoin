@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,12 +28,14 @@ public class CoinflowServiceImpl implements CoinflowService{
 	 */
 	@Override
 	public double increaseRate(String name,String interval,Date now) {
-		//~가격 - 전날종가(?) 아니면 현가. 일단 전날종가로
-		//https://api.upbit.com/v1/candles/weeks?market=KRW-BTC&count=1
+		//https://api.upbit.com/v1/candles/days?market=KRW-BTC&to=2020-04-18%2009:00:00&count=1 일캔들 이용
 		JSONArray json = null;
 		try {
-			//URL url = new URL(CANDLE_API_URL+"weeks?/market=KRW-BTC&count=1");https://api.upbit.com/v1/market/all
-			URL url = new URL("https://api.upbit.com/v1/candles/weeks?market="+name+"&count=1");
+			Date today = new Date();
+			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
+			URL url = new URL(CANDLE_API_URL+"days?market="+name+"&to="+date.format(today)+"%20"+time.format(today)+"&count=1");
+			System.out.println(url);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.setConnectTimeout(5000);
 			con.setReadTimeout(5000);
