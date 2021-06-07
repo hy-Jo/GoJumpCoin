@@ -2,32 +2,29 @@ package com.encore.coinflow;
 
 import java.net.URL;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.encore.utility.Utility;
 
-
-@Controller
-public class CoinflowController {
+@RestController
+public class CoinflowRESTController {
 	
 	@Autowired
 	@Qualifier("com.encore.coinflow.CoinflowServiceImpl")
 	private CoinflowService service;
 	
-	public CoinflowController() {
+	public CoinflowRESTController() {
 		System.out.println("CoinflowController 호출");
 	}
+
 	
-	@RequestMapping(value = {"/coinflow"}, method = RequestMethod.GET)
-	public String home() {
+	//우선 rest 테스트용으로  json을 보낼거임
+	@RequestMapping(value = {"/coinflow/json"}, method = RequestMethod.GET)
+	public JSONArray getIncreaseRate() {
 		Date now = new Date();
 		URL url = null;
 		JSONArray nowJson = null;
@@ -49,9 +46,7 @@ public class CoinflowController {
 			}
 			
 		}	
-		return "/coinflow";
+		return nowJson;
 	}
-	
-	
 	
 }
