@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.jasper.tagplugins.jstl.core.Url;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +31,9 @@ public class CoinflowServiceImpl implements CoinflowService{
 	 * Date : 현재날짜
 	 */
 	@Override
-	public double increaseRate(String name,String interval,int amount, Date day) {
+	public double increaseRate(URL url,URL pUrl) {
 		JSONArray json = null;
 		try {
-			URL url = getAPIURL(name,"now",amount,day);
-			URL pUrl = getAPIURL(name,interval,amount,day);
 			callAPI(url);
 			callAPI(pUrl);
 		}catch(Exception e) {
@@ -80,10 +79,13 @@ public class CoinflowServiceImpl implements CoinflowService{
 					sb.append(line).append("\n");
 				}
 				br.close();
-				System.out.println("" + sb.toString()); // 결과값 한번 출력 - 순서대로
+				//System.out.println("" + sb.toString()); // 결과값 한번 출력 - 순서대로
 				json = new JSONArray(sb.toString());
 				//JSONObject obj = jsonArray.getJSONObject(0); 하나씩 가져오려면
 				//System.out.println(json); //결과값 출력 - json으로
+				System.out.println(json.get(0));
+				JSONObject json1 = (JSONObject) json.get(0);
+				System.out.println((json1.get("trade_price")));
 			} else {
 				System.out.println(con.getResponseMessage());
 			}
@@ -91,7 +93,7 @@ public class CoinflowServiceImpl implements CoinflowService{
 		}catch(Exception e) {
 			System.err.println(e.toString());
 		}
-		return null;
+		return json;
 	}
 
 	/**

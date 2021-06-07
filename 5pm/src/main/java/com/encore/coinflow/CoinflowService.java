@@ -9,7 +9,7 @@ import org.json.JSONArray;
 
 
 public interface CoinflowService {
-	double increaseRate(String name, String interval, int amount, Date day); //상승률
+	double increaseRate(URL url, URL pUrl); //상승률
 	List<String> coinMarketList();
 	JSONArray callAPI(URL url);
 	URL getAPIURL(String name, String interval, int amount, Date day);

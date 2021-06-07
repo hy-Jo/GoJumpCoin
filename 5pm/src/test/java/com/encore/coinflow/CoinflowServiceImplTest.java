@@ -2,8 +2,10 @@ package com.encore.coinflow;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.net.URL;
 import java.util.Date;
 
+import org.json.JSONArray;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,11 +33,24 @@ class CoinflowServiceImplTest {
 	@Test
 	void testIncreaseRate() {
 		CoinflowServiceImpl service = new CoinflowServiceImpl();
-		service.increaseRate("KRW-BTC","week", 1, new Date());
-		service.increaseRate("KRW-BTC","month", 1, new Date());
-		service.increaseRate("KRW-BTC","month", 3, new Date());
-		service.increaseRate("KRW-BTC","month", 6, new Date());
-		service.increaseRate("KRW-BTC","year", 1, new Date());
+		Date now = new Date();
+		URL url = null;
+		JSONArray nowJson = null;
+		for(String market : service.coinMarketList()) {
+			try {
+				url = service.getAPIURL(market,"now", 1, now);
+				nowJson = service.callAPI(url); //현재기준 api는 미리 호출해놓고
+                System.out.println(nowJson);
+                System.out.println(service.callAPI(service.getAPIURL(market, "week", 1, now)));
+                System.out.println(service.callAPI(service.getAPIURL(market, "month", 1, now)));
+                System.out.println(service.callAPI(service.getAPIURL(market, "month", 3, now)));
+                System.out.println(service.callAPI(service.getAPIURL(market, "month", 6, now)));
+                System.out.println(service.callAPI(service.getAPIURL(market, "year", 1, now)));
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}		
 	}
 
 	@Test
