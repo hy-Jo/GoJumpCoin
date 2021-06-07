@@ -3,6 +3,7 @@ package com.encore.coinflow;
 import java.net.URL;
 import java.util.Date;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class CoinflowRESTController {
 	private CoinflowService service;
 	
 	public CoinflowRESTController() {
-		System.out.println("CoinflowController 호출");
+		System.out.println("CoinflowRESTController 호출");
 	}
 
 	
@@ -32,7 +33,16 @@ public class CoinflowRESTController {
 		for(String market : service.coinMarketList()) {
 			try {
 				url = service.getAPIURL(market,"now", 1, now);
-				nowJson = service.callAPI(url); //현재기준 api는 미리 호출해놓고
+				if(nowJson ==null) {
+					nowJson = service.callAPI(url);
+				}
+				else {
+					JSONObject json1 = (JSONObject) service.callAPI(url).get(0); //현재기준 api는 미리 호출해놓고 test용 출력
+					nowJson.put(json1);
+					System.out.println("여기실행되나?");
+					System.out.println("길이" + nowJson.length());
+				}
+				 
                 System.out.println(nowJson);
                 System.out.println(service.callAPI(service.getAPIURL(market, "week", 1, now)));
                 System.out.println(service.callAPI(service.getAPIURL(market, "month", 1, now)));

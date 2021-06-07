@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.jasper.tagplugins.jstl.core.Url;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,9 +81,9 @@ public class CoinflowServiceImpl implements CoinflowService{
 				json = new JSONArray(sb.toString());
 				//JSONObject obj = jsonArray.getJSONObject(0); 하나씩 가져오려면
 				//System.out.println(json); //결과값 출력 - json으로
-				System.out.println(json.get(0));
+				//System.out.println(json.get(0));
 				JSONObject json1 = (JSONObject) json.get(0);
-				System.out.println((json1.get("trade_price")));
+				System.out.println(json1.get("market").toString() +":"+ (json1.get("trade_price").toString()));
 			} else {
 				System.out.println(con.getResponseMessage());
 			}
@@ -109,9 +108,9 @@ public class CoinflowServiceImpl implements CoinflowService{
 				url = new URL(CANDLE_API_URL+"days?market="+name+"&to="+date.format(day)+"%20"+time.format(day)+"&count=1"); //오늘 날짜 기준
 			}else {
 				String pDate = Utility.pastDate(date.format(day), amount, interval);//interval전 날짜 기준
-				url = new  URL(CANDLE_API_URL+"days?market="+name+"&to="+pDate+"%20"+time.format(day)+"&count=1");
+				url = new URL(CANDLE_API_URL+"days?market="+name+"&to="+pDate+"%20"+time.format(day)+"&count=1");
 			}
-			System.out.println(url);
+			//System.out.println(url);
 			
 		}catch(Exception e) {
 			System.err.println(e.toString());

@@ -2,8 +2,6 @@ package com.encore.coinflow;
 
 import java.net.URL;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
