@@ -35,7 +35,7 @@ public class Utility {
 		}
 		
 		date = dtFormat.format(cal.getTime()).toString();
-		//2021-05-31T09:00:00 시간은 빼고
+		//2021-05-31
 		return date;
 	}
 }
