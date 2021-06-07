@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +27,7 @@ public class CoinflowRESTController {
 	
 	//우선 rest 테스트용으로  json을 보낼거임
 	@RequestMapping(value = {"/coinflow/json"}, method = RequestMethod.GET)
-	public JSONArray getIncreaseRate() {
+	public ResponseEntity<?> getIncreaseRate() {
 		Date now = new Date();
 		URL url = null;
 		JSONArray nowJson = null;
@@ -56,7 +58,7 @@ public class CoinflowRESTController {
 			}
 			
 		}	
-		return nowJson;
+		return ResponseEntity.status(HttpStatus.OK).body(nowJson.toString());
 	}
 	
 }
