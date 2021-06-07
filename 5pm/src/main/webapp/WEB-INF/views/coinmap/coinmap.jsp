@@ -12,7 +12,7 @@ $(document).ready(function(){
 	$('li:nth-child(2)').css('background','black');
 });
 </script>
-<script src="${pageContext.request.contextPath}/js/coinmap.js"></script>
+<script src="${pageContext.request.contextPath}/js/coinmap_bit.js"></script>
 </head>
 <body>
 <div class="container-fluid text-center">    
