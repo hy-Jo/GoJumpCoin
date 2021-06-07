@@ -79,7 +79,6 @@ public class CoinflowServiceImpl implements CoinflowService{
 					sb.append(line).append("\n");
 				}
 				br.close();
-				//System.out.println("" + sb.toString()); // 결과값 한번 출력 - 순서대로
 				json = new JSONArray(sb.toString());
 				//JSONObject obj = jsonArray.getJSONObject(0); 하나씩 가져오려면
 				//System.out.println(json); //결과값 출력 - json으로
