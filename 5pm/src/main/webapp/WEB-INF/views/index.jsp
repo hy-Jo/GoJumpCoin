@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+  pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
 $(document).ready(function(){
-	$('li:nth-child(1)').addClass('active');
-	$('li:nth-child(1)').css('background','black');
+  $('li:nth-child(1)').addClass('active');
+  $('li:nth-child(1)').css('background','black');
 });
 </script>
 </head>

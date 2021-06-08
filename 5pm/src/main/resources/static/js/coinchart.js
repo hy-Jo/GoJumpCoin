@@ -1,38 +1,20 @@
-function draw3(){
-        var chartdata = [];
-        $.getJSON('https://poloniex.com/public?command=returnChartData&currencyPair=BTC_ETH&start=1455699200&end=9999999999&period=14400', function (data) {
-          $.each(data, function(i, item){
-            chartdata.push([item.date*1000, item.open, item.high, item.low, item.close]);
-          });
-        }).done(function(){
-          Highcharts.stockChart('container',{
-            title: {
-              text: 'ETH/BTC'
-            },
-            rangeSelector: {
-              buttons: [
-                {type: 'hour',count: 1,text: '1h'}, 
-                {type: 'day',count: 1,text: '1d'}, 
-                {type: 'all',count: 1,text: 'All'}
-              ],
-              selected: 2,
-              inputEnabled: true
-            },
-            plotOptions: {
-              candlestick: {
-                downColor: 'blue',
-                upColor: 'red'
-              }
-            },
-            series: [{
-              name: 'ETH/BTC',
-              type: 'candlestick',
-              data: chartdata,
-              tooltip: {
-                valueDecimals: 8
-              }
-            }]
-          });
-        });
-      }
-      draw3();
+function test(id){
+  var symbol=id;
+    
+  $(".chart").append( new TradingView.widget({
+        "width" : screen.width.half,
+        "height" : screen.height.half,
+        "symbol" : symbol,
+        "interval" : "1",
+        "timezone" : "Etc/UTC",
+        "theme" : "dark",
+        "style" : "1",
+        "locale" : "kr",
+        "toolbar_bg" : "#f1f3f6",
+        "enable_publishing" : false,
+        "hide_side_toolbar" : false,
+        "container_id" : "tradingview_cef4d"
+      })
+  );
+}
+test("BTCUSD");

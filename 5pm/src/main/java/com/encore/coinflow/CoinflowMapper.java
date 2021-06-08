@@ -6,5 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CoinflowMapper {
-	List<CoinflowVO> coinlist(); //코인정보 리턴
+	List<CoinflowVO> getCoinflowList();
+	CoinflowVO getCoinflow(String market);
+	int create(CoinflowVO vo);
+	int update(CoinflowVO vo);
 }
