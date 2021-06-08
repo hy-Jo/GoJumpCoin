@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /*
            
        request('GET','https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest?CMC_PRO_API_KEY=4adf43b1-a8f9-4cf4-89a1-c161c38ec59b')
@@ -53,7 +53,6 @@ fetch(url)
 .then(function(data){
 	console.log(data);
 })*/
-=======
 google.charts.load('current', { 'packages': ['treemap'] });
 google.charts.setOnLoadCallback(drawChart);
 
@@ -103,4 +102,4 @@ function drawChart() {
 	tree.draw(data, options);
 	window.addEventListener('resize', drawChart, false);
 }
->>>>>>> 49bd7a359d6796707772a074ec2cb84928fcff25
+
