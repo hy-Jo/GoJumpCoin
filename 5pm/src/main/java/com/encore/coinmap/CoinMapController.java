@@ -27,10 +27,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CoinMapController {
 	//private CoinMapService coinmapService;
 
-	@Autowired
-	@Qualifier("com.encore.coinmap.CoinMapServiceImpl")
+	//@Autowired
+	//@Qualifier("com.encore.coinmap.CoinMapServiceImpl")
 	
-	private CoinMapService service;
+	//private CoinMapService service;
 	public CoinMapController() {
 
 		System.out.println("CoinMapController 호출");
@@ -78,51 +78,6 @@ public class CoinMapController {
 		
 		
 	    return "/coinmap";
-	}
-	
-	
-	@RequestMapping(value = {"/coinmap1"}, method = RequestMethod.GET)
-	public String coinmap1() {
-	
-		StringBuffer result = new StringBuffer();
-		String currency = "KRW";
-
-		try {
-			//String urlstr = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=4adf43b1-a8f9-4cf4-89a1-c161c38ec59b&convert=KRW";
-			String urlstr = "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c&convert="
-							+currency;
-			ObjectMapper mapper = new ObjectMapper();
-			File file = new File("src/main/resources/static/assets/coinmap_data.json");
-			FileWriter fw = new FileWriter(file);
-			URL url = new URL(urlstr);
-			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
-			urlconnection.setRequestMethod("GET");
-			
-			//InputStreamReader is = new InputStreamReader(urlconnection.getInputStream(), "UTF-8");
-			BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
-
-			String returnLine;
-			while((returnLine = br.readLine()) != null) {
-				result.append(returnLine + "\n");
-				
-			}
-
-			JSONParser parser = new JSONParser(); 
-			JSONObject json = (JSONObject) parser.parse(result.toString());
-
-			fw.write(json.toString());
-			System.out.println(result.toString());
-			System.out.println(file.getAbsolutePath());
-			System.out.println("file created");
-			fw.flush();
-            fw.close();
-			urlconnection.disconnect();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		
-	    return result.toString();
 	}
 	
 	/*

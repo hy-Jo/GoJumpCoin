@@ -21,11 +21,11 @@ $(document).ready(function(){
     </div>
     <div class="col-sm-8 text-left"> 
       <p>코인맵페이지입니다</p>
-<<<<<<< HEAD
+
        <script src="/js/coinmap.js"></script>
-=======
+
       <div id="chart_div"></div>
->>>>>>> 49bd7a359d6796707772a074ec2cb84928fcff25
+
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">
