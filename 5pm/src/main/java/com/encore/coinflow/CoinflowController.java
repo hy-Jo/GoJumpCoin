@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Date;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,8 @@ public class CoinflowController {
                 System.out.println(service.callAPI(service.getAPIURL(market, "month", 3, now)));
                 System.out.println(service.callAPI(service.getAPIURL(market, "month", 6, now)));
                 System.out.println(service.callAPI(service.getAPIURL(market, "year", 1, now)));
+                //JSONObject json1 = (JSONObject) nowJson.get(0);
+                
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

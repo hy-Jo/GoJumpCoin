@@ -13,5 +13,6 @@ public interface CoinflowService {
 	List<String> coinMarketList();
 	JSONArray callAPI(URL url);
 	URL getAPIURL(String name, String interval, int amount, Date day);
-	
+	int create(CoinflowVO vo);
+	int update(CoinflowVO vo);
 }

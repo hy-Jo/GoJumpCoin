@@ -22,7 +22,10 @@ public class CoinflowServiceImpl implements CoinflowService{
 	static final String CANDLE_API_URL = "https://api.upbit.com/v1/candles/";
 	
 	@Autowired
-	private CoinflowMapper mapper;
+	private CoinMapper1 mapper;
+	
+	@Autowired
+	private CoinflowMapper fmapper;
 	
 	/** https://api.upbit.com/v1/candles/days?market=KRW-BTC&to=2020-04-18%2009:00:00&count=1 일캔들 이용
 	 * name : 비트코인 이름
@@ -43,9 +46,9 @@ public class CoinflowServiceImpl implements CoinflowService{
 
 	@Override
 	public List<String> coinMarketList() {
-		List<CoinflowVO> coinflowlist = this.mapper.coinlist();
+		List<CoinVO> coinlist = this.mapper.coinlist();
 		ArrayList<String> list = new ArrayList<String>();
-		for(CoinflowVO coin : coinflowlist) {
+		for(CoinVO coin : coinlist) {
 			list.add(coin.getMarket());
 		}
 		return list;
@@ -79,11 +82,8 @@ public class CoinflowServiceImpl implements CoinflowService{
 				}
 				br.close();
 				json = new JSONArray(sb.toString());
-				//JSONObject obj = jsonArray.getJSONObject(0); 하나씩 가져오려면
-				//System.out.println(json); //결과값 출력 - json으로
-				//System.out.println(json.get(0));
-				JSONObject json1 = (JSONObject) json.get(0);
-				System.out.println(json1.get("market").toString() +":"+ (json1.get("trade_price").toString()));
+				//JSONObject json1 = json.getJSONObject(0);하나씩 가져오려면
+				
 			} else {
 				System.out.println(con.getResponseMessage());
 			}
@@ -118,6 +118,15 @@ public class CoinflowServiceImpl implements CoinflowService{
 		return url;
 	}
 
-	
+	@Override
+	public int create(CoinflowVO vo) {
+		return fmapper.create(vo);
+	}
+
+	@Override
+	public int update(CoinflowVO vo) {
+		return fmapper.create(vo);
+	}
+
 	}
 
