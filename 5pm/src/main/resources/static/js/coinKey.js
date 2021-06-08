@@ -1,14 +1,11 @@
-var request = new XMLHttpRequest();
-
-
 function key() {
   /*
    */
 
-  var url = 'https://api.upbit.com/v1/market/all';
+  var keyUrl = 'https://api.upbit.com/v1/market/all';
+  var request = new XMLHttpRequest();
 
-
-  request.open("GET", url, false);
+  request.open("GET", keyUrl, false);
   request.send();
 
   var obj = JSON.parse(request.responseText);
@@ -30,64 +27,86 @@ function key() {
   //console.log(obj);
 }
 
-
-function coinAddress() {
-
-  var keyArray = key();
-  var addressArray = new Array();
-  for (i in keyArray) {
-    console.log("index = " + i + " --- " + keyArray[i]);
-    addressArray.push('https://api.upbit.com/v1/candles/minutes/1?market=' + keyArray[i] + '&count=1');
-
-  }//주소 put
-
-  return addressArray;
+var keyArray = key();
+var addressArray = new Array();
+for (i in keyArray) {
+  //console.log("index = " + i + " --- " + keyArray[i]);
+  addressArray.push('https://api.upbit.com/v1/candles/minutes/1?market=' + keyArray[i] + '&count=1');
 }
-
-//주소 put
-//var coinUrl = 'https://api.upbit.com/v1/candles/minutes/1?market='+coinName+'&count=1';
-
 
 function timer(ms) {
   return new Promise(res => setTimeout(res, ms));
 }
 
-async function coinPrice() { // We need to wrap the loop into an async function for this to work
+//API 호출
+var index = 1;
+var pageBegin = 0;
+var pageEnd = 10;
+async function coinprice() {
+  //var boolean = false;
+  //console.log(addressArray.length);
+  //console.log(" begin : " + pageBegin + " / end : " + pageEnd);
 
-  var coinUrl = coinAddress();
-  var coin_data = new Array();
-  var index = 1;
-  document.write('<tbody>');
-  for (i in coinUrl) {
 
-    request.open("GET", coinUrl[i], false);
-    request.send();
-    
-    var obj = JSON.parse(request.responseText);
+  for (i = pageBegin; i < pageEnd; i++) {
+    //console.log("주소 : " + keyArray[i]);
+    $.ajax({
+      type: "GET",
+      url: addressArray[i],
+      dataType: "json",
+      success: function(data) {
+        var i = 0;
+        var coinName = data[i].market;
+        var name = coinName.split("-")[1];
+        var symbol = coinName.split("-")[1] + "USD";
+        var coinPrice = data[i].trade_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+        var str = "<tr id='" + symbol + "' style='cursor:pointer' align='right'"
+          + "onclick='test(this.id);'> <td>" + index + "</td>"
+          + "<td>" + name + "</td><td>" + coinPrice + "</td>"
+          + "<td> TBD </td><td> TBD</td><td> TBD </td></tr>"
 
-    //console.log(coinUrl[i]);
-    console.log(obj);
-    coin_data.push(obj);
-    var coinName = coin_data[i][0].market;
-    var coinPrice = coin_data[i][0].trade_price;
- 
-    document.write('<tr> <td>'+index+'</td><td>'+ coinName + '</td><td>' + coinPrice + '</td>'
-        +        '<td> TBD </td><td> TBD</td><td> TBD </td></tr>');
-    //console.log("coinName = " + coinName + "   coinPrice = " + coinPrice);
-    index++;
-    if (i % 10 == 0) {
-     //await timer(1000);
-    }
-    
+        //HTML cointable id에 작성
+        $("#cointable").append(str);
+
+        index++;
+
+      },
+      error: function(request, status, error) {
+        i--;
+        pageBegin--;
+        pageEnd--;
+        //boolean = true;
+      }
+    });
+/*    console.log("boolean :" + boolean);
+    if (boolean) {
+      
+      $(".tableWrapper").animate({
+
+        scrollTop: height,
+      }, 500);
+      break;
+    }*/
   }
 
-  document.write('</tbody>');
-    /*for (var i = 0; i < 3; i++) {
-    console.log(i);
-     // then the created Promise can be awaited
-  }*/
-
-  console.log(obj); 
 }
+$(".tableWrapper").scroll(async function() {
 
-coinPrice();
+  var scrollHeight = $(this).prop('scrollHeight');
+  var scrollTop = $(this).scrollTop();
+  var innerHeight = $(this).innerHeight();
+  var scrollbottom = scrollTop + innerHeight;
+  //console.log("스크롤 높이 : " + scrollHeight + " 현재 높이 : " + innerHeight + " 가장 위의 위치 :" + scrollTop );
+  if (scrollbottom >= scrollHeight) {
+    pageBegin = pageBegin + 10;
+    pageEnd = pageEnd + 10;
+    if (pageBegin <= addressArray.length) {
+       if(pageBegin!=0)await timer(500);   
+       coinprice();
+    }
+  }
+
+});
+
+
+coinprice();
