@@ -15,24 +15,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 //@RestController
 @CrossOrigin("*")
-
 @Controller
-public class CoinMapController {
+public class CoinmapController {
 	//private CoinMapService coinmapService;
 
-	//@Autowired
-	//@Qualifier("com.encore.coinmap.CoinMapServiceImpl")
+	@Autowired
+	@Qualifier("com.encore.coinmap.CoinMapServiceImpl")
+	private CoinmapService service;
 	
-	//private CoinMapService service;
-	public CoinMapController() {
-
+	public CoinmapController() {
 		System.out.println("CoinMapController 호출");
 	}
 	
@@ -64,9 +61,9 @@ public class CoinMapController {
 
 			JSONParser parser = new JSONParser(); 
 			JSONObject json = (JSONObject) parser.parse(result.toString());
-
-			fw.write(json.toString());
-			System.out.println(result.toString());
+			System.out.println(json.get("data"));
+			fw.write(json.get("data").toString());
+			//System.out.println(result.toString());
 			System.out.println(file.getAbsolutePath());
 			System.out.println("file created");
 			fw.flush();
@@ -75,8 +72,6 @@ public class CoinMapController {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
 	    return "/coinmap";
 	}
 	
