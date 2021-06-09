@@ -1,16 +1,6 @@
 /**
  * 
  */
-var testTable = [
-	{
-		"market" : "KRW-BTC",
-		"week1" : 3200000,
-		"month1": 4200000,
-		"month3": 5032222,
-		"month6": 3942933,
-		"year1" : 394239
-	}
-]
 var smallTable = [
     {
       "name": "Tiger Nixon",
@@ -743,7 +733,7 @@ $(document).ready(function() {
 
   function showPagingTable() {
     function clearDom() {
-      var domToInject = '<table id="superTable" class="display" cellspacing="0" width="100%"><thead><tr><th>코인명</th><th>1주일</th><th>1개월</th><th>3개월</th><th>6개월</th><th>1년</th></tr></thead></table>';
+      var domToInject = '<table id="superTable" class="display" cellspacing="0" width="100%"><thead><tr><th>Name</th><th>Position</th><th>Office</th><th>Extn.</th><th>Start date</th><th>Salary</th></tr></thead></table>';
       $('#superTable').DataTable().destroy();
       $('#superTable').html(domToInject);
       buildTable();
@@ -777,7 +767,7 @@ $(document).ready(function() {
     clearDom();
   }
 
-  function showBigTable() { // 안쓸테이블
+  function showBigTable() {
     function clearDom() {
       var domToInject = '<table id="superTable" class="display nowrap" style="display: none;" cellspacing="0" width="100%"><thead><tr><th>ID</th><th>First name</th><th>Last name</th><th>ZIP / Post code</th><th>Country</th></tr></thead></table>';
       $('#superTable').DataTable().destroy();
@@ -824,7 +814,7 @@ $(document).ready(function() {
 
   function showFullTable() {
     function clearDom() {
-      var domToInject = '<table id="superTable" class="display" cellspacing="0" width="100%"><thead class="contextMenu"><tr><th>코인명</th><th>1주일</th><th>1개월</th><th>3개월</th><th>6개월</th><th>1년</th></tr></thead></table>';
+      var domToInject = '<table id="superTable" class="display" cellspacing="0" width="100%"><thead class="contextMenu"><tr><th>Name</th><th>Position</th><th>Office</th><th>Extn.</th><th>Start date</th><th>Salary</th></tr></thead></table>';
       $('#superTable').DataTable().destroy();
       $('#superTable').html(domToInject);
       buildTable();
