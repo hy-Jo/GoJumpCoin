@@ -1,7 +1,11 @@
 package com.encore.coinflow;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,10 +30,10 @@ public class CoinflowRESTController {
 		System.out.println("CoinflowRESTController 호출");
 	}
 
-	
+	// [스케쥴러로 매일 한번씩 DB초기화 할 컨트롤러]
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@RequestMapping(value = {"/coinflow/json"}, method = RequestMethod.GET)
-	public ResponseEntity<?> getIncreaseRate() {
+	@RequestMapping(value = {"/coinflow/update"}, method = RequestMethod.GET)
+	public ResponseEntity<?> updateCoinData() { 
 		Date now = new Date();
 		URL url = null;
 		JSONArray resultJson = null; //모든결과를 출력할 JSONArray
@@ -68,7 +72,7 @@ public class CoinflowRESTController {
 				vo.setMonth3(Double.parseDouble((service.callAPI(service.getAPIURL(market, "month", 3, now)).getJSONObject(0)).get("trade_price").toString()));
 				vo.setMonth6(Double.parseDouble((service.callAPI(service.getAPIURL(market, "month", 6, now)).getJSONObject(0)).get("trade_price").toString()));
 				vo.setYear1(Double.parseDouble((service.callAPI(service.getAPIURL(market, "year", 1, now)).getJSONObject(0)).get("trade_price").toString()));
-				service.create(vo);
+				service.create(vo); // 아직 업데이트 부분 구현안함. 이미 있는 데이터일경우 업데이터 해주는 부분 필요
 				vo = new CoinflowVO();
 				
 				Thread.sleep(1000);
@@ -82,6 +86,28 @@ public class CoinflowRESTController {
 			
 		}	
 		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
+	}
+	
+	// [DB에서 정보를 요청하는 컨트롤러]
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@RequestMapping(value = {"/coinflow/get"}, method = RequestMethod.GET)
+	public List<CoinflowVO> getAllCoinData() {
+		JSONArray resultJson = null;
+		List<CoinflowVO> list = new ArrayList<CoinflowVO>();
+		for(CoinflowVO pvo : service.getCoinflowList()) {
+			CoinflowVO vo = new CoinflowVO();
+			vo.setMarket(service.getKorName(pvo)); //이름만 한글로 바꿔서 return
+			vo.setIdx(pvo.getIdx());
+			vo.setToday(pvo.getToday());
+			vo.setWeek1(pvo.getWeek1());
+			vo.setMonth1(pvo.getMonth1());
+			vo.setMonth3(pvo.getMonth3());
+			vo.setMonth6(pvo.getMonth6());
+			vo.setYear1(pvo.getYear1());
+			list.add(vo);
+		}
+	
+		return list;
 	}
 	
 }
