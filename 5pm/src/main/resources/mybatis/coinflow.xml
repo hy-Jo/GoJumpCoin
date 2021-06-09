@@ -4,9 +4,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.encore.coinflow.CoinflowMapper">
 
-<!-- 조회, id: coinlist , 리턴: CoinflowVO -->
-<select id="coinlist" resultType="com.encore.coinflow.CoinflowVO">
-SELECT * FROM coin
+<select id="getCoinflowList" resultType="com.encore.coinflow.CoinflowVO">
+SELECT * FROM coinflow
 </select> 
+
+<select id="getCoinflow" parameterType="String" resultType="com.encore.coinflow.CoinflowVO">
+SELECT * FROM coinflow WHERE market = #{market}
+</select> 
+
+<insert id="create" parameterType="com.encore.coinflow.CoinflowVO">
+		INSERT INTO coinflow(market,today, week1, month1, month3, month6, year1)
+		VALUES(#{market},  #{today}, #{week1},#{month1}, #{month3}, #{month6}, #{year1})
+</insert>
+
+<update id="update" parameterType="com.encore.coinflow.CoinflowVO">
+		update coinflow
+		set 
+		today =  #{today},
+		week1 = #{week1},
+		month1 = #{month1},
+		month1 = #{month3},
+		month1 = #{month6},
+		year1 = #{year1},
+		where market = #{market}
+</update>
 
 </mapper>

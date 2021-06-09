@@ -6,6 +6,10 @@ import lombok.Data;
 public class CoinflowVO {
 	private int idx;
 	private String market;
-	private String eng;
-	private String kor;
+	private int today;
+	private int week1;
+	private int month1;
+	private int month3;
+	private int month6;
+	private int year1;
 }
