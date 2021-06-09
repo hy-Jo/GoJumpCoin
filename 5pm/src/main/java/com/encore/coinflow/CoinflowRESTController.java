@@ -39,20 +39,21 @@ public class CoinflowRESTController {
 		for(String market : service.coinMarketList()) {
 			try {
 				url = service.getAPIURL(market,"now", 1, now);
-				if(resultJson ==null) {
-					resultJson = service.callAPI(url);
-					json = resultJson.getJSONObject(0);
-					System.out.println(json.get("market")+":"+ json.get("trade_price"));
-					vo.setMarket(json.get("market").toString());
-					vo.setToday((int)Double.parseDouble(json.get("trade_price").toString()));
-				}
-				else {
+				if(resultJson !=null) {
 					json = (JSONObject) service.callAPI(url).get(0); //현재기준 api는 미리 호출해놓고 test용 출력
 					resultJson.put(json);
 					System.out.println("길이" + resultJson.length());
 					System.out.println(json.get("market")+":"+json.get("trade_price"));
 					vo.setMarket(json.get("market").toString());
-					vo.setToday((int)Double.parseDouble(json.get("trade_price").toString()));
+					vo.setToday(Double.parseDouble(json.get("trade_price").toString()));
+				}
+				else {
+					resultJson = service.callAPI(url);
+					json = resultJson.getJSONObject(0);
+					System.out.println(json.get("market")+":"+ json.get("trade_price"));
+					vo.setMarket(json.get("market").toString());
+					vo.setToday(Double.parseDouble(json.get("trade_price").toString()));
+				
 				}
 				 
                 //System.out.println(nowJson);
@@ -61,12 +62,12 @@ public class CoinflowRESTController {
                 //System.out.println(service.callAPI(service.getAPIURL(market, "month", 3, now)));
                 //System.out.println(service.callAPI(service.getAPIURL(market, "month", 6, now)));
                 //System.out.println(service.callAPI(service.getAPIURL(market, "year", 1, now)));
-				vo.setWeek1((int)Double.parseDouble((service.callAPI(service.getAPIURL(market, "week", 1, now)).getJSONObject(0)).get("trade_price").toString()));
-				vo.setMonth1((int)Double.parseDouble((service.callAPI(service.getAPIURL(market, "month", 1, now)).getJSONObject(0)).get("trade_price").toString()));
-				Thread.sleep(1000);
-				vo.setMonth3((int)Double.parseDouble((service.callAPI(service.getAPIURL(market, "month", 3, now)).getJSONObject(0)).get("trade_price").toString()));
-				vo.setMonth6((int)Double.parseDouble((service.callAPI(service.getAPIURL(market, "month", 6, now)).getJSONObject(0)).get("trade_price").toString()));
-				vo.setYear1((int)Double.parseDouble((service.callAPI(service.getAPIURL(market, "year", 1, now)).getJSONObject(0)).get("trade_price").toString()));
+				vo.setWeek1(Double.parseDouble((service.callAPI(service.getAPIURL(market, "week", 1, now)).getJSONObject(0)).get("trade_price").toString()));
+				vo.setMonth1(Double.parseDouble((service.callAPI(service.getAPIURL(market, "month", 1, now)).getJSONObject(0)).get("trade_price").toString()));
+				Thread.sleep(1200);
+				vo.setMonth3(Double.parseDouble((service.callAPI(service.getAPIURL(market, "month", 3, now)).getJSONObject(0)).get("trade_price").toString()));
+				vo.setMonth6(Double.parseDouble((service.callAPI(service.getAPIURL(market, "month", 6, now)).getJSONObject(0)).get("trade_price").toString()));
+				vo.setYear1(Double.parseDouble((service.callAPI(service.getAPIURL(market, "year", 1, now)).getJSONObject(0)).get("trade_price").toString()));
 				service.create(vo);
 				vo = new CoinflowVO();
 				
