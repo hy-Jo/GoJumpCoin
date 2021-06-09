@@ -8,7 +8,7 @@ import org.json.JSONArray;
 public interface CoinmapService {
 	
 	List<CoinmapVO> list_coinmap_data();
-
-	JSONArray callAPI(URL url);
+	
+	void jsonCoinmap(String urlstr, String currency);
 	
 }

@@ -29,77 +29,88 @@ public class CoinmapServiceImpl implements CoinmapService{
 		// TODO Auto-generated method stub
 		return mapper.list_coinmap_data();
 	}
-	
+
 	@Override
-	public JSONArray callAPI(URL url) {
-		JSONArray json = null;
+	public void jsonCoinmap(String urlstr, String currency) {
+		StringBuffer result = new StringBuffer();
+		
+		
+
 		try {
 			
-			HttpURLConnection con = (HttpURLConnection)url.openConnection();
-			con.setConnectTimeout(5000);
-			con.setReadTimeout(5000);	
-			con.setRequestMethod("GET");
-			con.setDoOutput(false);
 			
-			StringBuilder sb = new StringBuilder();
+			File file = new File("src/main/resources/static/assets/coinmap_data.json");
+			FileWriter fw = new FileWriter(file);
+			URL url = new URL(urlstr);
+			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+			urlconnection.setRequestMethod("GET");
+			
+			//InputStreamReader is = new InputStreamReader(urlconnection.getInputStream(), "UTF-8");
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
 
-			
-			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-				BufferedReader br = new BufferedReader(
-						new InputStreamReader(con.getInputStream(), "utf-8"));
-				String line = "";
-				while ((line = br.readLine()) != null) {
-					sb.append(line).append("\n");
-				}
-				br.close();
-				json = new JSONArray(sb.toString());
-				//JSONObject obj = jsonArray.getJSONObject(0); 하나씩 가져오려면
-				//System.out.println(json); //결과값 출력 - json으로
-				System.out.println(json.get(0));
-				JSONObject json1 = (JSONObject) json.get(0);
-				System.out.println((json1.get("trade_price")));
-			} else {
-				System.out.println(con.getResponseMessage());
+			String returnLine;
+			while((returnLine = br.readLine()) != null) {
+				result.append(returnLine + "\n");
+				
 			}
+			urlconnection.disconnect();
+			JSONObject json = new JSONObject(result.toString());
+			JSONArray data = (JSONArray) json.get("data");
 			
-		}catch(Exception e) {
-			System.err.println(e.toString());
+			
+			fw.write(insertdata(json, data, currency).toString());
+			
+			System.out.println(file.getAbsolutePath());
+			System.out.println("file created");
+			fw.flush();
+            fw.close();
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		return json;
 	}
 	
-	/*
-	 * @RequestMapping(value = {"/coinmap"}, method = RequestMethod.GET) public
-	 * String home(String currency) {
-	 * 
-	 * StringBuffer result = new StringBuffer(); currency = "KRW"; //JSONObject json
-	 * = null;
-	 * 
-	 * try { //String urlstr =
-	 * "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=4adf43b1-a8f9-4cf4-89a1-c161c38ec59b&convert="
-	 * String urlstr =
-	 * "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c&convert="
-	 * +currency; ObjectMapper mapper = new ObjectMapper(); File file = new
-	 * File("src/main/resources/static/assets/coinmap_data.json"); FileWriter fw =
-	 * new FileWriter(file); URL url = new URL(urlstr); HttpURLConnection
-	 * urlconnection = (HttpURLConnection) url.openConnection();
-	 * urlconnection.setRequestMethod("GET");
-	 * 
-	 * //InputStreamReader is = new
-	 * InputStreamReader(urlconnection.getInputStream(), "UTF-8"); BufferedReader br
-	 * = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),
-	 * "UTF-8"));
-	 * 
-	 * String returnLine; while((returnLine = br.readLine()) != null) {
-	 * result.append(returnLine + "\n");
-	 * 
-	 * } JSONObject json = new JSONObject(result.toString()); JSONArray input =
-	 * (JSONArray) json.get("data"); json.length(); fw.write(input.toString());
-	 * //System.out.println(input); System.out.println(file.getAbsolutePath());
-	 * System.out.println("file created"); fw.flush(); fw.close();
-	 * urlconnection.disconnect(); }catch(Exception e){ e.printStackTrace(); }
-	 * return "/coinmap"; }
-	 */
+	public JSONArray insertdata(JSONObject json, JSONArray data, String currency) {
+		JSONArray rdata = new JSONArray(); //json by calling API
+		
+		JSONObject obj = new JSONObject();//new json array including jsono bjects: in [{},{}.....] format 
+		for (int i = 0; i < data.length(); i ++) {
+			obj.keySet().clear();
+			JSONObject coinInfo = data.getJSONObject(i);
+			JSONObject currInfo = coinInfo.getJSONObject("quote").getJSONObject(currency);
+			
+			int cmc_rank = coinInfo.getInt("cmc_rank");
+			
+			String name = coinInfo.getString("name");
+			String symbol = coinInfo.getString("symbol");
+			int id = coinInfo.getInt("id");
+			String last_updated = currInfo.getString("last_updated");//.substring(0, 10);
+			double market_cap = currInfo.getDouble("market_cap");
+			double percent_change_24h=  Math.round((currInfo.getDouble("percent_change_24h")) * 100.0) / 100.0;
+			
+			obj.put("cmc_rank", cmc_rank);
+			obj.put("name", name);
+			obj.put("symbol", symbol);
+			obj.put("percent_change_24h", percent_change_24h);
+			obj.put("last_updated", last_updated);
+			obj.put("market_cap", market_cap);
+			
+//			System.out.println(i+ "cmc_rank: "+cmc_rank);
+//			System.out.println("name: "+name);
+//			System.out.println("symbol: "+symbol);
+//			System.out.println("id: "+id);
+//			System.out.println("last_updated: "+last_updated);
+//			System.out.println("market_cap: "+market_cap);
+//			System.out.println("percent_change_24h: "+percent_change_24h);
+			
+			rdata.put(obj);
+			
+		}
+		return rdata;
+		
+	}
+	
 
 
 }
