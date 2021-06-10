@@ -1,7 +1,10 @@
 package com.encore.coinflow;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,10 +29,10 @@ public class CoinflowRESTController {
 		System.out.println("CoinflowRESTController 호출");
 	}
 
-	
+	// [스케쥴러로 매일 한번씩 DB초기화 할 컨트롤러]
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@RequestMapping(value = {"/coinflow/json"}, method = RequestMethod.GET)
-	public ResponseEntity<?> getIncreaseRate() {
+	@RequestMapping(value = {"/coinflow/update"}, method = RequestMethod.GET)
+	public ResponseEntity<?> updateCoinData() { 
 		Date now = new Date();
 		URL url = null;
 		JSONArray resultJson = null; //모든결과를 출력할 JSONArray
@@ -68,7 +71,7 @@ public class CoinflowRESTController {
 				vo.setMonth3(Double.parseDouble((service.callAPI(service.getAPIURL(market, "month", 3, now)).getJSONObject(0)).get("trade_price").toString()));
 				vo.setMonth6(Double.parseDouble((service.callAPI(service.getAPIURL(market, "month", 6, now)).getJSONObject(0)).get("trade_price").toString()));
 				vo.setYear1(Double.parseDouble((service.callAPI(service.getAPIURL(market, "year", 1, now)).getJSONObject(0)).get("trade_price").toString()));
-				service.create(vo);
+				service.create(vo); // 아직 업데이트 부분 구현안함. 이미 있는 데이터일경우 업데이터 해주는 부분 필요
 				vo = new CoinflowVO();
 				
 				Thread.sleep(1000);
@@ -82,6 +85,36 @@ public class CoinflowRESTController {
 			
 		}	
 		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
+	}
+	
+	// [DB에서 정보를 요청하는 컨트롤러]
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@RequestMapping(value = {"/coinflow/get"}, method = RequestMethod.GET)
+	public List<CoinflowVO> getAllCoinData() {
+		JSONArray resultJson = null;
+		List<CoinflowVO> list = new ArrayList<CoinflowVO>();
+		//받아온 가격 데이터로 이름 한글로 바꾸고 상승률 계산해서 return
+		for(CoinflowVO pvo : service.getCoinflowList()) {
+			CoinflowVO vo = new CoinflowVO();
+			vo.setMarket(service.getKorName(pvo)); 
+			vo.setIdx(pvo.getIdx());
+			double today = pvo.getToday();
+			double week1 = pvo.getWeek1();
+			double month1 = pvo.getMonth1();
+			double month3 = pvo.getMonth3();
+			double month6 = pvo.getMonth6();
+			double year1 = pvo.getYear1();			
+			
+			vo.setToday(today);
+			vo.setWeek1(Math.round((today - week1) / week1* 100 *10)/10);
+			vo.setMonth1(Math.round((today - month1) / month1 * 100 *10)/10);
+			vo.setMonth3(Math.round((today - month3) / month3 * 100 *10)/10);
+			vo.setMonth6(Math.round((today - month6) / month6 * 100 *10)/10);
+			vo.setYear1(Math.round((today - year1) / year1 * 100*10)/10);
+			list.add(vo);
+		}
+	
+		return list;
 	}
 	
 }
