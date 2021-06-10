@@ -28,7 +28,7 @@ var smallTable = [
     }
   ]
 
-$.ajax({
+/*$.ajax({
         url: "/coinflow/get",
         type: "get",
         dataType: "json",
@@ -40,7 +40,7 @@ $.ajax({
             // 에러 로그는 아래처럼 확인해볼 수 있다. 
             alert("업로드 에러\ncode : " + jqXHR.status + "\nerror message : " + jqXHR.responseText);
         }
-});
+});*/
 
 
 
@@ -118,15 +118,45 @@ $(document).ready(function() {
         "columns": [{
           "data": "market"
         }, {
-          "data": "week1"
+          "data": "week1",
+			"render":function(data,type,row){
+				if(type=='display'){
+					data = data+'%';
+				}
+				return data;
+			}
         }, {
-          "data": "month1"
+          "data": "month1",
+			"render":function(data,type,row){
+				if(type=='display'){
+					data = data+'%';
+				}
+				return data;
+			}
         }, {
-          "data": "month3"
+          "data": "month3",
+			"render":function(data,type,row){
+				if(type=='display'){
+					data = data+'%';
+				}
+				return data;
+			}
         }, {
-          "data": "month6"
+          "data": "month6",
+			"render":function(data,type,row){
+				if(type=='display'){
+					data = data+'%';
+				}
+				return data;
+			}
         }, {
-          "data": "year1"
+          "data": "year1",
+			"render":function(data,type,row){
+				if(type=='display'){
+					data = data+'%';
+				}
+				return data;
+			}
         }]
       });
     }
@@ -217,15 +247,45 @@ $(document).ready(function() {
         "columns": [{
           "data": "market"
         }, {
-          "data": "week1"
+          "data": "week1",
+			"render":function(data,type,row){
+				if(type=='display'){
+					data = data+'%';
+				}
+				return data;
+			}
         }, {
-          "data": "month1"
+          "data": "month1",
+			"render":function(data,type,row){
+				if(type=='display'){
+					data = data+'%';
+				}
+				return data;
+			}
         }, {
-          "data": "month3"
+          "data": "month3",
+			"render":function(data,type,row){
+				if(type=='display'){
+					data = data+'%';
+				}
+				return data;
+			}
         }, {
-          "data": "month6"
+          "data": "month6",
+			"render":function(data,type,row){
+				if(type=='display'){
+					data = data+'%';
+				}
+				return data;
+			}
         }, {
-          "data": "year1"
+          "data": "year1",
+			"render":function(data,type,row){
+				if(type=='display'){
+					data = data+'%';
+				}
+				return data;
+			}
         }],
         "dom": "Z<'row'<'small-6 columns'l><'small-6 columns'f>r>t<'row'<'small-6 columns'i><'small-6 columns'p>>",
         "colResize": {

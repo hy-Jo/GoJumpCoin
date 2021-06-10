@@ -103,8 +103,8 @@ public class CoinflowRESTController {
 			double month1 = pvo.getMonth1();
 			double month3 = pvo.getMonth3();
 			double month6 = pvo.getMonth6();
-			double year1 = pvo.getYear1();
-					
+			double year1 = pvo.getYear1();			
+			
 			vo.setToday(today);
 			vo.setWeek1(Math.round((today - week1) / week1* 100 *10)/10);
 			vo.setMonth1(Math.round((today - month1) / month1 * 100 *10)/10);
