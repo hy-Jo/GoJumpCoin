@@ -3,7 +3,6 @@ package com.encore.coinflow;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -94,16 +93,24 @@ public class CoinflowRESTController {
 	public List<CoinflowVO> getAllCoinData() {
 		JSONArray resultJson = null;
 		List<CoinflowVO> list = new ArrayList<CoinflowVO>();
+		//받아온 가격 데이터로 이름 한글로 바꾸고 상승률 계산해서 return
 		for(CoinflowVO pvo : service.getCoinflowList()) {
 			CoinflowVO vo = new CoinflowVO();
-			vo.setMarket(service.getKorName(pvo)); //이름만 한글로 바꿔서 return
+			vo.setMarket(service.getKorName(pvo)); 
 			vo.setIdx(pvo.getIdx());
-			vo.setToday(pvo.getToday());
-			vo.setWeek1(pvo.getWeek1());
-			vo.setMonth1(pvo.getMonth1());
-			vo.setMonth3(pvo.getMonth3());
-			vo.setMonth6(pvo.getMonth6());
-			vo.setYear1(pvo.getYear1());
+			double today = pvo.getToday();
+			double week1 = pvo.getWeek1();
+			double month1 = pvo.getMonth1();
+			double month3 = pvo.getMonth3();
+			double month6 = pvo.getMonth6();
+			double year1 = pvo.getYear1();
+					
+			vo.setToday(today);
+			vo.setWeek1(Math.round((today - week1) / week1* 100 *10)/10);
+			vo.setMonth1(Math.round((today - month1) / month1 * 100 *10)/10);
+			vo.setMonth3(Math.round((today - month3) / month3 * 100 *10)/10);
+			vo.setMonth6(Math.round((today - month6) / month6 * 100 *10)/10);
+			vo.setYear1(Math.round((today - year1) / year1 * 100*10)/10);
 			list.add(vo);
 		}
 	

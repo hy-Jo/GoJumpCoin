@@ -81,7 +81,7 @@ $(document).ready(function(){
       <h2 class="title">기간별 상승률</h2>
     <div class="button-group text-center">
         <a class="button table-type pagingTable">페이지로 보기</a>
-        <!-- <a class="button table-type bigTable">Big Table</a> -->
+        <a class="button table-type bigTable">Big Table</a>
         <a class="button table-type fullTable" data-mode="true">스크롤로 보기</a>
     </div>
     <div class="table">
@@ -119,7 +119,6 @@ $(document).ready(function(){
 </div>
 </body>
 
-//$.noConflict(); //오류추가라인
 <script src=/js/table.js></script>
 
 </html>
