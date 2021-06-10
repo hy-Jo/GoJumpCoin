@@ -10,16 +10,18 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.encore.coinmap.CoinmapService;
+import com.encore.coinmap.CoinmapVO;
 
 @Service("com.encore.coinmap.CoinMapServiceImpl")
 public class CoinmapServiceImpl implements CoinmapService{
+	
+	@Autowired
+	private CoinmapService service;
 	
 	@Autowired
 	private CoinmapMapper mapper;
@@ -33,7 +35,6 @@ public class CoinmapServiceImpl implements CoinmapService{
 	@Override
 	public void jsonCoinmap(String urlstr, String currency) {
 		StringBuffer result = new StringBuffer();
-		
 		
 
 		try {
@@ -73,6 +74,7 @@ public class CoinmapServiceImpl implements CoinmapService{
 	
 	public JSONArray insertdata(JSONObject json, JSONArray data, String currency) {
 		JSONArray rdata = new JSONArray(); //json by calling API
+		CoinmapVO vo = new CoinmapVO();
 		
 		JSONObject obj = new JSONObject();//new json array including jsono bjects: in [{},{}.....] format 
 		for (int i = 0; i < data.length(); i ++) {
@@ -89,12 +91,24 @@ public class CoinmapServiceImpl implements CoinmapService{
 			double market_cap = currInfo.getDouble("market_cap");
 			double percent_change_24h=  Math.round((currInfo.getDouble("percent_change_24h")) * 100.0) / 100.0;
 			
+			///////// set VO
+			vo.setCmc_rank(cmc_rank);
+			vo.setName(name);
+			vo.setSymbol(symbol);
+			vo.setId(id);
+			vo.setLast_updated(last_updated);
+			vo.setMarket_cap(market_cap);
+			vo.setPercent_change_24h(percent_change_24h);
+			
+			////////insert the data(a row) into json object
 			obj.put("cmc_rank", cmc_rank);
 			obj.put("name", name);
 			obj.put("symbol", symbol);
 			obj.put("percent_change_24h", percent_change_24h);
 			obj.put("last_updated", last_updated);
 			obj.put("market_cap", market_cap);
+			
+			//////print each object in the json Array
 			
 //			System.out.println(i+ "cmc_rank: "+cmc_rank);
 //			System.out.println("name: "+name);
@@ -105,10 +119,18 @@ public class CoinmapServiceImpl implements CoinmapService{
 //			System.out.println("percent_change_24h: "+percent_change_24h);
 			
 			rdata.put(obj);
+			mapper.insert(vo);
+			vo = new CoinmapVO();
 			
 		}
 		return rdata;
 		
+	}
+
+	@Override
+	public int insert(CoinmapVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.insert(vo);
 	}
 	
 

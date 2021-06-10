@@ -13,7 +13,7 @@ SELECT * FROM coinmap
 SELECT * FROM coinmap WHERE id = #{id} 
 </select> 
 
-<insert id="insertcoinmapData" parameterType="com.encore.coinmap.CoinmapVO">
+<insert id="insert" parameterType="com.encore.coinmap.CoinmapVO">
 		INSERT INTO coinmap(cmc_rank,symbol, name, id, last_updated, percent_change_24h, market_cap)
 		VALUES(#{cmc_rank},  #{symbol}, #{name},#{id}, #{last_updated}, #{percent_change_24h}, #{market_cap})
 </insert>
