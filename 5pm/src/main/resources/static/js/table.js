@@ -1,32 +1,5 @@
 
-var testData = null;
-var smallTable = [
-
-    {
-      "name": "Michael Bruce",
-      "hr": {
-        "position": "Javascript Developer",
-        "salary": "$183,000",
-        "start_date": "2011/06/27"
-      },
-      "contact": [
-        "Singapore",
-        "5384"
-      ]
-    },
-    {
-      "name": "Donna Snider",
-      "hr": {
-        "position": "Customer Support",
-        "salary": "$112,000",
-        "start_date": "2011/01/25"
-      },
-      "contact": [
-        "New York",
-        "4226"
-      ]
-    }
-  ]
+//let coinData = null;
 
 /*$.ajax({
         url: "/coinflow/get",
@@ -34,7 +7,7 @@ var smallTable = [
         dataType: "json",
         contentType: "application/json",
         success: function(data) {
-            testData = data;
+            coinData = data;
         },
         error: function(jqXHR, textStatus, errorThrown) {
             // 에러 로그는 아래처럼 확인해볼 수 있다. 
@@ -46,6 +19,7 @@ var smallTable = [
 
 $(document).ready(function() {
 
+  
   //Toggle Modes
   $('body').on('click', '.button', function() {
     var $selectedButton = $(this);
@@ -54,9 +28,6 @@ $(document).ready(function() {
     //$(this).attr('data-mode', $(this).attr('data-mode') == 'true' ? 'false' : 'true'); //toggle not needed here
     if ($selectedButton.hasClass('pagingTable')) {
       showPagingTable();
-    }
-    if ($selectedButton.hasClass('bigTable')) {
-      showBigTable();
     }
     if ($selectedButton.hasClass('fullTable')) {
       showFullTable();
@@ -95,17 +66,46 @@ $(document).ready(function() {
       buildTable();
     }
 
+
     function buildTable() {
       $('#superTable').DataTable({
         "destroy": true,
         "bDestroy": true,
         "colReorder": true,
-        "paging": true, //disable paging
+		"responsive": true, //반응형
+        "paging": true, //페이징
         "deferRender": true, //enable virtual scrolling
         "fixedHeader": true,
-        "bInfo": false, //hide paging info
-		"info" : false, //hide information
+        "bInfo": false, //페이징 정보 표시
+		"info" : false, //정보 표시
 		"bAutoWidth" : true, //자동으로 컬럼폭 계산
+		"rowCallback": function(row, data){ //상승률이 +면 빨간색, -면 파란색
+  			if(data.week1> 0){
+    			$(row).find('td:eq(1)').css('color', 'red');
+    		}else if(data.week1< 0){
+    			$(row).find('td:eq(1)').css('color', 'blue');
+    		}
+			if(data.month1> 0){
+    			$(row).find('td:eq(2)').css('color', 'red');
+    		}else if(data.month1< 0){
+    			$(row).find('td:eq(2)').css('color', 'blue');
+    		}
+			if(data.month3> 0){
+    			$(row).find('td:eq(3)').css('color', 'red');
+    		}else if(data.month3< 0){
+    			$(row).find('td:eq(3)').css('color', 'blue');
+    		}
+			if(data.month6> 0){
+    			$(row).find('td:eq(4)').css('color', 'red');
+    		}else if(data.month6< 0){
+    			$(row).find('td:eq(4)').css('color', 'blue');
+    		}
+			if(data.year1> 0){
+    			$(row).find('td:eq(5)').css('color', 'red');
+    		}else if(data.year1< 0){
+    			$(row).find('td:eq(5)').css('color', 'blue');
+    		}
+  		},
 		"serverSide" : false,
 		"processing" : true,
 		"ajax":{
@@ -114,14 +114,19 @@ $(document).ready(function() {
 			//"dataType" : "JSON",
 			"dataSrc" : ''
 		},
-        //"data": testData,//smallTable,
+        //"data": coinData,
         "columns": [{
           "data": "market"
         }, {
           "data": "week1",
 			"render":function(data,type,row){
 				if(type=='display'){
+					if(data != 0){
 					data = data+'%';
+					}else{
+					data = "-" ; //비상장
+					}
+					
 				}
 				return data;
 			}
@@ -129,7 +134,12 @@ $(document).ready(function() {
           "data": "month1",
 			"render":function(data,type,row){
 				if(type=='display'){
+					if(data != 0){
 					data = data+'%';
+					}else{
+					data = "-" ;
+					}
+					
 				}
 				return data;
 			}
@@ -137,7 +147,12 @@ $(document).ready(function() {
           "data": "month3",
 			"render":function(data,type,row){
 				if(type=='display'){
+					if(data != 0){
 					data = data+'%';
+					}else{
+					data = "-" ;
+					}
+					
 				}
 				return data;
 			}
@@ -145,7 +160,12 @@ $(document).ready(function() {
           "data": "month6",
 			"render":function(data,type,row){
 				if(type=='display'){
+					if(data != 0){
 					data = data+'%';
+					}else{
+					data = "-" ;
+					}
+					
 				}
 				return data;
 			}
@@ -153,62 +173,19 @@ $(document).ready(function() {
           "data": "year1",
 			"render":function(data,type,row){
 				if(type=='display'){
+					if(data != 0){
 					data = data+'%';
+					}else{
+					data = "-" ;
+					}
+					
 				}
 				return data;
 			}
         }]
-      });
-    }
-    clearDom();
-  }
-
-  function showBigTable() { // 안쓸테이블
-    function clearDom() {
-      var domToInject = '<table id="superTable" class="display nowrap" style="display: none;" cellspacing="0" width="100%"><thead><tr><th>ID</th><th>First name</th><th>Last name</th><th>ZIP / Post code</th><th>Country</th></tr></thead></table>';
-      $('#superTable').DataTable().destroy();
-      $('#superTable').html(domToInject);
-      buildTable();
-    }
-
-    function buildTable() {
-      $('#superTable').DataTable({
-        "destroy": true,
-        "bDestroy": true,
-        "serverSide": true,
-        "colReorder": true,
-        "bFilter": false, //with server on we can not search on the client
-        "paging": true, //disable paging
-        "deferRender": true, //enable virtual scrolling
-		"info" : false, //hide information
-        "ajax": function(data, callback, settings) {
-          var out = [];
-
-          /*for (var i = data.start, ien = data.start + data.length; i < ien; i++) {
-            out.push([data[i].week1 + '%', i + '%', i + '%', i + '%', i + '%']);
-          }*/
-		for (var d in data) {
-            out.push([d['market'],d['week1'] + '%', d['month1'] + '%', d['month3'] + '%', d['month6'] + '%', d['year1'] + '%']);
-          }
-
-          setTimeout(function() {
-            callback({
-              draw: data.draw,
-              data: out,
-              recordsTotal: 5000000,
-              recordsFiltered: 5000000
-            });
-          }, 50);
-        },
-        "scroller": {
-          loadingIndicator: true
-        },
-        "scrollY": "60vh",
-        "scrollX": true,
-        "fixedHeader": false,
-        "bInfo": true
-      });
-    }
+	
+    });
+	}
     clearDom();
   }
 
@@ -226,6 +203,8 @@ $(document).ready(function() {
         "bDestroy": true,
         "paging": true,
         "colReorder": true,
+		"responsive": true, //반응형
+		"info" : false, //정보 표시
         "searchHighlight":true,
         "deferRender": true, //enable virtual scrolling
         "scrollY": "60vh",
@@ -235,6 +214,34 @@ $(document).ready(function() {
         "scrollX": true,
         "bInfo": true, //hide paging info
 		"info" : false, //hide information
+		"bAutoWidth" : true, //자동으로 컬럼폭 계산
+		"rowCallback": function(row, data){ //상승률이 +면 빨간색, -면 파란색
+  			if(data.week1> 0){
+    			$(row).find('td:eq(1)').css('color', 'red');
+    		}else if(data.week1< 0){
+    			$(row).find('td:eq(1)').css('color', 'blue');
+    		}
+			if(data.month1> 0){
+    			$(row).find('td:eq(2)').css('color', 'red');
+    		}else if(data.month1< 0){
+    			$(row).find('td:eq(2)').css('color', 'blue');
+    		}
+			if(data.month3> 0){
+    			$(row).find('td:eq(3)').css('color', 'red');
+    		}else if(data.month3< 0){
+    			$(row).find('td:eq(3)').css('color', 'blue');
+    		}
+			if(data.month6> 0){
+    			$(row).find('td:eq(4)').css('color', 'red');
+    		}else if(data.month6< 0){
+    			$(row).find('td:eq(4)').css('color', 'blue');
+    		}
+			if(data.year1> 0){
+    			$(row).find('td:eq(5)').css('color', 'red');
+    		}else if(data.year1< 0){
+    			$(row).find('td:eq(5)').css('color', 'blue');
+    		}
+  		},
         "serverSide" : false,
 		"processing" : true,
 		"ajax":{
@@ -243,14 +250,18 @@ $(document).ready(function() {
 			//"dataType" : "JSON",
 			"dataSrc" : ''
 		},
-        //"data": testData,//smallTable,
         "columns": [{
           "data": "market"
         }, {
           "data": "week1",
 			"render":function(data,type,row){
 				if(type=='display'){
+					if(data != 0){
 					data = data+'%';
+					}else{
+					data = "-" ; //비상장
+					}
+					
 				}
 				return data;
 			}
@@ -258,7 +269,12 @@ $(document).ready(function() {
           "data": "month1",
 			"render":function(data,type,row){
 				if(type=='display'){
+					if(data != 0){
 					data = data+'%';
+					}else{
+					data = "-" ;
+					}
+					
 				}
 				return data;
 			}
@@ -266,7 +282,12 @@ $(document).ready(function() {
           "data": "month3",
 			"render":function(data,type,row){
 				if(type=='display'){
+					if(data != 0){
 					data = data+'%';
+					}else{
+					data = "-" ;
+					}
+					
 				}
 				return data;
 			}
@@ -274,7 +295,12 @@ $(document).ready(function() {
           "data": "month6",
 			"render":function(data,type,row){
 				if(type=='display'){
+					if(data != 0){
 					data = data+'%';
+					}else{
+					data = "-" ;
+					}
+					
 				}
 				return data;
 			}
@@ -282,7 +308,12 @@ $(document).ready(function() {
           "data": "year1",
 			"render":function(data,type,row){
 				if(type=='display'){
+					if(data != 0){
 					data = data+'%';
+					}else{
+					data = "-" ;
+					}
+					
 				}
 				return data;
 			}
@@ -301,7 +332,7 @@ $(document).ready(function() {
   }
   showFullTable();
 });
-$(document).foundation();
+//$(document).foundation();
 
 /*
 *

@@ -106,11 +106,34 @@ public class CoinflowRESTController {
 			double year1 = pvo.getYear1();			
 			
 			vo.setToday(today);
-			vo.setWeek1(Math.round((today - week1) / week1* 100 *10)/10);
-			vo.setMonth1(Math.round((today - month1) / month1 * 100 *10)/10);
-			vo.setMonth3(Math.round((today - month3) / month3 * 100 *10)/10);
-			vo.setMonth6(Math.round((today - month6) / month6 * 100 *10)/10);
-			vo.setYear1(Math.round((today - year1) / year1 * 100*10)/10);
+			if(week1 != 0) {
+				vo.setWeek1(Math.round((today - week1) / week1* 100 *10)/10.0);
+			}else {
+				vo.setWeek1(0);
+			}
+			if(month1 != 0) {
+				vo.setMonth1(Math.round((today - month1) / month1 * 100 *10)/10.0);
+			}else {
+				vo.setMonth1(0);
+			}
+			if(month3 != 0) {
+				vo.setMonth3(Math.round((today - month3) / month3 * 100 *10)/10.0);
+			}else {
+				vo.setMonth3(0);
+			}
+			if(month6 != 0) {
+				vo.setMonth6(Math.round((today - month6) / month6 * 100 *10)/10.0);
+			}else {
+				vo.setMonth6(0);
+			}
+			if(year1 != 0) {
+				vo.setYear1(Math.round((today - year1) / year1 * 100*10)/10.0);
+			}else {
+				vo.setYear1(0);
+			}
+			
+			
+			
 			list.add(vo);
 		}
 	
