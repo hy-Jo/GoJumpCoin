@@ -23,14 +23,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 //@RestController
 @CrossOrigin("*")
 @Controller
-public class CoinmapController {
+public class CoinMapController {
 	//private CoinMapService coinmapService;
 
 	@Autowired
 	@Qualifier("com.encore.coinmap.CoinMapServiceImpl")
-	private CoinmapService service;
+	private CoinMapService service;
 	
-	public CoinmapController() {
+	public CoinMapController() {
 		System.out.println("CoinMapController 호출");
 	}
 	

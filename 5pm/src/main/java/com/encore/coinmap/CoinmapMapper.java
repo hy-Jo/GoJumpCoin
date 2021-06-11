@@ -3,8 +3,8 @@ package com.encore.coinmap;
 import java.util.List;
 
 
-public interface CoinmapMapper {
+public interface CoinMapMapper {
 	
-	List<CoinmapVO> list_coinmap_data();
+	List<CoinMapVO> list_coinmap_data();
 
 }

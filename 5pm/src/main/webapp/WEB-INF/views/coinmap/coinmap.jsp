@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <!DOCTYPE html>
   <html>
-
   <script>
     $(document).ready(function () {
       $('li:nth-child(2)').addClass('active');
@@ -18,11 +17,8 @@
         </div>
         <div class="col-sm-8 text-left">
           <p>코인맵페이지입니다</p>
-
           <script src="/js/coinmap.js"></script>
-
           <div id="chart_div"></div>
-
         </div>
         <div class="col-sm-2 sidenav">
           <div class="well">

@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.json.JSONArray;
 
-public interface CoinmapService {
+public interface CoinMapService {
 	
-	List<CoinmapVO> list_coinmap_data();
+	List<CoinMapVO> list_coinmap_data();
 
 	JSONArray callAPI(URL url);
 	

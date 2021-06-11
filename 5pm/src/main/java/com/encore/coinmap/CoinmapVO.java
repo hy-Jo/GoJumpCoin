@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class CoinmapVO {
+public class CoinMapVO {
 	private int cmc_rank;
 	private double percent_change_24h;
 	private Date last_updated;
