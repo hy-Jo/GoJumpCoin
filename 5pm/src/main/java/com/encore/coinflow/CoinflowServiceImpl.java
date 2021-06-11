@@ -23,7 +23,6 @@ public class CoinflowServiceImpl implements CoinflowService{
 	
 	@Autowired
 	private CoinMapper1 mapper;
-	
 	@Autowired
 	private CoinflowMapper fmapper;
 	
@@ -126,6 +125,16 @@ public class CoinflowServiceImpl implements CoinflowService{
 	@Override
 	public int update(CoinflowVO vo) {
 		return fmapper.create(vo);
+	}
+
+	@Override
+	public String getKorName(CoinflowVO vo) {
+		return mapper.getKorName(vo.getMarket());
+	}
+	
+	@Override
+	public List<CoinflowVO> getCoinflowList(){
+		return fmapper.getCoinflowList();
 	}
 
 	}

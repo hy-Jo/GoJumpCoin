@@ -7,10 +7,11 @@ import lombok.Data;
 @Data
 public class CoinMapVO {
 	private int cmc_rank;
-	private double percent_change_24h;
-	private Date last_updated;
 	private String symbol;
 	private String name;
 	private int id;
+	private String last_updated; //or Date type
+	private double percent_change_24h;
 	private double market_cap;
+	
 }
