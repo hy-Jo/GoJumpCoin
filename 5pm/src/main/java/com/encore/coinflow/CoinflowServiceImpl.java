@@ -55,7 +55,7 @@ public class CoinflowServiceImpl implements CoinflowService{
 
 	/**
 	 * 
-	 * @param url 현재가격 담은 url
+	 * @param url  요청할 url
 	 * @return api 호출 결과
 	 */
 	@Override
