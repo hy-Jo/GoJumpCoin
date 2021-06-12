@@ -1,22 +1,34 @@
-/*
-	var request = new XMLHttpRequest();
-	//const fs = require('fs');
-	var url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=4adf43b1-a8f9-4cf4-89a1-c161c38ec59b&convert=KRW';
-	var test = 'https://sandbox-api.coinmarketcap.com/v2/cryptocurrency?CMC_PRO_API_KEY=b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c';
-	
-	request.open("GET", test, false);
-	
-	  request.send();
-	
-	  var obj = JSON.parse(request.responseText);
-	
-	  console.log(obj);*/
+let clist = [];
+$(function () {
+  $.ajax({
+    url: "../assets/coinmap_REALdata.json",
+    dataType: "json",
+    success: function (result) {
+      console.log(result.status.total_count + ":" + result.status.timestamp);
+      $.each(result.data, function (i, val) {
+        let list = [];
+        console.log(typeof i);
+        console.log(
+          val.symbol + "Coin" + val.market_cap + val.percent_change_24h
+        );
+        list.push(val.symbol);
+        list.push("Coin");
+        list.push(val.quote.KRW.market_cap);
+        list.push(val.quote.KRW.percent_change_24h);
+        clist.push(list);
+      });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alert("Error: " + textStatus + " errorThrown: " + errorThrown);
+    },
+  });
+});
 
 google.charts.load("current", { packages: ["treemap"] });
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-  var data = google.visualization.arrayToDataTable([
+  const data = google.visualization.arrayToDataTable([
     [
       "Location",
       "Parent",
@@ -24,12 +36,13 @@ function drawChart() {
       "Market increase/decrease (color)",
     ],
     ["Coin", null, 0, 0],
-    ["BTC", "Coin", 50, 12],
-    ["ETH", "Coin", 100, 7],
-    ["LCT", "Coin", 100, 7],
+    clist.forEach(function (element) {
+      console.log(element);
+      element;
+    }),
   ]);
 
-  var options = {
+  const options = {
     width: "100%",
     height: "400",
     minColor: "#0652DD",

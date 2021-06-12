@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <!DOCTYPE html>
   <html>
   <script>
@@ -7,7 +7,7 @@
       $('li:nth-child(2)').css('background', 'black');
     });
   </script>
-  <script src="${pageContext.request.contextPath}/js/coinmap.js"></script>
+  <script defer src="${pageContext.request.contextPath}/js/coinmap.js"></script>
   </head>
 
   <body>
@@ -23,7 +23,7 @@
         <div class="col-sm-2 sidenav">
           <div class="well">
             <p>채팅창</p>
-          </div>gi
+          </div>
         </div>
   </body>
 

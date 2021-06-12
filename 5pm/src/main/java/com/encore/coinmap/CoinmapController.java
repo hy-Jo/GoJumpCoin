@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 //@RestController
 @CrossOrigin("*")
 @Controller
-public class CoinMapController {
+public class CoinmapController {
 	//private CoinMapService coinmapService;
 
 	@Autowired
 	@Qualifier("com.encore.coinmap.CoinMapServiceImpl")
-	private CoinMapService service;
+	private CoinmapService service;
 	
-	public CoinMapController() {
+	public CoinmapController() {
 		System.out.println("CoinMapController 호출");
 	}
 	

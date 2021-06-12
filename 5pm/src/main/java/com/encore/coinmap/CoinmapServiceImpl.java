@@ -11,11 +11,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import com.encore.coinmap.CoinmapService;
-import com.encore.coinmap.CoinmapVO;
 
 @Service("com.encore.coinmap.CoinMapServiceImpl")
 public class CoinmapServiceImpl implements CoinmapService{
@@ -38,8 +34,6 @@ public class CoinmapServiceImpl implements CoinmapService{
 		
 
 		try {
-			
-			
 			File file = new File("src/main/resources/static/assets/coinmap_data.json");
 			FileWriter fw = new FileWriter(file);
 			URL url = new URL(urlstr);
@@ -117,14 +111,11 @@ public class CoinmapServiceImpl implements CoinmapService{
 //			System.out.println("last_updated: "+last_updated);
 //			System.out.println("market_cap: "+market_cap);
 //			System.out.println("percent_change_24h: "+percent_change_24h);
-			
 			rdata.put(obj);
 			mapper.insert(vo);
 			vo = new CoinmapVO();
-			
 		}
 		return rdata;
-		
 	}
 
 	@Override
