@@ -119,6 +119,7 @@ public class CoinmapServiceImpl implements CoinmapService{
 //			System.out.println("percent_change_24h: "+percent_change_24h);
 			
 			rdata.put(obj);
+			mapper.deleteCoinmap(vo);
 			mapper.insert(vo);
 			vo = new CoinmapVO();
 			

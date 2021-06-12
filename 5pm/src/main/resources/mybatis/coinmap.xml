@@ -10,13 +10,18 @@ SELECT * FROM coinmap
 </select> 
 
 <select id="getClassified" parameterType="String" resultType="com.encore.coinmap.CoinmapVO">
-SELECT * FROM coinmap WHERE id = #{id} 
+SELECT * FROM coinmap WHERE dkdkdkdl = #{변수} 
 </select> 
 
 <insert id="insert" parameterType="com.encore.coinmap.CoinmapVO">
 		INSERT INTO coinmap(cmc_rank,symbol, name, id, last_updated, percent_change_24h, market_cap)
 		VALUES(#{cmc_rank},  #{symbol}, #{name},#{id}, #{last_updated}, #{percent_change_24h}, #{market_cap})
 </insert>
+
+<delete id="deleteCoinmap" parameterType="com.encore.coinmap.CoinmapVO">
+		TRUNCATE TABLE coinmap;
+		
+</delete>
 
 <update id="updateCoinmap" parameterType="com.encore.coinmap.CoinmapVO">
 		update coinmap
