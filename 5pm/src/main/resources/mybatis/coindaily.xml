@@ -2,18 +2,18 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.encore.coinflow.CoinDailyMapper">
+<mapper namespace="com.encore.coindata.CoinDailyMapper">
 
 <!-- 조회, id: coinlist , 리턴: CoinVO -->
-<select id="getCoinlistDaily" resultType="com.encore.coinflow.CoinDailyVO">
+<select id="getAllData" resultType="com.encore.coindata.CoinDailyVO">
 SELECT * FROM coin_daily
 </select> 
 
-<insert id="insertDaily" parameterType="com.encore.coinflow.CoinDailyVO">
-INSERT INTO coin_daily(market,candle_date_utc,candle_date_time_kst,opening_price,high_price,low_price,trade_price,timestamp_,candle_acc_trade_price,candle_acc_trade_volume,prev_closing_price,
-change_price,change_rate,converted_trade_price)
-VALUES(#{market},#{candle_date_utc},#{candle_date_time_kst},#{opening_price},#{high_price},#{low_price},#{trade_price},#{timestamp_},#{candle_acc_trade_price},#{candle_acc_trade_volume},#{prev_closing_price},
-#{change_price},#{change_rate},#{converted_trade_price})
+<insert id="insert" parameterType="com.encore.coindata.CoinDailyVO">
+INSERT INTO coin_daily(market,candle_date_time_utc,candle_date_time_kst,opening_price,high_price,low_price,trade_price,timestamp_,candle_acc_trade_price,candle_acc_trade_volume,prev_closing_price,
+change_price,change_rate)
+VALUES(#{market},#{candle_date_time_utc},#{candle_date_time_kst},#{opening_price},#{high_price},#{low_price},#{trade_price},#{timestamp_},#{candle_acc_trade_price},#{candle_acc_trade_volume},#{prev_closing_price},
+#{change_price},#{change_rate})
 </insert>
 
 <!-- <select id="getCoincycle" parameterType="Map">

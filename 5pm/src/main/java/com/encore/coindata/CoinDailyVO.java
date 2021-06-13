@@ -1,4 +1,4 @@
-package com.encore.coinflow;
+package com.encore.coindata;
 
 import lombok.Data;
 
@@ -13,10 +13,10 @@ public class CoinDailyVO {
 	private double low_price ;
 	private double trade_price ;
 	private long timestamp_ ;
-	private double candle_acc_trace_price ;
-	private double candel_acc_trade_volume ;
+	private double candle_acc_trade_price ;
+	private double candle_acc_trade_volume ;
 	private double prev_closing_price ;
 	private double change_price ;
 	private double change_rate ;
-	private double converted_trade_price;
+	//private double converted_trade_price;
 }
