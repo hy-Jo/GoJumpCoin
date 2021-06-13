@@ -6,15 +6,27 @@ let clist = [
     "Market increase/decrease (color)",
   ],
   ["Coin", null, 0, 0],
+  ["Bitcoin", "Coin", 0, 0],
+  ["Ethereum", "Coin", 0, 0],
+  ["Ripple", "Coin", 0, 0],
+  ["Platform", "Coin", 0, 0],
+  ["Utility", "Coin", 0, 0],
+  ["Payment", "Coin", 0, 0],
+  ["Privacy", "Coin", 0, 0],
+  ["Asset", "Coin", 0, 0],
+  ["Game", "Coin", 0, 0],
+  ["Contents", "Coin", 0, 0],
+  ["Data", "Coin", 0, 0],
+  ["IoT", "Coin", 0, 0],
+  ["Distributed", "Coin", 0, 0],
+  ["Exchange", "Coin", 0, 0],
 ];
-let ltime = "";
 clist.push();
 $(function () {
   $.ajax({
     url: "../assets/coinmap_REALdata.json",
     dataType: "json",
     success: function (result) {
-      ltime = result.status.timestamp;
       //console.log(result.status.total_count + ":" + result.status.timestamp);
       $.each(result.data, function (i, val) {
         let list = [];
@@ -23,7 +35,7 @@ $(function () {
         //   val.symbol + "Coin" + val.market_cap + val.percent_change_24h
         // );
         list.push(val.symbol);
-        list.push("Coin");
+        //list.push("Coin");
         list.push(val.quote.KRW.market_cap);
         list.push(val.quote.KRW.percent_change_24h);
         clist.push(list);
@@ -59,8 +71,6 @@ function drawChart() {
     document.getElementById("chart_div")
   );
   tree.draw(data, options);
-
-  document.getElementById("chart_s").innerText = ltime;
 
   function showStaticTooltip(row, size, value) {
     return "<div>" + data.getValue(row, 3) + "</div>";
