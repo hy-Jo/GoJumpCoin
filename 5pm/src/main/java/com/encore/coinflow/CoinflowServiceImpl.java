@@ -25,23 +25,6 @@ public class CoinflowServiceImpl implements CoinflowService{
 	private CoinMapper1 mapper;
 	@Autowired
 	private CoinflowMapper fmapper;
-	
-	/** https://api.upbit.com/v1/candles/days?market=KRW-BTC&to=2020-04-18%2009:00:00&count=1 일캔들 이용
-	 * name : 비트코인 이름
-	 * interval : 날짜간격
-	 * Date : 현재날짜
-	 */
-	@Override
-	public double increaseRate(URL url,URL pUrl) {
-		JSONArray json = null;
-		try {
-			callAPI(url);
-			callAPI(pUrl);
-		}catch(Exception e) {
-			System.err.println(e.toString());
-		}
-		return 0;
-	}
 
 	@Override
 	public List<String> coinMarketList() {
