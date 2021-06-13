@@ -14,5 +14,6 @@ public class CoinmapVO {
 	private String last_updated; //or Date type
 	private double percent_change_24h;
 	private double market_cap;
+	private String sector;
 	
 }

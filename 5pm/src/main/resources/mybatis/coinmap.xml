@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.encore.coinmap.CoinmapMapper">
 
 <!-- 조회, id: coinlist , 리턴: CoinflowVO -->
-<select id="coinmap" resultType="com.encore.coinmap.CoinmapVO">
+<select id="getCoinmapList" resultType="com.encore.coinmap.CoinmapVO">
 SELECT * FROM coinmap
 </select> 
 
@@ -16,8 +16,8 @@ SELECT * FROM coinmap
 </update> 
 
 <insert id="insert" parameterType="com.encore.coinmap.CoinmapVO">
-		INSERT INTO coinmap(cmc_rank,symbol, name, id, last_updated, percent_change_24h, market_cap)
-		VALUES(#{cmc_rank},  #{symbol}, #{name},#{id}, #{last_updated}, #{percent_change_24h}, #{market_cap})
+		INSERT INTO coinmap(cmc_rank,symbol, name, id, last_updated, percent_change_24h, currency,market_cap)
+		VALUES(#{cmc_rank},  #{symbol}, #{name},#{id}, #{last_updated}, #{percent_change_24h}, #{percent_change_24h}, #{market_cap})
 </insert>
 
 <delete id="deleteCoinmap" parameterType="com.encore.coinmap.CoinmapVO">
@@ -34,6 +34,7 @@ SELECT * FROM coinmap
 		last_updated = #{last_updated},
 		percent_change_24h = #{percent_change_24h},
 		market_cap = #{market_cap},
+		sector = #{sector}
 		where cmc_rank = #{cmc_rank}
 </update>
 

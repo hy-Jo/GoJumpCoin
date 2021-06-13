@@ -2,11 +2,13 @@ package com.encore.coinmap;
 
 import java.util.List;
 
+import org.json.JSONArray;
+
 public interface CoinmapService {
+	String getSector();
+	List<CoinmapVO> getCoinmapList();
 	
-	List<CoinmapVO> list_coinmap_data();
-	
-	void jsonCoinmap(String urlstr, String currency);
+	JSONArray jsonCoinmap(String urlstr, String currency);
 	
 	int insert(CoinmapVO vo);
 	
