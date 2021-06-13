@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
 import com.encore.coinmap.CoinmapService;
 import com.encore.coinmap.CoinmapVO;
 
-@Service("com.encore.coinmap.CoinMapServiceImpl")
+@Service("com.encore.coinmap.CoinmapServiceImpl")
 public class CoinmapServiceImpl implements CoinmapService{
 	
-	@Autowired
-	private CoinmapService service;
+//	@Autowired
+//	private CoinmapService service;
 	
 	@Autowired
 	private CoinmapMapper mapper;
@@ -34,12 +34,9 @@ public class CoinmapServiceImpl implements CoinmapService{
 
 	@Override
 	public void jsonCoinmap(String urlstr, String currency) {
-		StringBuffer result = new StringBuffer();
-		
+		StringBuffer result = new StringBuffer(); 
 
 		try {
-			
-			
 			File file = new File("src/main/resources/static/assets/coinmap_data.json");
 			FileWriter fw = new FileWriter(file);
 			URL url = new URL(urlstr);
@@ -57,7 +54,6 @@ public class CoinmapServiceImpl implements CoinmapService{
 			urlconnection.disconnect();
 			JSONObject json = new JSONObject(result.toString());
 			JSONArray data = (JSONArray) json.get("data");
-			
 			
 			fw.write(insertdata(json, data, currency).toString());
 			
@@ -92,6 +88,7 @@ public class CoinmapServiceImpl implements CoinmapService{
 			double percent_change_24h=  Math.round((currInfo.getDouble("percent_change_24h")) * 100.0) / 100.0;
 			
 			///////// set VO
+			vo.setCurrency(currency);
 			vo.setCmc_rank(cmc_rank);
 			vo.setName(name);
 			vo.setSymbol(symbol);

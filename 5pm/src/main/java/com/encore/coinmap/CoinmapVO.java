@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class CoinmapVO {
+	private String currency;
 	private int cmc_rank;
 	private String symbol;
 	private String name;
