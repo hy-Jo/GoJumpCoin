@@ -95,7 +95,7 @@ public class CoinflowServiceImpl implements CoinflowService{
 
 	/**
 	 * 현재날짜 구하려면 interval을 now로
-	 * interval : now, week, month, year
+	 * interval : now, day, week, month, year
 	 */
 	@Override
 	public URL getAPIURL(String name, String interval, int amount, Date day) {
