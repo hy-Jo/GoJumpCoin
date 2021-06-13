@@ -9,9 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 SELECT * FROM coinmap
 </select> 
 
-<select id="getClassified" parameterType="String" resultType="com.encore.coinmap.CoinmapVO">
-SELECT * FROM coinmap WHERE dkdkdkdl = #{변수} 
-</select> 
+<update id="classify"  parameterType="com.encore.coinmap.CoinmapVO">
+		UPDATE coinmap m, classification c
+		SET m.sector= c.sector
+		WHERE m.symbol= c.symbol
+</update> 
 
 <insert id="insert" parameterType="com.encore.coinmap.CoinmapVO">
 		INSERT INTO coinmap(cmc_rank,symbol, name, id, last_updated, percent_change_24h, market_cap)
@@ -19,8 +21,7 @@ SELECT * FROM coinmap WHERE dkdkdkdl = #{변수}
 </insert>
 
 <delete id="deleteCoinmap" parameterType="com.encore.coinmap.CoinmapVO">
-		TRUNCATE TABLE coinmap;
-		
+		TRUNCATE TABLE coinmap
 </delete>
 
 <update id="updateCoinmap" parameterType="com.encore.coinmap.CoinmapVO">

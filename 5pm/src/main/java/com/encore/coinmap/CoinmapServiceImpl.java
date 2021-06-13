@@ -75,7 +75,7 @@ public class CoinmapServiceImpl implements CoinmapService{
 	public JSONArray insertdata(JSONObject json, JSONArray data, String currency) {
 		JSONArray rdata = new JSONArray(); //json by calling API
 		CoinmapVO vo = new CoinmapVO();
-		
+		mapper.deleteCoinmap(vo);
 		JSONObject obj = new JSONObject();//new json array including jsono bjects: in [{},{}.....] format 
 		for (int i = 0; i < data.length(); i ++) {
 			obj.keySet().clear();
@@ -119,8 +119,10 @@ public class CoinmapServiceImpl implements CoinmapService{
 //			System.out.println("percent_change_24h: "+percent_change_24h);
 			
 			rdata.put(obj);
-			mapper.deleteCoinmap(vo);
+			
+			mapper.classify(vo);
 			mapper.insert(vo);
+			
 			vo = new CoinmapVO();
 			
 		}
