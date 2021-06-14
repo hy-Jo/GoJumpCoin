@@ -8,6 +8,7 @@ Highcharts.chart('container', {
   subtitle: {
     text: 'Source: 업비트 기준'
   },
+	
   xAxis: {
     categories: ['비트코인', '리플', '도지코인', '스트라이크', '밀크'],
     title: {
