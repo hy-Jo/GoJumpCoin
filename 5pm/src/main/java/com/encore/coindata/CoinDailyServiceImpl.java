@@ -20,4 +20,9 @@ public class CoinDailyServiceImpl implements CoinDailyService{
 	public void insert(CoinDailyVO vo) {
 		mapper.insert(vo);
 	}
+
+	@Override
+	public List<CoinDailyVO> getTodayCoin(String today) {
+		return mapper.getTodayCoin(today);
+	}
 }

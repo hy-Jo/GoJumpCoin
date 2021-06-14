@@ -16,8 +16,20 @@ VALUES(#{market},#{candle_date_time_utc},#{candle_date_time_kst},#{opening_price
 #{change_price},#{change_rate})
 </insert>
 
-<!-- <select id="getCoincycle" parameterType="Map">
-</select> -->
+<select id="getCoincycle" parameterType="String" resultType="Map">
+select count(*)
+from coin_daily
+where change_rate >= 0.10 
+and market LIKE #{market};
+</select>
 
+<select id="getTodayCoin" parameterType="String" resultType="com.encore.coindata.CoinDailyVO">
+select *
+from coin_daily
+where candle_date_time_kst LIKE #{today};
+</select>
+
+<!-- <select id="getIncreaseRate" parameterType="Map">
+</select> -->
 
 </mapper>

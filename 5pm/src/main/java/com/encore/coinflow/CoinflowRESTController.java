@@ -54,20 +54,9 @@ public class CoinflowRESTController {
 					json = resultJson.getJSONObject(0);
 				}
 
-				// System.out.println(nowJson);
-				// System.out.println(service.callAPI(service.getAPIURL(market, "week", 1,
-				// now)));
-				// System.out.println(service.callAPI(service.getAPIURL(market, "month", 1,
-				// now)));
-				// System.out.println(service.callAPI(service.getAPIURL(market, "month", 3,
-				// now)));
-				// System.out.println(service.callAPI(service.getAPIURL(market, "month", 6,
-				// now)));
-				// System.out.println(service.callAPI(service.getAPIURL(market, "year", 1,
-				// now)));
 				System.out.println("길이" + resultJson.length());
-				System.out.println(json.get("market") + ":" + json.get("trade_price"));
-				vo.setMarket(json.get("market").toString());
+				System.out.println(market + ":" + json.get("trade_price"));
+				vo.setMarket(market);
 				vo.setToday(Double.parseDouble(json.get("trade_price").toString()));
 				vo.setWeek1(
 						Double.parseDouble((service.callAPI(service.getAPIURL(market, "week", 1, now)).getJSONObject(0))
@@ -150,58 +139,6 @@ public class CoinflowRESTController {
 		}
 
 		return list;
-	}
-
-	// [스케쥴러로 매일 한번씩 DB초기화 할 컨트롤러2]
-	// [지금 초기화할 데이터들 - amount 일 수로 가져옴]
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@RequestMapping(value = { "/coinflow/get_all_daily/{amount}" }, method = RequestMethod.GET)
-	public ResponseEntity<?> getCoinDailyData(@PathVariable("amount") int amount) throws InterruptedException {
-		Date now = new Date();
-		URL url = null;
-		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
-		JSONObject json = null;
-		CoinDailyVO vo = new CoinDailyVO();
-
-		for (String market : service.coinMarketList()) {
-			for (int i = 1; i <= amount; i++) { // 6개월 = 180일
-				url = service.getAPIURL(market, "day", i, now);
-
-				json = (JSONObject) service.callAPI(url).get(0); // 현재기준 api는 미리 호출해놓고 test용 출력
-				System.out.println(json);
-				if (i % 5 == 0) {
-					Thread.sleep(1000);
-				}
-			}
-			Thread.sleep(1000);
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
-	}
-
-	// [스케쥴러로 매일 한번씩 DB초기화 할 컨트롤러2]
-	// [지금 초기화할 데이터들 - amount 일 수로 가져옴]
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@RequestMapping(value = { "/coinflow/update_all_daily/{amount}" }, method = RequestMethod.GET)
-	public ResponseEntity<?> updateCoinDailyData(@PathVariable("amount") int amount) throws InterruptedException {
-		Date now = new Date();
-		URL url = null;
-		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
-		JSONObject json = null;
-		CoinDailyVO vo = new CoinDailyVO();
-
-		for (String market : service.coinMarketList()) {
-			for (int i = 1; i <= amount; i++) { // 6개월 = 180일
-				url = service.getAPIURL(market, "day", i, now);
-
-				json = (JSONObject) service.callAPI(url).get(0); // 현재기준 api는 미리 호출해놓고 test용 출력
-				System.out.println(json);
-				if (i % 5 == 0) {
-					Thread.sleep(1000);
-				}
-			}
-			Thread.sleep(1000);
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
 	}
 
 }
