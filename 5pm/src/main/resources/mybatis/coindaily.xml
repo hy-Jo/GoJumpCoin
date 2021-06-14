@@ -5,31 +5,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.encore.coindata.CoinDailyMapper">
 
 <!-- 조회, id: coinlist , 리턴: CoinVO -->
-<select id="getAllData" resultType="com.encore.coindata.CoinDailyVO">
-SELECT * FROM coin_daily
-</select> 
+<select id="getAllData"
+	resultType="com.encore.coindata.CoinDailyVO">
+	SELECT * FROM coin_daily
+</select>
 
-<insert id="insert" parameterType="com.encore.coindata.CoinDailyVO">
-INSERT INTO coin_daily(market,candle_date_time_utc,candle_date_time_kst,opening_price,high_price,low_price,trade_price,timestamp_,candle_acc_trade_price,candle_acc_trade_volume,prev_closing_price,
-change_price,change_rate)
-VALUES(#{market},#{candle_date_time_utc},#{candle_date_time_kst},#{opening_price},#{high_price},#{low_price},#{trade_price},#{timestamp_},#{candle_acc_trade_price},#{candle_acc_trade_volume},#{prev_closing_price},
-#{change_price},#{change_rate})
+<insert id="insert"
+	parameterType="com.encore.coindata.CoinDailyVO">
+	INSERT INTO
+	coin_daily(market,candle_date_time_utc,candle_date_time_kst,opening_price,high_price,low_price,trade_price,timestamp_,candle_acc_trade_price,candle_acc_trade_volume,prev_closing_price,
+	change_price,change_rate)
+	VALUES(#{market},#{candle_date_time_utc},#{candle_date_time_kst},#{opening_price},#{high_price},#{low_price},#{trade_price},#{timestamp_},#{candle_acc_trade_price},#{candle_acc_trade_volume},#{prev_closing_price},
+	#{change_price},#{change_rate})
 </insert>
 
-<select id="getCoincycle" parameterType="String" resultType="Map">
-select count(*)
-from coin_daily
-where change_rate >= 0.10 
-and market LIKE #{market};
+<select id="getCoincycle" parameterType="Map" resultType="int">
+	SELECT COUNT(*)
+	FROM (
+		SELECT *
+		FROM coin_daily
+		WHERE
+		market = #{market}
+		ORDER BY candle_date_time_kst DESC LIMIT #{amount}) a
+	WHERE change_rate >= 0.10
 </select>
 
-<select id="getTodayCoin" parameterType="String" resultType="com.encore.coindata.CoinDailyVO">
-select *
-from coin_daily
-where candle_date_time_kst LIKE #{today};
+<select id="getTodayCoin" parameterType="String"
+	resultType="com.encore.coindata.CoinDailyVO">
+	SELECT *
+	FROM coin_daily
+	WHERE candle_date_time_kst LIKE #{today}
 </select>
 
-<!-- <select id="getIncreaseRate" parameterType="Map">
-</select> -->
 
 </mapper>

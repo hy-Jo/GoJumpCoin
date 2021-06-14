@@ -1,6 +1,7 @@
 package com.encore.coindata;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,10 @@ public class CoinDailyServiceImpl implements CoinDailyService{
 	@Override
 	public List<CoinDailyVO> getTodayCoin(String today) {
 		return mapper.getTodayCoin(today);
+	}
+
+	@Override
+	public int getCoincycle(Map<String, Integer> map) {
+		return mapper.getCoincycle(map);
 	}
 }
