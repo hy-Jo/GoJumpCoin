@@ -75,7 +75,7 @@ public class CoinmapRESTController {
 			FileWriter fw = new FileWriter(file);
 			
 			for (CoinmapVO vo : list) { //insert the data(a row) into JSON Array
-				obj.keySet().clear();
+
 				obj.put("currency", vo.getCurrency());
 				obj.put("cmc_rank", vo.getCmc_rank());
 				obj.put("name", vo.getName());
@@ -86,10 +86,13 @@ public class CoinmapRESTController {
 				if (vo.getSector()!= null) {
 					obj.put("sector", vo.getSector().replace("\r", ""));
 				}
+				//System.out.println(obj+"\n\n");
 				rdata.put(obj);
+				obj = new JSONObject();
+				System.out.println(rdata+"\n\n");
 			}
 			fw.write(rdata.toString());
-			
+			//System.out.println(list);
 			System.out.println(file.getAbsolutePath());
 			System.out.println("file created");
 			fw.flush();
