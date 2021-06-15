@@ -1,7 +1,7 @@
 let clist = [
   [
-    "Location",
-    "Parent",
+    "Coin symbol",
+    "Group",
     "Market trade volume (size)",
     "Market increase/decrease (color)",
   ],
@@ -9,6 +9,37 @@ let clist = [
 ];
 let ltime = "";
 clist.push();
+
+//RestController
+$(function () {
+  $.ajax({
+    url: "/coinmap/get",
+    dataType: "json",
+    success: function (result) {
+      ltime = result[0].last_updated;
+      //console.log(ltime);
+      //console.log(result.status.total_count + ":" + result.status.timestamp);
+      $.each(result, function (i, val) {
+        let list = [];
+        // console.log(typeof i);
+        // console.log(
+        //   val.symbol + "Coin" + val.market_cap + val.percent_change_24h
+        // );
+        list.push(val.symbol);
+        list.push("Coin");
+        list.push(val.market_cap);
+        list.push(val.percent_change_24h);
+        clist.push(list);
+      });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alert("Error: " + textStatus + " errorThrown: " + errorThrown);
+    },
+  });
+});
+
+//json file로부터 받아오기
+/*
 $(function () {
   $.ajax({
     url: "../assets/coinmap_REALdata.json",
@@ -34,6 +65,7 @@ $(function () {
     },
   });
 });
+*/
 
 google.charts.load("current", { packages: ["treemap"] });
 

@@ -1,8 +1,6 @@
 package com.encore.coinmap;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -13,14 +11,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-@Service("com.encore.coinmap.CoinMapServiceImpl")
-=======
-import com.encore.coinmap.CoinmapService;
-import com.encore.coinmap.CoinmapVO;
-
 @Service("com.encore.coinmap.CoinmapServiceImpl")
->>>>>>> 67a3828c0c2ca5aed63f30f7992bff4612098a36
 public class CoinmapServiceImpl implements CoinmapService{
 	
 //	@Autowired
@@ -45,13 +36,8 @@ public class CoinmapServiceImpl implements CoinmapService{
 		StringBuffer result = new StringBuffer(); 
 		JSONArray resultJson = null;
 		try {
-<<<<<<< HEAD
-			File file = new File("src/main/resources/static/assets/coinmap_data.json");
-			FileWriter fw = new FileWriter(file);
-=======
 			//File file = new File("src/main/resources/static/assets/coinmap_data.json");
 			//FileWriter fw = new FileWriter(file);
->>>>>>> 67a3828c0c2ca5aed63f30f7992bff4612098a36
 			URL url = new URL(urlstr);
 			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 			urlconnection.setRequestMethod("GET");
@@ -125,22 +111,10 @@ public class CoinmapServiceImpl implements CoinmapService{
 //			System.out.println("last_updated: "+last_updated);
 //			System.out.println("market_cap: "+market_cap);
 //			System.out.println("percent_change_24h: "+percent_change_24h);
-<<<<<<< HEAD
-			rdata.put(obj);
-			mapper.insert(vo);
-=======
-			
-			
-			
->>>>>>> 67a3828c0c2ca5aed63f30f7992bff4612098a36
 			vo = new CoinmapVO();
 		}
-<<<<<<< HEAD
-		return rdata;
-=======
 		return data;
 		
->>>>>>> 67a3828c0c2ca5aed63f30f7992bff4612098a36
 	}
 
 	@Override
@@ -148,9 +122,4 @@ public class CoinmapServiceImpl implements CoinmapService{
 		// TODO Auto-generated method stub
 		return mapper.insert(vo);
 	}
-
-
-	
-
-
 }

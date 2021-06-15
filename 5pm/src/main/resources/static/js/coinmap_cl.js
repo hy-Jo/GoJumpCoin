@@ -18,10 +18,45 @@ let clist = [
   ["Contents", "Coin", 0, 0],
   ["Data", "Coin", 0, 0],
   ["IoT", "Coin", 0, 0],
-  ["Distributed", "Coin", 0, 0],
+  ["Distribute", "Coin", 0, 0],
   ["Exchange", "Coin", 0, 0],
+  ["Unknown", "Coin", 0, 0],
 ];
 clist.push();
+
+//RestController
+$(function () {
+  $.ajax({
+    url: "/coinmap/get",
+    dataType: "json",
+    success: function (result) {
+      console.log(result);
+      ltime = result[0].last_updated;
+      //console.log(result.status.total_count + ":" + result.status.timestamp);
+      $.each(result, function (i, val) {
+        let list = [];
+        // console.log(typeof i);
+        // console.log(
+        //   val.symbol + "Coin" + val.market_cap + val.percent_change_24h
+        // );
+        list.push(val.symbol);
+        const sector = val.sector === null ? "Unknown" : val.sector;
+        list.push(sector);
+        console.log(sector);
+        list.push(val.market_cap);
+        list.push(val.percent_change_24h);
+        clist.push(list);
+      });
+      console.log(clist);
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alert("Error: " + textStatus + " errorThrown: " + errorThrown);
+    },
+  });
+});
+
+//json 파일에서 불러오기
+/*
 $(function () {
   $.ajax({
     url: "../assets/coinmap_REALdata.json",
@@ -46,6 +81,7 @@ $(function () {
     },
   });
 });
+*/
 
 google.charts.load("current", { packages: ["treemap"] });
 

@@ -3,22 +3,15 @@ package com.encore.coinmap;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,12 +52,7 @@ public class CoinmapRESTController {
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@RequestMapping(value = {"/coinmap/get"}, method = RequestMethod.GET)
 	public List<CoinmapVO> getCoinmapData() {
-		
-		
 		List<CoinmapVO> list = service.getCoinmapList();
-		
-		
-//////////////////////////////////////////////////////
 		
 		//if you doesn't need a json data file, please delete this code below
 		
