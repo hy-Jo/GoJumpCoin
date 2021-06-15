@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +41,6 @@ public class CoindataRESTController {
 	 * [당일상승량 API]
 	 * @return json market, change_rate
 	 */
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@RequestMapping(value = { "/api/get_today" }, method = RequestMethod.GET)
 	public ResponseEntity<?> getTodayCoin() {
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
@@ -74,7 +74,6 @@ public class CoindataRESTController {
 	 * @param amount
 	 * @return
 	 */
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@RequestMapping(value = { "/api/get_cycle/{amount}" }, method = RequestMethod.GET)
 	public ResponseEntity<?> getCoinCycle(@PathVariable("amount") int amount) {
 		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
@@ -111,7 +110,6 @@ public class CoindataRESTController {
 	 * @return db업데이트 한 결과
 	 * @throws InterruptedException
 	 */
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@RequestMapping(value = { "/api/update_daily/{amount}" }, method = RequestMethod.GET)
 	public ResponseEntity<?> updateCoinDailyData(@PathVariable("amount") int amount) throws InterruptedException {
 		Date now = new Date();
@@ -175,6 +173,72 @@ public class CoindataRESTController {
 			Thread.sleep(1100);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
+	}
+	
+
+	@RequestMapping(value = { "/api/update_daily_db" }, method = RequestMethod.GET)
+	@Scheduled(cron = "0 0 9 * * * ") // 초 분 시간 일 월 요일
+	public void updateCoinDaily() throws InterruptedException {
+		System.out.println("정각실행테스트");
+		Date now = new Date();
+		URL url = null;
+		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
+		JSONObject json = null; // 현재 호출 결과
+		CoinDailyVO vo = new CoinDailyVO();
+
+		int j = 0;
+		for (String market : service.coinMarketList()) {
+			url = service.getAPIURL(market, "day", 1, now);
+			j++;
+			try {
+				if (resultJson != null) {
+					json = (JSONObject) service.callAPI(url).get(0);
+					resultJson.put(json);
+				} else {
+					resultJson = service.callAPI(url);
+					json = resultJson.getJSONObject(0);
+				}
+
+				System.out.println("길이" + resultJson.length());
+				System.out.println(json.get("market") + ":" + json.get("candle_date_time_utc"));
+				vo.setMarket(json.get("market").toString());
+				vo.setCandle_acc_trade_price(Double.parseDouble(json.get("candle_acc_trade_price").toString()));
+				vo.setCandle_acc_trade_volume(Double.parseDouble(json.get("candle_acc_trade_volume").toString()));
+				vo.setCandle_date_time_kst(json.get("candle_date_time_kst").toString());
+				vo.setCandle_date_time_utc(json.get("candle_date_time_utc").toString());
+				vo.setHigh_price(Double.parseDouble(json.get("high_price").toString()));
+				vo.setLow_price(Double.parseDouble(json.get("low_price").toString()));
+				vo.setOpening_price(Double.parseDouble(json.get("opening_price").toString()));
+				vo.setPrev_closing_price(Double.parseDouble(json.get("prev_closing_price").toString()));
+				vo.setTimestamp_(Long.parseLong(json.get("timestamp").toString()));
+				vo.setTrade_price(Double.parseDouble(json.get("trade_price").toString()));
+				vo.setChange_rate(Double.parseDouble(json.get("change_rate").toString()));
+				vo.setChange_price(Double.parseDouble(json.get("change_price").toString()));
+				// vo.setConverted_trade_price(Double.parseDouble(json.get("converted_trade_price").toString()));
+
+				dservice.insert(vo);
+				vo = new CoinDailyVO();
+
+				if (j % 9 == 0) {
+					Thread.sleep(1100);
+				}
+
+			} catch (NumberFormatException e) {
+				System.out.println("CoindataRESTController 에러발생" + e);
+				dservice.insert(vo);
+				vo = new CoinDailyVO();
+				if (j % 9 == 0) {
+					Thread.sleep(1100);
+				}
+			} catch (JSONException e) {
+				System.out.println("null값이 들어갑니다");
+				if (j % 9 == 0) {
+					Thread.sleep(1100);
+				}
+
+			}
+			Thread.sleep(1100);
+		}
 	}
 
 }
