@@ -5,11 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface CoinmapMapper {
+public interface CoinMapMapper {
 	String getSector();
-	int classify(CoinmapVO vo);
-	int insert(CoinmapVO vo);
-	int deleteCoinmap(CoinmapVO vo);
-	int updateCoinmap(CoinmapVO vo);
-	List<CoinmapVO> getCoinmapList();
+	int classify(CoinMapVO vo);
+	int insert(CoinMapVO vo);
+	int deleteCoinmap(CoinMapVO vo);
+	int updateCoinmap(CoinMapVO vo);
+	List<CoinMapVO> getCoinmapList();
 }

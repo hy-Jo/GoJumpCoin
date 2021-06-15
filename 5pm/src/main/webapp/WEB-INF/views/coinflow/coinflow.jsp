@@ -155,9 +155,7 @@ $(document).ready(function(){
     <figure class="highcharts-figure">
     <div id="container"></div>
     <p class="highcharts-description">
-        Bar chart showing horizontal columns. This chart type is often
-        beneficial for smaller screens, as the user can scroll through the data
-        vertically, and axis labels are easy to read.
+        6개월동안 10% 이상 상승한 주기
     </p>
 	</figure>
     </div>
@@ -171,6 +169,6 @@ $(document).ready(function(){
 </body>
 
 <script src=/js/table.js></script>
-<script src=/js/coinflow.js></script>
+<script src=/js/coincycle.js></script>
 
 </html>

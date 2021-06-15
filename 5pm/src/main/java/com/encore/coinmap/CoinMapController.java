@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 //@RestController
 @CrossOrigin("*")
 @Controller
-public class CoinmapController {
+public class CoinMapController {
 	//private CoinMapService coinmapService;
 
 	@Autowired
-	@Qualifier("com.encore.coinmap.CoinmapServiceImpl")
-	private CoinmapService service;
+	@Qualifier("com.encore.coinmap.CoinMapServiceImpl")
+	private CoinMapService service;
 	
-	public CoinmapController() {
-		System.out.println("CoinmapController 호출");
+	public CoinMapController() {
+		System.out.println("CoinMapController 호출");
 	}
 	
 	@RequestMapping(value = {"/coinmap"}, method = RequestMethod.GET)
