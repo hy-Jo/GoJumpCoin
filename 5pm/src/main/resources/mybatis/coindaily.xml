@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -38,4 +39,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.encore.coindata.CoinDailyMapper">
+
+<!-- 조회, id: coinlist , 리턴: CoinVO -->
+<select id="getAllData"
+	resultType="com.encore.coindata.CoinDailyVO">
+	SELECT * FROM coin_daily
+</select>
+
+<insert id="insert"
+	parameterType="com.encore.coindata.CoinDailyVO">
+	INSERT INTO
+	coin_daily(market,candle_date_time_utc,candle_date_time_kst,opening_price,high_price,low_price,trade_price,timestamp_,candle_acc_trade_price,candle_acc_trade_volume,prev_closing_price,
+	change_price,change_rate)
+	VALUES(#{market},#{candle_date_time_utc},#{candle_date_time_kst},#{opening_price},#{high_price},#{low_price},#{trade_price},#{timestamp_},#{candle_acc_trade_price},#{candle_acc_trade_volume},#{prev_closing_price},
+	#{change_price},#{change_rate})
+</insert>
+
+<select id="getCoincycle" parameterType="Map" resultType="int">
+	SELECT COUNT(*)
+	FROM (
+		SELECT *
+		FROM coin_daily
+		WHERE
+		market = #{market}
+		ORDER BY candle_date_time_kst DESC LIMIT #{amount}) a
+	WHERE change_rate >= 0.10
+</select>
+
+<select id="getTodayCoin" parameterType="String"
+	resultType="com.encore.coindata.CoinDailyVO">
+	SELECT *
+	FROM coin_daily
+	WHERE candle_date_time_kst LIKE #{today}
+</select>
+
+
+>>>>>>> 6b40e0fc80692c261b82ba81431cc077b11010fc
 </mapper>

@@ -36,7 +36,32 @@ $(document).ready(function(){
 
 	<div class="container-fluid text-center">
 		<div class="row content">
-			<div class="col-sm-2 sidenav"></div>
+
+			<div class="col-sm-2 sidenav">
+				<table class="table table-bordered table-dark">
+					<thead>
+						<tr>
+							<th scope="col" colspan="4" align="right">금일의 코인</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="col">1</th>
+							<td colspan="3">TBD</td>
+						</tr>
+						<tr>
+							<th scope="col">2</th>
+							<td colspan="3">TBD</td>
+						</tr>
+						<tr>
+							<th scope="col">3</th>
+							<td colspan="3">TBD</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
 			<div class="col-sm-8 text-left">
 				<h1>실시간 시세표</h1>
 

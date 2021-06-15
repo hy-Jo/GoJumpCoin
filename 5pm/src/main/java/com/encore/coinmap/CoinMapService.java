@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.json.JSONArray;
 
-public interface CoinmapService {
+public interface CoinMapService {
 	String getSector();
-	List<CoinmapVO> getCoinmapList();
+	List<CoinMapVO> getCoinmapList();
 	
 	JSONArray jsonCoinmap(String urlstr, String currency);
 	
-	int insert(CoinmapVO vo);
+	int insert(CoinMapVO vo);
 	
 	
 }
