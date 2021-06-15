@@ -20,7 +20,7 @@ $(document).ready(function(){
     <div class="col-sm-2 sidenav">
     </div>
     <div class="col-sm-8 text-left"> 
-      <p>코인맵페이지입니다</p>
+      <p>코인맵페이지입니다!</p>
 
        <script src="/js/coinmap.js"></script>
 

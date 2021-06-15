@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.encore.coinmap.CoinmapMapper">
+
+<!-- 조회, id: coinlist , 리턴: CoinflowVO -->
+<select id="getCoinmapList" resultType="com.encore.coinmap.CoinmapVO">
+SELECT * FROM coinmap
+</select> 
+
+<update id="classify"  parameterType="com.encore.coinmap.CoinmapVO">
+		UPDATE coinmap m, classification c
+		SET m.sector= c.sector
+		WHERE m.symbol= c.symbol
+</update> 
+
+<insert id="insert" parameterType="com.encore.coinmap.CoinmapVO">
+		INSERT INTO coinmap(cmc_rank,symbol, name, id, last_updated, percent_change_24h, currency,market_cap)
+		VALUES(#{cmc_rank},  #{symbol}, #{name},#{id}, #{last_updated}, #{percent_change_24h}, #{percent_change_24h}, #{market_cap})
+</insert>
+
+<delete id="deleteCoinmap" parameterType="com.encore.coinmap.CoinmapVO">
+		TRUNCATE TABLE coinmap
+</delete>
+
+<update id="updateCoinmap" parameterType="com.encore.coinmap.CoinmapVO">
+		update coinmap
+		set 
+		cmc_rank =  #{cmc_rank},
+		symbol = #{symbol},
+		name = #{name},
+		id = #{id},
+		last_updated = #{last_updated},
+		percent_change_24h = #{percent_change_24h},
+		market_cap = #{market_cap},
+		sector = #{sector}
+		where cmc_rank = #{cmc_rank}
+</update>
+
+</mapper>

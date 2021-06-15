@@ -1,14 +1,16 @@
 package com.encore.coinmap;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpSession;
+import org.json.JSONArray;
 
-import org.springframework.stereotype.Service;
-
-public interface CoinMapService {
+public interface CoinmapService {
+	String getSector();
+	List<CoinmapVO> getCoinmapList();
 	
+	JSONArray jsonCoinmap(String urlstr, String currency);
+	
+	int insert(CoinmapVO vo);
 	
 	
 }
