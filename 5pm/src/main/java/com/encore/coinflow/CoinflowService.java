@@ -9,7 +9,6 @@ import org.json.JSONArray;
 
 
 public interface CoinflowService {
-	double increaseRate(URL url, URL pUrl); //상승률
 	List<CoinflowVO> getCoinflowList(); //모든 coinflow 가져옴
 	List<String> coinMarketList();
 	String getKorName(CoinflowVO vo);
@@ -17,6 +16,4 @@ public interface CoinflowService {
 	URL getAPIURL(String name, String interval, int amount, Date day);
 	int create(CoinflowVO vo);
 	int update(CoinflowVO vo);
-	
-	
 }

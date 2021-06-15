@@ -23,6 +23,9 @@ public class Utility {
 		cal.setTime(dt);
 		
 		switch(interval) {
+			case "day":
+				cal.add(Calendar.DATE,-amount);
+				break;
 			case "week":
 				cal.add(Calendar.DATE,-7*amount);
 				break;

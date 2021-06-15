@@ -13,29 +13,45 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 @Service("com.encore.coinmap.CoinMapServiceImpl")
+=======
+import com.encore.coinmap.CoinmapService;
+import com.encore.coinmap.CoinmapVO;
+
+@Service("com.encore.coinmap.CoinmapServiceImpl")
+>>>>>>> 67a3828c0c2ca5aed63f30f7992bff4612098a36
 public class CoinmapServiceImpl implements CoinmapService{
 	
-	@Autowired
-	private CoinmapService service;
+//	@Autowired
+//	private CoinmapService service;
 	
 	@Autowired
 	private CoinmapMapper mapper;
 
 	@Override
-	public List<CoinmapVO> list_coinmap_data() {
+	public String getSector() {
 		// TODO Auto-generated method stub
-		return mapper.list_coinmap_data();
+		return mapper.getSector();
+	}
+	@Override
+	public List<CoinmapVO> getCoinmapList() {
+		// TODO Auto-generated method stub
+		return mapper.getCoinmapList();
 	}
 
 	@Override
-	public void jsonCoinmap(String urlstr, String currency) {
-		StringBuffer result = new StringBuffer();
-		
-
+	public JSONArray jsonCoinmap(String urlstr, String currency) {
+		StringBuffer result = new StringBuffer(); 
+		JSONArray resultJson = null;
 		try {
+<<<<<<< HEAD
 			File file = new File("src/main/resources/static/assets/coinmap_data.json");
 			FileWriter fw = new FileWriter(file);
+=======
+			//File file = new File("src/main/resources/static/assets/coinmap_data.json");
+			//FileWriter fw = new FileWriter(file);
+>>>>>>> 67a3828c0c2ca5aed63f30f7992bff4612098a36
 			URL url = new URL(urlstr);
 			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 			urlconnection.setRequestMethod("GET");
@@ -51,28 +67,28 @@ public class CoinmapServiceImpl implements CoinmapService{
 			urlconnection.disconnect();
 			JSONObject json = new JSONObject(result.toString());
 			JSONArray data = (JSONArray) json.get("data");
+			resultJson = insertdata(json, data, currency);
+			//fw.write(resultJson.toString());
 			
-			
-			fw.write(insertdata(json, data, currency).toString());
-			
-			System.out.println(file.getAbsolutePath());
-			System.out.println("file created");
-			fw.flush();
-            fw.close();
+			//System.out.println(file.getAbsolutePath());
+			//System.out.println("file created");
+			//fw.flush();
+           // fw.close();
 			
 			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		return resultJson;
 	}
 	
 	public JSONArray insertdata(JSONObject json, JSONArray data, String currency) {
-		JSONArray rdata = new JSONArray(); //json by calling API
-		CoinmapVO vo = new CoinmapVO();
 		
-		JSONObject obj = new JSONObject();//new json array including jsono bjects: in [{},{}.....] format 
+		CoinmapVO vo = new CoinmapVO();
+		mapper.deleteCoinmap(vo);
+		
 		for (int i = 0; i < data.length(); i ++) {
-			obj.keySet().clear();
+			
 			JSONObject coinInfo = data.getJSONObject(i);
 			JSONObject currInfo = coinInfo.getJSONObject("quote").getJSONObject(currency);
 			
@@ -86,21 +102,19 @@ public class CoinmapServiceImpl implements CoinmapService{
 			double percent_change_24h=  Math.round((currInfo.getDouble("percent_change_24h")) * 100.0) / 100.0;
 			
 			///////// set VO
+			
 			vo.setCmc_rank(cmc_rank);
 			vo.setName(name);
 			vo.setSymbol(symbol);
 			vo.setId(id);
 			vo.setLast_updated(last_updated);
-			vo.setMarket_cap(market_cap);
 			vo.setPercent_change_24h(percent_change_24h);
+			vo.setCurrency(currency);
+			vo.setMarket_cap(market_cap);
+			mapper.insert(vo);
 			
-			////////insert the data(a row) into json object
-			obj.put("cmc_rank", cmc_rank);
-			obj.put("name", name);
-			obj.put("symbol", symbol);
-			obj.put("percent_change_24h", percent_change_24h);
-			obj.put("last_updated", last_updated);
-			obj.put("market_cap", market_cap);
+			mapper.classify(vo);
+			
 			
 			//////print each object in the json Array
 			
@@ -111,11 +125,22 @@ public class CoinmapServiceImpl implements CoinmapService{
 //			System.out.println("last_updated: "+last_updated);
 //			System.out.println("market_cap: "+market_cap);
 //			System.out.println("percent_change_24h: "+percent_change_24h);
+<<<<<<< HEAD
 			rdata.put(obj);
 			mapper.insert(vo);
+=======
+			
+			
+			
+>>>>>>> 67a3828c0c2ca5aed63f30f7992bff4612098a36
 			vo = new CoinmapVO();
 		}
+<<<<<<< HEAD
 		return rdata;
+=======
+		return data;
+		
+>>>>>>> 67a3828c0c2ca5aed63f30f7992bff4612098a36
 	}
 
 	@Override
@@ -123,6 +148,8 @@ public class CoinmapServiceImpl implements CoinmapService{
 		// TODO Auto-generated method stub
 		return mapper.insert(vo);
 	}
+
+
 	
 
 
