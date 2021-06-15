@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class CoinMapVO {
+public class CoinmapVO {
 	private String currency;
 	private int cmc_rank;
 	private String symbol;

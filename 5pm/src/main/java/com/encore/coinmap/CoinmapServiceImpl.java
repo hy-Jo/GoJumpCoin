@@ -14,17 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.encore.coinmap.CoinMapService;
-import com.encore.coinmap.CoinMapVO;
+import com.encore.coinmap.CoinmapService;
+import com.encore.coinmap.CoinmapVO;
 
 @Service("com.encore.coinmap.CoinMapServiceImpl")
-public class CoinMapServiceImpl implements CoinMapService{
+public class CoinmapServiceImpl implements CoinmapService{
 	
 //	@Autowired
 //	private CoinmapService service;
 	
 	@Autowired
-	private CoinMapMapper mapper;
+	private CoinmapMapper mapper;
 
 	@Override
 	public String getSector() {
@@ -32,7 +32,7 @@ public class CoinMapServiceImpl implements CoinMapService{
 		return mapper.getSector();
 	}
 	@Override
-	public List<CoinMapVO> getCoinmapList() {
+	public List<CoinmapVO> getCoinmapList() {
 		// TODO Auto-generated method stub
 		return mapper.getCoinmapList();
 	}
@@ -76,7 +76,7 @@ public class CoinMapServiceImpl implements CoinMapService{
 	
 	public JSONArray insertdata(JSONObject json, JSONArray data, String currency) {
 		
-		CoinMapVO vo = new CoinMapVO();
+		CoinmapVO vo = new CoinmapVO();
 		mapper.deleteCoinmap(vo);
 		
 		for (int i = 0; i < data.length(); i ++) {
@@ -120,7 +120,7 @@ public class CoinMapServiceImpl implements CoinMapService{
 			
 			
 			
-			vo = new CoinMapVO();
+			vo = new CoinmapVO();
 			
 		}
 		return data;
@@ -128,7 +128,7 @@ public class CoinMapServiceImpl implements CoinMapService{
 	}
 
 	@Override
-	public int insert(CoinMapVO vo) {
+	public int insert(CoinmapVO vo) {
 		// TODO Auto-generated method stub
 		return mapper.insert(vo);
 	}
