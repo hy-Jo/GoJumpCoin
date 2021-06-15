@@ -39,7 +39,7 @@ public class CoinmapRESTController {
 	// [스케쥴러로 매일 한번씩 DB초기화 할 컨트롤러]
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@RequestMapping(value = {"/coinmap/update"}, method = RequestMethod.GET)
-	@Scheduled(cron = "0 5 2 * * * ") // 초 분 시간 일 월 요일
+	@Scheduled(cron = "0 0 9 * * * ") // 초 분 시간 일 월 요일
 	public ResponseEntity<?> updateCoinmap() { 
 //		Date now = new Date();
 //		URL url = null;
