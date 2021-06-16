@@ -2,7 +2,7 @@
 //let coinData = null;
 
 /*$.ajax({
-        url: "/coinflow/get",
+        url: "/coinflow/get-coinflow",
         type: "get",
         dataType: "json",
         contentType: "application/json",
@@ -14,7 +14,6 @@
             alert("업로드 에러\ncode : " + jqXHR.status + "\nerror message : " + jqXHR.responseText);
         }
 });*/
-
 
 
 $(document).ready(function() {
@@ -109,7 +108,7 @@ $(document).ready(function() {
 		"serverSide" : false,
 		"processing" : true,
 		"ajax":{
-			"url": "/coinflow/get",
+			"url": "/coinflow/get-coinflow",
 			"type":"GET",
 			//"dataType" : "JSON",
 			"dataSrc" : ''
@@ -245,7 +244,7 @@ $(document).ready(function() {
         "serverSide" : false,
 		"processing" : true,
 		"ajax":{
-			"url": "/coinflow/get",
+			"url": "/coinflow/get-coinflow",
 			"type":"GET",
 			//"dataType" : "JSON",
 			"dataSrc" : ''

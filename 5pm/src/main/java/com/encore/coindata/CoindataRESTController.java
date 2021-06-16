@@ -1,9 +1,13 @@
+
 package com.encore.coindata;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,13 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.encore.coinflow.CoinflowService;
-import com.encore.coinflow.CoinflowVO;
 
 @RestController
 public class CoindataRESTController {
@@ -34,177 +37,85 @@ public class CoindataRESTController {
 		System.out.println("CoindataRESTController 호출");
 	}
 
-	// [스케쥴러로 매일 한번씩 DB초기화 할 컨트롤러]
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@RequestMapping(value = { "/api/update" }, method = RequestMethod.GET)
-	public ResponseEntity<?> updateCoinData() {
+	/**
+	 * [전날종가 API - 오늘의코인]
+	 * @return json market, trade_price
+	 */
+	@RequestMapping(value = { "/api/get-trade" }, method = RequestMethod.GET)
+	public ResponseEntity<?> getTradePrice() {
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
-		URL url = null;
-		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
-		JSONObject json = null;
-		CoinflowVO vo = new CoinflowVO();
-
-		for (String market : service.coinMarketList()) {
-			try {
-				url = service.getAPIURL(market, "now", 1, now);
-				if (resultJson != null) {
-					json = (JSONObject) service.callAPI(url).get(0); // 현재기준 api는 미리 호출해놓고 test용 출력
-					resultJson.put(json);
-					System.out.println("길이" + resultJson.length());
-					System.out.println(json.get("market") + ":" + json.get("trade_price"));
-					vo.setMarket(json.get("market").toString());
-					vo.setToday(Double.parseDouble(json.get("trade_price").toString()));
-				} else {
-					resultJson = service.callAPI(url);
-					json = resultJson.getJSONObject(0);
-					System.out.println(json.get("market") + ":" + json.get("trade_price"));
-					vo.setMarket(json.get("market").toString());
-					vo.setToday(Double.parseDouble(json.get("trade_price").toString()));
-
-				}
-
-				// System.out.println(nowJson);
-				// System.out.println(service.callAPI(service.getAPIURL(market, "week", 1,
-				// now)));
-				// System.out.println(service.callAPI(service.getAPIURL(market, "month", 1,
-				// now)));
-				// System.out.println(service.callAPI(service.getAPIURL(market, "month", 3,
-				// now)));
-				// System.out.println(service.callAPI(service.getAPIURL(market, "month", 6,
-				// now)));
-				// System.out.println(service.callAPI(service.getAPIURL(market, "year", 1,
-				// now)));
-				vo.setWeek1(
-						Double.parseDouble((service.callAPI(service.getAPIURL(market, "week", 1, now)).getJSONObject(0))
-								.get("trade_price").toString()));
-				vo.setMonth1(Double
-						.parseDouble((service.callAPI(service.getAPIURL(market, "month", 1, now)).getJSONObject(0))
-								.get("trade_price").toString()));
-				Thread.sleep(1200);
-				vo.setMonth3(Double
-						.parseDouble((service.callAPI(service.getAPIURL(market, "month", 3, now)).getJSONObject(0))
-								.get("trade_price").toString()));
-				vo.setMonth6(Double
-						.parseDouble((service.callAPI(service.getAPIURL(market, "month", 6, now)).getJSONObject(0))
-								.get("trade_price").toString()));
-				vo.setYear1(
-						Double.parseDouble((service.callAPI(service.getAPIURL(market, "year", 1, now)).getJSONObject(0))
-								.get("trade_price").toString()));
-				service.create(vo); // 아직 업데이트 부분 구현안함. 이미 있는 데이터일경우 업데이터 해주는 부분 필요
-				vo = new CoinflowVO();
-
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				System.out.print("CoinflowRESTController 코인API 호출 error : " + e);
-			} catch (JSONException e) {
-				service.create(vo);
-				System.out.println("null값이 들어갑니다");
-			}
-
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(now);
+		cal.add(Calendar.DATE,-1);
+		String today = date.format(cal.getTime()) + "T09:00:00";
+		
+		JSONArray resultJson = new JSONArray(); // 모든결과를 출력할 JSONArray
+		System.out.println(dservice.getTodayCoin(today));
+		
+		for (CoinDailyVO vo : dservice.getTodayCoin(today)) { 
+			Map<Object, Object> map = new HashMap<Object,Object>();
+			map.put("market", vo.getMarket());
+			map.put("trade_price",vo.getTrade_price());
+			
+			resultJson.put(new JSONObject(map));	
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
 	}
-
-	// [DB에서 정보를 요청하는 컨트롤러]
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@RequestMapping(value = { "/api/get" }, method = RequestMethod.GET)
-	public List<CoinflowVO> getAllCoinData() {
-		JSONArray resultJson = null;
-		List<CoinflowVO> list = new ArrayList<CoinflowVO>();
-		// 받아온 가격 데이터로 이름 한글로 바꾸고 상승률 계산해서 return
-		for (CoinflowVO pvo : service.getCoinflowList()) {
-			CoinflowVO vo = new CoinflowVO();
-			vo.setMarket(service.getKorName(pvo));
-			vo.setIdx(pvo.getIdx());
-			double today = pvo.getToday();
-			double week1 = pvo.getWeek1();
-			double month1 = pvo.getMonth1();
-			double month3 = pvo.getMonth3();
-			double month6 = pvo.getMonth6();
-			double year1 = pvo.getYear1();
-
-			vo.setToday(today);
-			if (week1 != 0) {
-				vo.setWeek1(Math.round((today - week1) / week1 * 100 * 10) / 10.0);
-			} else {
-				vo.setWeek1(0);
+	
+	/**
+	 * [코인주기 API]
+	 * @param amount
+	 * @return
+	 */
+	@RequestMapping(value = { "/api/get-cycle/{amount}" }, method = RequestMethod.GET)
+	public ResponseEntity<?> getCoinCycle(@PathVariable("amount") int amount) {
+		JSONArray resultJson = new JSONArray(); // 모든결과를 출력할 JSONArray
+		Map map = new HashMap();
+		
+		for (String market : service.coinMarketList()) { 
+			map.put("market", market);
+			map.put("amount", amount);
+			Map resultMap = new HashMap();
+			resultMap.put("market", market);
+			double cyclecount = (double)dservice.getCoincycle(map);
+			
+			if(cyclecount!=0) {
+				resultMap.put("inc_cycle", Math.round(amount/cyclecount*10)/10.0);				
+			}else {
+				resultMap.put("inc_cycle", "-");
 			}
-			if (month1 != 0) {
-				vo.setMonth1(Math.round((today - month1) / month1 * 100 * 10) / 10.0);
-			} else {
-				vo.setMonth1(0);
-			}
-			if (month3 != 0) {
-				vo.setMonth3(Math.round((today - month3) / month3 * 100 * 10) / 10.0);
-			} else {
-				vo.setMonth3(0);
-			}
-			if (month6 != 0) {
-				vo.setMonth6(Math.round((today - month6) / month6 * 100 * 10) / 10.0);
-			} else {
-				vo.setMonth6(0);
-			}
-			if (year1 != 0) {
-				vo.setYear1(Math.round((today - year1) / year1 * 100 * 10) / 10.0);
-			} else {
-				vo.setYear1(0);
-			}
-
-			list.add(vo);
-		}
-
-		return list;
-	}
-
-	// [스케쥴러로 매일 한번씩 DB초기화 할 컨트롤러2]
-	// [지금 초기화할 데이터들 - amount 일 수로 가져옴]
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@RequestMapping(value = { "/api/get_all_daily/{amount}" }, method = RequestMethod.GET)
-	public ResponseEntity<?> getCoinDailyData(@PathVariable("amount") int amount) throws InterruptedException {
-		Date now = new Date();
-		URL url = null;
-		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
-		JSONObject json = null;
-		CoinDailyVO vo = new CoinDailyVO();
-
-		for (String market : service.coinMarketList()) {
-			for (int i = 1; i <= amount; i++) { // 6개월 = 180일
-				url = service.getAPIURL(market, "day", i, now);
-
-				json = (JSONObject) service.callAPI(url).get(0); // 현재기준 api는 미리 호출해놓고 test용 출력
-				System.out.println(json);
-				if (i % 5 == 0) {
-					Thread.sleep(1000);
-				}
-			}
-			Thread.sleep(1000);
+			
+			resultJson.put(new JSONObject(resultMap));			
+			
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
 	}
+	
 
-	// [스케쥴러로 매일 한번씩 DB초기화 할 컨트롤러2]
-	// [지금 초기화할 데이터들 - amount 일 수로 가져옴]
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@RequestMapping(value = { "/api/update_all_daily/{amount}" }, method = RequestMethod.GET)
-	public ResponseEntity<?> updateCoinDailyData(@PathVariable("amount") int amount) throws InterruptedException {
+	/**
+	 * [DB업데이트] - 외부 api에서 db에 입력
+	 * @param amount : 지금으로부터 업데이트 할 일 수 (ex. 1년 = 365)
+	 * @return db업데이트 한 결과
+	 * @throws InterruptedException
+	 */
+	@RequestMapping(value = { "/api/insert-daily/{amount}" }, method = RequestMethod.GET)
+	public ResponseEntity<?> insertCoinDailyData(@PathVariable("amount") int amount) throws InterruptedException {
 		Date now = new Date();
 		URL url = null;
 		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
 		JSONObject json = null; // 현재 호출 결과
 		CoinDailyVO vo = new CoinDailyVO();
 
-		for (String market : service.coinMarketList()) {
-			for (int i = 1; i <= amount; i++) { // 6개월 = 180일
+		for (int i = amount; i >= 1; i--){ // amount 일 수 만큼, 과거데이터부터
+			int j = 0;
+			for (String market : service.coinMarketList()) { 
 				url = service.getAPIURL(market, "day", i, now);
-				//
-
+				j++;
 				try {
-
 					if (resultJson != null) {
-						json = (JSONObject) service.callAPI(url).get(0); // 현재기준 api는 미리 호출해놓고 test용 출력
+						json = (JSONObject) service.callAPI(url).get(0);
 						resultJson.put(json);
-
 					} else {
 						resultJson = service.callAPI(url);
 						json = resultJson.getJSONObject(0);
@@ -227,26 +138,97 @@ public class CoindataRESTController {
 					vo.setChange_price(Double.parseDouble(json.get("change_price").toString()));
 					// vo.setConverted_trade_price(Double.parseDouble(json.get("converted_trade_price").toString()));
 
-					dservice.insert(vo); // 아직 업데이트 부분 구현안함. 이미 있는 데이터일경우 업데이터 해주는 부분 필요
+					dservice.insert(vo);
 					vo = new CoinDailyVO();
 
-					//Thread.sleep(1000);
-
-//
-					if (i % 9 == 0) {
+					if (j % 9 == 0) {
 						Thread.sleep(1100);
 					}
 
-				} catch (Exception e) {
+				} catch (NumberFormatException e) {
 					System.out.println("CoindataRESTController 에러발생" + e);
 					dservice.insert(vo);
 					vo = new CoinDailyVO();
-					Thread.sleep(1100);
-				} 
+					if (j % 9 == 0) {
+						Thread.sleep(1100);
+					}
+				} catch(JSONException e) {
+					System.out.println("null값이 들어갑니다");
+					if (j % 9 == 0) {
+						Thread.sleep(1100);
+					}
+				}
 			}
 			Thread.sleep(1100);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
 	}
+	
+
+	@RequestMapping(value = { "/api/insert-daily-db" }, method = RequestMethod.GET)
+	@Scheduled(cron = "0 0 9 * * * ") // 초 분 시간 일 월 요일
+	public void insertCoinDaily() throws InterruptedException {
+		System.out.println("정각실행테스트");
+		Date now = new Date();
+		URL url = null;
+		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
+		JSONObject json = null; 
+		CoinDailyVO vo = new CoinDailyVO();
+
+		int j = 0;
+		for (String market : service.coinMarketList()) {
+			url = service.getAPIURL(market, "day", 1, now); //하루치 코인 업데이트
+			j++;
+			try {
+				if (resultJson != null) {
+					json = (JSONObject) service.callAPI(url).get(0);
+					resultJson.put(json);
+				} else {
+					resultJson = service.callAPI(url);
+					json = resultJson.getJSONObject(0);
+				}
+
+				System.out.println("길이" + resultJson.length());
+				System.out.println(json.get("market") + ":" + json.get("candle_date_time_utc"));
+				vo.setMarket(json.get("market").toString());
+				vo.setCandle_acc_trade_price(Double.parseDouble(json.get("candle_acc_trade_price").toString()));
+				vo.setCandle_acc_trade_volume(Double.parseDouble(json.get("candle_acc_trade_volume").toString()));
+				vo.setCandle_date_time_kst(json.get("candle_date_time_kst").toString());
+				vo.setCandle_date_time_utc(json.get("candle_date_time_utc").toString());
+				vo.setHigh_price(Double.parseDouble(json.get("high_price").toString()));
+				vo.setLow_price(Double.parseDouble(json.get("low_price").toString()));
+				vo.setOpening_price(Double.parseDouble(json.get("opening_price").toString()));
+				vo.setPrev_closing_price(Double.parseDouble(json.get("prev_closing_price").toString()));
+				vo.setTimestamp_(Long.parseLong(json.get("timestamp").toString()));
+				vo.setTrade_price(Double.parseDouble(json.get("trade_price").toString()));
+				vo.setChange_rate(Double.parseDouble(json.get("change_rate").toString()));
+				vo.setChange_price(Double.parseDouble(json.get("change_price").toString()));
+				// vo.setConverted_trade_price(Double.parseDouble(json.get("converted_trade_price").toString()));
+
+				dservice.insert(vo);
+				vo = new CoinDailyVO();
+
+				if (j % 9 == 0) {
+					Thread.sleep(1100);
+				}
+
+			} catch (NumberFormatException e) {
+				System.out.println("CoindataRESTController 에러발생" + e);
+				dservice.insert(vo);
+				vo = new CoinDailyVO();
+				if (j % 9 == 0) {
+					Thread.sleep(1100);
+				}
+			} catch (JSONException e) {
+				System.out.println("null값이 들어갑니다");
+				if (j % 9 == 0) {
+					Thread.sleep(1100);
+				}
+
+			}
+			Thread.sleep(1100);
+		}
+	}
 
 }
+

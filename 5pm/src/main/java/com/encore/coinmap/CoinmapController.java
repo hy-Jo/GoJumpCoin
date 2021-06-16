@@ -18,7 +18,7 @@ public class CoinmapController {
 	private CoinmapService service;
 	
 	public CoinmapController() {
-		System.out.println("CoinmapController 호출");
+		System.out.println("CoinMapController 호출");
 	}
 	
 	@RequestMapping(value = {"/coinmap"}, method = RequestMethod.GET)
