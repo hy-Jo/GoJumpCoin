@@ -1,4 +1,4 @@
-let clist = [
+let clist_group = [
   [
     "Location",
     "Parent",
@@ -22,32 +22,33 @@ let clist = [
   ["Exchange", "Coin", 0, 0],
   ["Unknown", "Coin", 0, 0],
 ];
-clist.push();
+clist_group.push();
+let ltime_group = "";
 
 //RestController
 $(function () {
   $.ajax({
     url: "/coinmap/get",
     dataType: "json",
-    success: function (result) {
-      console.log(result);
-      ltime = result[0].last_updated;
-      //console.log(result.status.total_count + ":" + result.status.timestamp);
-      $.each(result, function (i, val) {
-        let list = [];
+    success: function (result_group) {
+      console.log(result_group);
+      ltime_group = result_group[0].last_updated;
+      //console.log(result_group.status.total_count + ":" + result_group.status.timestamp);
+      $.each(result_group, function (i, val) {
+        let list_group = [];
         // console.log(typeof i);
         // console.log(
         //   val.symbol + "Coin" + val.market_cap + val.percent_change_24h
         // );
-        list.push(val.symbol);
+        list_group.push(val.symbol);
         const sector = val.sector === null ? "Unknown" : val.sector;
-        list.push(sector);
+        list_group.push(sector);
         console.log(sector);
-        list.push(val.market_cap);
-        list.push(val.percent_change_24h);
-        clist.push(list);
+        list_group.push(val.market_cap);
+        list_group.push(val.percent_change_24h);
+        clist_group.push(list_group);
       });
-      console.log(clist);
+      console.log(clist_group);
     },
     error: function (jqXHR, textStatus, errorThrown) {
       alert("Error: " + textStatus + " errorThrown: " + errorThrown);
@@ -73,7 +74,7 @@ $(function () {
         //list.push("Coin");
         list.push(val.quote.KRW.market_cap);
         list.push(val.quote.KRW.percent_change_24h);
-        clist.push(list);
+        clist_group.push(list);
       });
     },
     error: function (jqXHR, textStatus, errorThrown) {
@@ -85,12 +86,12 @@ $(function () {
 
 google.charts.load("current", { packages: ["treemap"] });
 
-function drawChart() {
-  const data = google.visualization.arrayToDataTable(clist);
+function drawChart_group() {
+  const data = google.visualization.arrayToDataTable(clist_group);
 
   const options = {
-    width: "100%",
-    height: "400",
+    width: "100vmax",
+    height: "600",
     minColor: "#0652DD",
     minColorValue: "-20",
     midColor: "#FFF",
@@ -104,14 +105,16 @@ function drawChart() {
   };
 
   const tree = new google.visualization.TreeMap(
-    document.getElementById("chart_div")
+    document.getElementById("chart_div_group")
   );
   tree.draw(data, options);
+
+  document.getElementById("chart_s").innerText = ltime_group;
 
   function showStaticTooltip(row, size, value) {
     return "<div>" + data.getValue(row, 3) + "</div>";
   }
 
-  window.addEventListener("resize", drawChart, false);
+  window.addEventListener("resize", drawChart_group, false);
 }
-google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawChart_group);

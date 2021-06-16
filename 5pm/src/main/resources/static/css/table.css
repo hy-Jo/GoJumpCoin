@@ -1,29 +1,28 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 body {
-  font-family: 'Roboto', sans-serif;
-  overflow:hidden;
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
 }
 h2.title {
-  width:12em;
+  width: 12em;
   text-align: center;
-  margin:0 auto;
-  font-size:2em;
-  text-transform:uppercase;
+  margin: 0 auto;
+  font-size: 2em;
+  text-transform: uppercase;
 }
 .subtitle {
-  width:30rem;
-  margin:0 auto;
-  padding:1rem;
-
+  width: 30rem;
+  margin: 0 auto;
+  padding: 1rem;
 }
 .button-group {
-  width:300px;
+  width: 300px;
   margin: 0 auto;
 }
 .button {
-  text-transform:uppercase;
-  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
 }
 .button[data-mode="true"] {
   color: #fff;
@@ -33,24 +32,24 @@ h2.title {
 }
 
 .floatingMenu {
-  background-color: #3F3F3F;
-  z-index:100000;
-  display:none;
-  width:5rem;
+  background-color: #3f3f3f;
+  z-index: 100000;
+  display: none;
+  width: 5rem;
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   a {
     color: white;
   }
-  a[data-mode="false"], a[data-mode="false"]:hover {
+  a[data-mode="false"],
+  a[data-mode="false"]:hover {
     color: red;
   }
-  a:hover{
+  a:hover {
     color: grey;
   }
-
 }
 table.dataTable span.highlight {
-  background-color: #FFFF88;
+  background-color: #ffff88;
 }

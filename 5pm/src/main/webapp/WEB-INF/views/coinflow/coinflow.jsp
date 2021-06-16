@@ -9,7 +9,6 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
     <style type="text/css">
       @import url(https://fonts.googleapis.com/css?family=Roboto);
 
@@ -133,6 +132,8 @@
         $('li:nth-child(3)').css('background', 'black');
       });
     </script>
+    <script defer src=/js/table.js></script>
+    <script defer src=/js/coinflow.js></script>
   </head>
 
   <body>
@@ -188,8 +189,5 @@
       </div>
     </div>
   </body>
-
-  <script src=/js/table.js></script>
-  <script src=/js/coinflow.js></script>
 
   </html>

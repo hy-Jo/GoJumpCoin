@@ -1,4 +1,4 @@
-let clist = [
+let clist_all = [
   [
     "Coin symbol",
     "Group",
@@ -7,29 +7,29 @@ let clist = [
   ],
   ["Coin", null, 0, 0],
 ];
-let ltime = "";
-clist.push();
+let ltime_all = "";
+clist_all.push();
 
 //RestController
 $(function () {
   $.ajax({
     url: "/coinmap/get",
     dataType: "json",
-    success: function (result) {
-      ltime = result[0].last_updated;
-      //console.log(ltime);
-      //console.log(result.status.total_count + ":" + result.status.timestamp);
-      $.each(result, function (i, val) {
-        let list = [];
+    success: function (result_all) {
+      ltime_all = result_all[0].last_updated;
+      //console.log(ltime_all);
+      //console.log(result_all.status.total_count + ":" + result_all.status.timestamp);
+      $.each(result_all, function (i, val) {
+        let list_all = [];
         // console.log(typeof i);
         // console.log(
         //   val.symbol + "Coin" + val.market_cap + val.percent_change_24h
         // );
-        list.push(val.symbol);
-        list.push("Coin");
-        list.push(val.market_cap);
-        list.push(val.percent_change_24h);
-        clist.push(list);
+        list_all.push(val.symbol);
+        list_all.push("Coin");
+        list_all.push(val.market_cap);
+        list_all.push(val.percent_change_24h);
+        clist_all.push(list_all);
       });
     },
     error: function (jqXHR, textStatus, errorThrown) {
@@ -45,9 +45,9 @@ $(function () {
     url: "../assets/coinmap_REALdata.json",
     dataType: "json",
     success: function (result) {
-      ltime = result.status.timestamp;
+      ltime_all = result.status.timestamp;
       //console.log(result.status.total_count + ":" + result.status.timestamp);
-      $.each(result.data, function (i, val) {
+      $.each(result.data_all, function (i, val) {
         let list = [];
         // console.log(typeof i);
         // console.log(
@@ -57,7 +57,7 @@ $(function () {
         list.push("Coin");
         list.push(val.quote.KRW.market_cap);
         list.push(val.quote.KRW.percent_change_24h);
-        clist.push(list);
+        clist_all.push(list);
       });
     },
     error: function (jqXHR, textStatus, errorThrown) {
@@ -69,12 +69,12 @@ $(function () {
 
 google.charts.load("current", { packages: ["treemap"] });
 
-function drawChart() {
-  const data = google.visualization.arrayToDataTable(clist);
+function drawChart_all() {
+  const data_all = google.visualization.arrayToDataTable(clist_all);
 
-  const options = {
-    width: "100%",
-    height: "400",
+  const options_all = {
+    width: "100vmax",
+    height: "600",
     minColor: "#0652DD",
     minColorValue: "-20",
     midColor: "#FFF",
@@ -88,16 +88,16 @@ function drawChart() {
   };
 
   const tree = new google.visualization.TreeMap(
-    document.getElementById("chart_div")
+    document.getElementById("chart_div_all")
   );
-  tree.draw(data, options);
+  tree.draw(data_all, options_all);
 
-  document.getElementById("chart_s").innerText = ltime;
+  document.getElementById("chart_s").innerText = ltime_all;
 
   function showStaticTooltip(row, size, value) {
-    return "<div>" + data.getValue(row, 3) + "</div>";
+    return "<div>" + data_all.getValue(row, 3) + "</div>";
   }
-
-  window.addEventListener("resize", drawChart, false);
+  // 차트 크기 유동적 변화
+  window.addEventListener("resize", drawChart_all, false);
 }
-google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawChart_all);
