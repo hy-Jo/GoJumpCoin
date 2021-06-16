@@ -1,64 +1,103 @@
+let clist_all = [
+  [
+    "Coin symbol",
+    "Group",
+    "Market trade volume (size)",
+    "Market increase/decrease (color)",
+  ],
+  ["Coin", null, 0, 0],
+];
+let ltime_all = "";
+clist_all.push();
+
+//RestController
+$(function () {
+  $.ajax({
+    url: "/coinmap/get",
+    dataType: "json",
+    success: function (result_all) {
+      ltime_all = result_all[0].last_updated;
+      //console.log(ltime_all);
+      //console.log(result_all.status.total_count + ":" + result_all.status.timestamp);
+      $.each(result_all, function (i, val) {
+        let list_all = [];
+        // console.log(typeof i);
+        // console.log(
+        //   val.symbol + "Coin" + val.market_cap + val.percent_change_24h
+        // );
+        list_all.push(val.symbol);
+        list_all.push("Coin");
+        list_all.push(val.market_cap);
+        list_all.push(val.percent_change_24h);
+        clist_all.push(list_all);
+      });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alert("Error: " + textStatus + " errorThrown: " + errorThrown);
+    },
+  });
+});
+
+//json file로부터 받아오기
 /*
-	var request = new XMLHttpRequest();
-	//const fs = require('fs');
-	var url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=4adf43b1-a8f9-4cf4-89a1-c161c38ec59b&convert=KRW';
-	var test = 'https://sandbox-api.coinmarketcap.com/v2/cryptocurrency?CMC_PRO_API_KEY=b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c';
-	
-	request.open("GET", test, false);
-	
-	  request.send();
-	
-	  var obj = JSON.parse(request.responseText);
-	
-	  console.log(obj);*/
+$(function () {
+  $.ajax({
+    url: "../assets/coinmap_REALdata.json",
+    dataType: "json",
+    success: function (result) {
+      ltime_all = result.status.timestamp;
+      //console.log(result.status.total_count + ":" + result.status.timestamp);
+      $.each(result.data_all, function (i, val) {
+        let list = [];
+        // console.log(typeof i);
+        // console.log(
+        //   val.symbol + "Coin" + val.market_cap + val.percent_change_24h
+        // );
+        list.push(val.symbol);
+        list.push("Coin");
+        list.push(val.quote.KRW.market_cap);
+        list.push(val.quote.KRW.percent_change_24h);
+        clist_all.push(list);
+      });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alert("Error: " + textStatus + " errorThrown: " + errorThrown);
+    },
+  });
+});
+*/
 
-google.charts.load('current', { 'packages': ['treemap'] });
-google.charts.setOnLoadCallback(drawChart);
+google.charts.load("current", { packages: ["treemap"] });
 
-function drawChart() {
-	var data = google.visualization.arrayToDataTable([
-		['Location', 'Parent', 'Market trade volume (size)', 'Market increase/decrease (color)'],
-		['Global', null, 0, 0],
-		['America', 'Global', 0, 0],
-		['Europe', 'Global', 0, 0],
-		['Asia', 'Global', 0, 0],
-		['Australia', 'Global', 0, 0],
-		['Africa', 'Global', 0, 0],
-		['Brazil', 'America', 11, 10],
-		['USA', 'America', 52, 31],
-		['Mexico', 'America', 24, 12],
-		['Canada', 'America', 16, -23],
-		['France', 'Europe', 42, -11],
-		['Germany', 'Europe', 31, -2],
-		['Sweden', 'Europe', 22, -13],
-		['Italy', 'Europe', 17, 4],
-		['UK', 'Europe', 21, -5],
-		['China', 'Asia', 36, 4],
-		['Japan', 'Asia', 20, -12],
-		['India', 'Asia', 40, 63],
-		['Laos', 'Asia', 4, 34],
-		['Mongolia', 'Asia', 1, -5],
-		['Israel', 'Asia', 12, 24],
-		['Iran', 'Asia', 18, 13],
-		['Pakistan', 'Asia', 11, -52],
-		['Egypt', 'Africa', 21, 0],
-		['S. Africa', 'Africa', 30, 43],
-		['Sudan', 'Africa', 12, 2],
-		['Congo', 'Africa', 10, 12],
-		['Zaire', 'Africa', 8, 10]
-	]);
-	var options = {
-		width:'100%',
-		height: '400',
-		minColor: '#f00',
-		midColor: '#ddd',
-		maxColor: '#0d0',
-		headerHeight: 15,
-		fontColor: 'black',
-		showScale: true
-	};
-	tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
-	tree.draw(data, options);
-	window.addEventListener('resize', drawChart, false);
+function drawChart_all() {
+  const data_all = google.visualization.arrayToDataTable(clist_all);
+
+  const options_all = {
+    width: "100vmax",
+    height: "600",
+    minColor: "#0652DD",
+    minColorValue: "-20",
+    midColor: "#FFF",
+    maxColor: "#EA2027",
+    maxColorValue: "20",
+    headerHeight: 15,
+    fontColor: "black",
+    showScale: true,
+    useWeightedAverageForAggregation: true,
+    generateTooltip: showStaticTooltip,
+  };
+
+  const tree = new google.visualization.TreeMap(
+    document.getElementById("chart_div_all")
+  );
+  tree.draw(data_all, options_all);
+
+  document.getElementById("chart_s").innerText = ltime_all;
+
+  function showStaticTooltip(row, size, value) {
+    return "<div>" + data_all.getValue(row, 3) + "</div>";
+  }
+  // 차트 크기 유동적 변화
+  window.addEventListener("resize", drawChart_all, false);
 }
-
+google.charts.setOnLoadCallback(drawChart_all);

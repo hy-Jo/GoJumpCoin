@@ -1,7 +1,5 @@
 package com.encore.coinmap;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data

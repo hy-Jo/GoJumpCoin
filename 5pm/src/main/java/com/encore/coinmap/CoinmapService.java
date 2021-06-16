@@ -11,6 +11,4 @@ public interface CoinmapService {
 	JSONArray jsonCoinmap(String urlstr, String currency);
 	
 	int insert(CoinmapVO vo);
-	
-	
 }
