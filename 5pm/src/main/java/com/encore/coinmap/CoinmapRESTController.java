@@ -53,18 +53,11 @@ public class CoinmapRESTController {
 	// [DB에서 정보를 요청하는 컨트롤러]
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@RequestMapping(value = {"/coinmap/get"}, method = RequestMethod.GET)
-<<<<<<< HEAD
-	public List<CoinmapVO> getCoinmapData() {
-		List<CoinmapVO> list = service.getCoinmapList();
-		
-		//if you doesn't need a json data file, please delete this code below
-=======
 	public List<CoinmapVO> getCoinmapData() {		
 		List<CoinmapVO> list = service.getCoinmapList();
 //////////////////////////////////////////////////////
 		
 		//if you don't need a json data file, please delete this code below
->>>>>>> main
 		
 //		JSONArray rdata = new JSONArray(); //new Empty JSON Array[]
 //		JSONObject obj = new JSONObject();//new json array including jsonobjects{}{}: in [{},{}.....] format 
