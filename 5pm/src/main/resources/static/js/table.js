@@ -16,7 +16,6 @@
 });*/
 
 
-
 $(document).ready(function() {
 
   
@@ -109,7 +108,7 @@ $(document).ready(function() {
 		"serverSide" : false,
 		"processing" : true,
 		"ajax":{
-			"url": "/coinflow/get",
+			"url": "/coinflow/get-coinflow",
 			"type":"GET",
 			//"dataType" : "JSON",
 			"dataSrc" : ''

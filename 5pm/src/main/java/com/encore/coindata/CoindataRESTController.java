@@ -38,11 +38,11 @@ public class CoindataRESTController {
 	}
 
 	/**
-	 * [당일상승량 API]
-	 * @return json market, change_rate
+	 * [전날종가 API - 오늘의코인]
+	 * @return json market, trade_price
 	 */
-	@RequestMapping(value = { "/api/get_today" }, method = RequestMethod.GET)
-	public ResponseEntity<?> getTodayCoin() {
+	@RequestMapping(value = { "/api/get-trade" }, method = RequestMethod.GET)
+	public ResponseEntity<?> getTradePrice() {
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
 		Calendar cal = Calendar.getInstance();
@@ -50,21 +50,15 @@ public class CoindataRESTController {
 		cal.add(Calendar.DATE,-1);
 		String today = date.format(cal.getTime()) + "T09:00:00";
 		
-		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
+		JSONArray resultJson = new JSONArray(); // 모든결과를 출력할 JSONArray
 		System.out.println(dservice.getTodayCoin(today));
 		
 		for (CoinDailyVO vo : dservice.getTodayCoin(today)) { 
 			Map<Object, Object> map = new HashMap<Object,Object>();
 			map.put("market", vo.getMarket());
-			map.put("change_rate",vo.getChange_rate());
+			map.put("trade_price",vo.getTrade_price());
 			
-			if(resultJson !=null) {
-				resultJson.put(new JSONObject(map));				
-			}else {
-				JSONObject json = new JSONObject(map);
-				String sjson = "[" + json.toString() + "]";
-				resultJson = new JSONArray(sjson);
-			}
+			resultJson.put(new JSONObject(map));	
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
 	}
@@ -74,9 +68,9 @@ public class CoindataRESTController {
 	 * @param amount
 	 * @return
 	 */
-	@RequestMapping(value = { "/api/get_cycle/{amount}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/api/get-cycle/{amount}" }, method = RequestMethod.GET)
 	public ResponseEntity<?> getCoinCycle(@PathVariable("amount") int amount) {
-		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
+		JSONArray resultJson = new JSONArray(); // 모든결과를 출력할 JSONArray
 		Map map = new HashMap();
 		
 		for (String market : service.coinMarketList()) { 
@@ -87,18 +81,13 @@ public class CoindataRESTController {
 			double cyclecount = (double)dservice.getCoincycle(map);
 			
 			if(cyclecount!=0) {
-				resultMap.put("inc_cycle", Math.round(amount/cyclecount));				
+				resultMap.put("inc_cycle", Math.round(amount/cyclecount*10)/10.0);				
 			}else {
 				resultMap.put("inc_cycle", "-");
 			}
 			
-			if(resultJson !=null) {
-				resultJson.put(new JSONObject(resultMap));				
-			}else {
-				JSONObject json = new JSONObject(resultMap);
-				String sjson = "[" + json.toString() + "]";
-				resultJson = new JSONArray(sjson);
-			}
+			resultJson.put(new JSONObject(resultMap));			
+			
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
 	}
@@ -110,8 +99,8 @@ public class CoindataRESTController {
 	 * @return db업데이트 한 결과
 	 * @throws InterruptedException
 	 */
-	@RequestMapping(value = { "/api/update_daily/{amount}" }, method = RequestMethod.GET)
-	public ResponseEntity<?> updateCoinDailyData(@PathVariable("amount") int amount) throws InterruptedException {
+	@RequestMapping(value = { "/api/insert-daily/{amount}" }, method = RequestMethod.GET)
+	public ResponseEntity<?> insertCoinDailyData(@PathVariable("amount") int amount) throws InterruptedException {
 		Date now = new Date();
 		URL url = null;
 		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
@@ -176,19 +165,19 @@ public class CoindataRESTController {
 	}
 	
 
-	@RequestMapping(value = { "/api/update_daily_db" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/api/insert-daily-db" }, method = RequestMethod.GET)
 	@Scheduled(cron = "0 0 9 * * * ") // 초 분 시간 일 월 요일
-	public void updateCoinDaily() throws InterruptedException {
+	public void insertCoinDaily() throws InterruptedException {
 		System.out.println("정각실행테스트");
 		Date now = new Date();
 		URL url = null;
 		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
-		JSONObject json = null; // 현재 호출 결과
+		JSONObject json = null; 
 		CoinDailyVO vo = new CoinDailyVO();
 
 		int j = 0;
 		for (String market : service.coinMarketList()) {
-			url = service.getAPIURL(market, "day", 1, now);
+			url = service.getAPIURL(market, "day", 1, now); //하루치 코인 업데이트
 			j++;
 			try {
 				if (resultJson != null) {

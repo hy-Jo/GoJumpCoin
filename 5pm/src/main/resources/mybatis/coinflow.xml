@@ -25,7 +25,7 @@ SELECT * FROM coinflow WHERE market = #{market}
 		month1 = #{month1},
 		month1 = #{month3},
 		month1 = #{month6},
-		year1 = #{year1},
+		year1 = #{year1}
 		where market = #{market}
 </update>
 

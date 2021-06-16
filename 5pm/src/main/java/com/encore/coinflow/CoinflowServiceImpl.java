@@ -107,7 +107,7 @@ public class CoinflowServiceImpl implements CoinflowService{
 
 	@Override
 	public int update(CoinflowVO vo) {
-		return fmapper.create(vo);
+		return fmapper.update(vo);
 	}
 
 	@Override

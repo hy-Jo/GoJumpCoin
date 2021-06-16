@@ -34,27 +34,23 @@ public class CoinflowRESTController {
 		System.out.println("CoinflowRESTController 호출");
 	}
 
-	// [코인동향 DB update]
-	@RequestMapping(value = { "/coinflow/update" }, method = RequestMethod.GET)
-	public ResponseEntity<?> updateCoinData() {
+	// [코인동향 DB create]
+	@RequestMapping(value = { "/coinflow/insert-db" }, method = RequestMethod.GET)
+	public ResponseEntity<?> insertCoinflow() {
 		Date now = new Date();
 		URL url = null;
-		JSONArray resultJson = null; // 모든결과를 출력할 JSONArray
+		JSONArray resultJson = new JSONArray(); // 모든결과를 출력할 JSONArray
 		JSONObject json = null;
 		CoinflowVO vo = new CoinflowVO();
 
 		for (String market : service.coinMarketList()) {
 			try {
 				url = service.getAPIURL(market, "now", 1, now);
-				if (resultJson != null) {
-					json = (JSONObject) service.callAPI(url).get(0); // 현재기준 api는 미리 호출해놓고 test용 출력
-					resultJson.put(json);
-				} else {
-					resultJson = service.callAPI(url);
-					json = resultJson.getJSONObject(0);
-				}
 
-				System.out.println("길이" + resultJson.length());
+				json = (JSONObject) service.callAPI(url).get(0);
+				resultJson.put(json);
+				
+				System.out.println("create ...." + resultJson.length());
 				System.out.println(market + ":" + json.get("trade_price"));
 				vo.setMarket(market);
 				vo.setToday(Double.parseDouble(json.get("trade_price").toString()));
@@ -74,7 +70,7 @@ public class CoinflowRESTController {
 				vo.setYear1(
 						Double.parseDouble((service.callAPI(service.getAPIURL(market, "year", 1, now)).getJSONObject(0))
 								.get("trade_price").toString()));
-				service.create(vo); // 아직 업데이트 부분 구현안함. 이미 있는 데이터일경우 업데이터 해주는 부분 필요
+				service.create(vo); 
 				vo = new CoinflowVO();
 
 				Thread.sleep(1000);
@@ -91,8 +87,8 @@ public class CoinflowRESTController {
 	}
 
 	// [코인동향 API]
-	@RequestMapping(value = { "/coinflow/get" }, method = RequestMethod.GET)
-	public List<CoinflowVO> getAllCoinData() {
+	@RequestMapping(value = { "/coinflow/get-coinflow" }, method = RequestMethod.GET)
+	public List<CoinflowVO> getAllCoinflow() {
 		JSONArray resultJson = null;
 		List<CoinflowVO> list = new ArrayList<CoinflowVO>();
 		// 받아온 가격 데이터로 이름 한글로 바꾸고 상승률 계산해서 return
@@ -141,27 +137,22 @@ public class CoinflowRESTController {
 	}
 
 	// [코인동향 DB update]
-	@RequestMapping(value = { "/coinflow/update_db" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/coinflow/update-db" }, method = RequestMethod.GET)
 	@Scheduled(cron = "0 0 9 * * * ") // 초 분 시간 일 월 요일
 	public void updateCoinflow() {
 		Date now = new Date();
 		URL url = null;
-		JSONArray resultJson = null;
+		JSONArray resultJson = new JSONArray();
 		JSONObject json = null;
 		CoinflowVO vo = new CoinflowVO();
 
 		for (String market : service.coinMarketList()) {
 			try {
 				url = service.getAPIURL(market, "now", 1, now);
-				if (resultJson != null) {
-					json = (JSONObject) service.callAPI(url).get(0); // 현재기준 api는 미리 호출해놓고 test용 출력
-					resultJson.put(json);
-				} else {
-					resultJson = service.callAPI(url);
-					json = resultJson.getJSONObject(0);
-				}
+				json = (JSONObject) service.callAPI(url).get(0); 
+				resultJson.put(json);
 
-				System.out.println("길이" + resultJson.length());
+				System.out.println("update ...." + resultJson.length());
 				System.out.println(market + ":" + json.get("trade_price"));
 				vo.setMarket(market);
 				vo.setToday(Double.parseDouble(json.get("trade_price").toString()));
@@ -181,7 +172,7 @@ public class CoinflowRESTController {
 				vo.setYear1(
 						Double.parseDouble((service.callAPI(service.getAPIURL(market, "year", 1, now)).getJSONObject(0))
 								.get("trade_price").toString()));
-				service.create(vo); // 아직 업데이트 부분 구현안함. 이미 있는 데이터일경우 업데이터 해주는 부분 필요
+				service.update(vo);
 				vo = new CoinflowVO();
 
 				Thread.sleep(1000);
