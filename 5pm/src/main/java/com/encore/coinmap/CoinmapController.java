@@ -14,7 +14,7 @@ public class CoinmapController {
 	//private CoinMapService coinmapService;
 
 	@Autowired
-	@Qualifier("com.encore.coinmap.CoinMapServiceImpl")
+	@Qualifier("com.encore.coinmap.CoinmapServiceImpl")
 	private CoinmapService service;
 	
 	public CoinmapController() {

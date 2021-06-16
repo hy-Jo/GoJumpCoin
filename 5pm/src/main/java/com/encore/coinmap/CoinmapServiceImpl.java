@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.encore.coinmap.CoinmapService;
 import com.encore.coinmap.CoinmapVO;
 
-@Service("com.encore.coinmap.CoinMapServiceImpl")
+@Service("com.encore.coinmap.CoinmapServiceImpl")
 public class CoinmapServiceImpl implements CoinmapService{
 	
 //	@Autowired
