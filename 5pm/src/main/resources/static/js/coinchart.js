@@ -1,4 +1,4 @@
-function test(id){
+function chart(id){
   var symbol=id;
     
   $(".chart").append( new TradingView.widget({
@@ -17,4 +17,4 @@ function test(id){
       })
   );
 }
-test("BTCUSD");
+chart("BTCUSD");

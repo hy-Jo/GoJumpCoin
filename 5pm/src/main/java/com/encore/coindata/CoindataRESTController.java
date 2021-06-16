@@ -1,3 +1,4 @@
+
 package com.encore.coindata;
 
 import java.net.URL;
@@ -231,3 +232,4 @@ public class CoindataRESTController {
 	}
 
 }
+

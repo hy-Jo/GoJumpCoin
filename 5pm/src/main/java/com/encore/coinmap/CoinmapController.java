@@ -14,11 +14,11 @@ public class CoinmapController {
 	//private CoinMapService coinmapService;
 
 	@Autowired
-	@Qualifier("com.encore.coinmap.CoinmapServiceImpl")
+	@Qualifier("com.encore.coinmap.CoinMapServiceImpl")
 	private CoinmapService service;
 	
 	public CoinmapController() {
-		System.out.println("CoinmapController 호출");
+		System.out.println("CoinMapController 호출");
 	}
 	
 	@RequestMapping(value = {"/coinmap"}, method = RequestMethod.GET)

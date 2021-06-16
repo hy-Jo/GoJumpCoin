@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class CoinmapRESTController {
 	// [스케쥴러로 매일 한번씩 DB초기화 할 컨트롤러]
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@RequestMapping(value = {"/coinmap/update"}, method = RequestMethod.GET)
+	@Scheduled(cron = "0 0 9 * * * ") // 초 분 시간 일 월 요일
 	public ResponseEntity<?> updateCoinmap() { 
 //		Date now = new Date();
 //		URL url = null;
@@ -51,56 +53,52 @@ public class CoinmapRESTController {
 						+currency;
 		
 		resultJson = service.jsonCoinmap(urlstr, currency);
-
+		service.getCoinmapList();
 		return ResponseEntity.status(HttpStatus.OK).body(resultJson.toString());
 	}
 	
 	// [DB에서 정보를 요청하는 컨트롤러]
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@RequestMapping(value = {"/coinmap/get"}, method = RequestMethod.GET)
-	public List<CoinmapVO> getCoinmapData() {
-		
-		
+	public List<CoinmapVO> getCoinmapData() {		
 		List<CoinmapVO> list = service.getCoinmapList();
-		
-		
 //////////////////////////////////////////////////////
 		
-		//if you doesn't need a json data file, please delete this code below
+		//if you don't need a json data file, please delete this code below
 		
-		JSONArray rdata = new JSONArray(); //new Empty JSON Array[]
-		JSONObject obj = new JSONObject();//new json array including jsonobjects{}{}: in [{},{}.....] format 
-		File file = new File("src/main/resources/static/assets/getCoinmap_data.json");
-		try {
-			FileWriter fw = new FileWriter(file);
-			
-			for (CoinmapVO vo : list) { //insert the data(a row) into JSON Array
-
-				obj.put("currency", vo.getCurrency());
-				obj.put("cmc_rank", vo.getCmc_rank());
-				obj.put("name", vo.getName());
-				obj.put("symbol", vo.getSymbol());
-				obj.put("percent_change_24h", vo.getPercent_change_24h());
-				obj.put("last_updated", vo.getLast_updated());
-				obj.put("market_cap", vo.getMarket_cap());
-				if (vo.getSector()!= null) {
-					obj.put("sector", vo.getSector().replace("\r", ""));
-				}
-				//System.out.println(obj+"\n\n");
-				rdata.put(obj);
-				obj = new JSONObject();
-				System.out.println(rdata+"\n\n");
-			}
-			fw.write(rdata.toString());
-			//System.out.println(list);
-			System.out.println(file.getAbsolutePath());
-			System.out.println("file created");
-			fw.flush();
-            fw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		JSONArray rdata = new JSONArray(); //new Empty JSON Array[]
+//		JSONObject obj = new JSONObject();//new json array including jsonobjects{}{}: in [{},{}.....] format 
+//		File file = new File("src/main/resources/static/assets/getCoinmap_data.json");
+//		try {
+//			FileWriter fw = new FileWriter(file);
+//			
+//			for (CoinmapVO vo : list) { //insert the data(a row) into JSON Array
+//
+//				obj.put("currency", vo.getCurrency());
+//				obj.put("cmc_rank", vo.getCmc_rank());
+//				obj.put("name", vo.getName());
+//				obj.put("symbol", vo.getSymbol());
+//				obj.put("percent_change_24h", vo.getPercent_change_24h());
+//				obj.put("last_updated", vo.getLast_updated());
+//				obj.put("market_cap", vo.getMarket_cap());
+//				if (vo.getSector()!= null) {
+//					obj.put("sector", vo.getSector().replace("\r", ""));
+//				}
+//				//System.out.println(obj+"\n\n");
+//				rdata.put(obj);
+//				obj = new JSONObject();
+//				System.out.println(rdata+"\n\n");
+//			}
+//			fw.write(rdata.toString());
+//			//System.out.println(list);
+//			System.out.println(file.getAbsolutePath());
+//			System.out.println("file created");
+//			fw.flush();
+//            fw.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		//no json file, delete till here
 		////////////////////////////////////////

@@ -17,7 +17,7 @@ SELECT * FROM coinmap
 
 <insert id="insert" parameterType="com.encore.coinmap.CoinmapVO">
 		INSERT INTO coinmap(cmc_rank,symbol, name, id, last_updated, percent_change_24h, currency,market_cap)
-		VALUES(#{cmc_rank},  #{symbol}, #{name},#{id}, #{last_updated}, #{percent_change_24h}, #{percent_change_24h}, #{market_cap})
+		VALUES(#{cmc_rank},  #{symbol}, #{name},#{id}, #{last_updated}, #{percent_change_24h}, #{currency}, #{market_cap})
 </insert>
 
 <delete id="deleteCoinmap" parameterType="com.encore.coinmap.CoinmapVO">

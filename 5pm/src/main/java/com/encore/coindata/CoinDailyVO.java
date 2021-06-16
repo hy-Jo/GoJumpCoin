@@ -1,3 +1,4 @@
+
 package com.encore.coindata;
 
 import lombok.Data;
@@ -20,3 +21,5 @@ public class CoinDailyVO {
 	private double change_rate ;
 	//private double converted_trade_price;
 }
+
+
