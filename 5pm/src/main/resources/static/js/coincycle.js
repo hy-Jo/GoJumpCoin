@@ -16,7 +16,7 @@ $.ajax({
 
 	var request = new XMLHttpRequest();
 	//const fs = require('fs');
-	var url = 'http://localhost:8000/api/get_cycle/180';
+	var url = 'http://localhost:8000/api/get-cycle/180';
 	
 	request.open("GET", url, false);
 	
