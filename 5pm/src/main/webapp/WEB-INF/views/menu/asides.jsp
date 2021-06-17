@@ -6,41 +6,63 @@
 		<title>GoCoin</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+		<script defer src="/js/chat.js"></script>
 	</head>
 
 	<body>
-		<div id="colorlib-page">
-			<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
-				<!-- <h1 id="colorlib-logo">
-					<a href="/home"><span class="img" style="background-image: url(/images/bitcoin.jpg);"></span>Louie
-						Smith</a>
-				</h1> -->
-				<nav id="colorlib-main-menu" role="navigation">
-					<ul>
-						<li class="colorlib-active"><a href="/home">Home</a></li>
-						<li><a href="contact.html">Coin시세정보</a></li>
-						<li><a href="/coinmap">CoinMap</a></li>
-						<li><a href="contact.html">Coin동향</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</nav>
 
-				<!-- <div class="colorlib-footer">
-					<h3>Newsletter</h3>
-					<div class="d-flex justify-content-center">
-						<form action="#" class="colorlib-subscribe-form">
-							<div class="form-group d-flex">
-								<div class="icon">
-									<span class="icon-paper-plane"></span>
-								</div>
-								<input type="text" class="form-control" placeholder="Enter Email Address">
-							</div>
-						</form>
+		<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+			<nav id="colorlib-main-menu" role="navigation">
+				<ul>
+					<li class="colorlib-active"><a href="/home">Home</a></li>
+					<li><a href="contact.html">Coin시세정보</a></li>
+					<li><a href="/coinmap">CoinMap</a></li>
+					<li><a href="contact.html">Coin동향</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</nav>
+
+			<div id="username-page" class="colorlib-footer">
+				<div class="username-page-container">
+					<h1 class="title">Enter your username</h1>
+					<form id="usernameForm" name="usernameForm">
+						<div class="form-group">
+							<input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
+						</div>
+						<div class="form-group">
+							<button type="submit" class="accent username-submit">Start Chatting</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div id="chat-page" class="hidden">
+				<div class="chat-container">
+					<div class="chat-header">
+						<h2>Welcome to Spring Boot Chat Application</h2>
 					</div>
-				</div> -->
-			</aside>
-			<!-- END COLORLIB-ASIDE -->
-		</div>
+					<div class="connecting">
+						Connecting...
+					</div>
+					<ul id="messageArea">
+
+					</ul>
+					<form id="messageForm" name="messageForm">
+						<div class="form-group">
+							<div class="input-group clearfix">
+								<input type="text" id="message" placeholder="Type a message..." autocomplete="off"
+									class="form-control" />
+								<button type="submit" class="primary">Send</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</aside>
+		<!-- END COLORLIB-ASIDE -->
+
 	</body>
 
 	</html>
