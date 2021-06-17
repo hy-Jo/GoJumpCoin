@@ -16,7 +16,6 @@ public class TilesConfiguration {
 		configurer.setCheckRefresh(true);
 		return configurer;
 	}
-
 	@Bean
 	public TilesViewResolver tilesViewResolver() {
 		final TilesViewResolver tilesViewResolver = new TilesViewResolver();

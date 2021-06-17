@@ -15,6 +15,7 @@ public class Utility {
 	 * @return
 	 * @throws ParseException 
 	 */
+	
 	public static String pastDate(String now,int amount, String interval) throws ParseException { 
 		String date ="";
 		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
