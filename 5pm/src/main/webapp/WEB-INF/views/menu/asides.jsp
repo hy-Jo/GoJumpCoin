@@ -19,9 +19,9 @@
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
 					<li class="colorlib-active"><a href="/home">Home</a></li>
-					<li><a href="contact.html">Coin시세정보</a></li>
-					<li><a href="contact.html">CoinMap</a></li>
-					<li><a href="contact.html">Coin동향</a></li>
+					<li><a href="coinchart">Coin시세정보</a></li>
+					<li><a href="coinmap">CoinMap</a></li>
+					<li><a href="coinflow">Coin동향</a></li>
 					<li><a href="contact.html">Contact</a></li>
 				</ul>
 			</nav>
@@ -43,7 +43,7 @@
     <div id="chat-page" class="hidden">
         <div class="chat-container">
             <div class="chat-header">
-                <h2>GoJump Live Chat</h2>
+                <h1>GoJump Live Chat</h1>
             </div>
             <div class="connecting">
                 Connecting...
@@ -54,9 +54,10 @@
             <form id="messageForm" name="messageForm">
                 <div class="form-group">
                     <div class="input-group clearfix">
-                        <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                        <button type="submit" class="primary">Send</button>
+                        <input type="text" class="form-control" id="message" placeholder="Type a message..." autocomplete="off" />
+                        <button type="submit" class="primary">></button>
                     </div>
+                    
                 </div>
             </form>
         </div>
