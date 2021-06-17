@@ -18,11 +18,8 @@
 				<nav id="colorlib-main-menu" role="navigation">
 					<ul>
 						<li class="colorlib-active"><a href="/home">Home</a></li>
-						<li><a href="services.html">My Services</a>
-							</dli>
-						<li><a href="blog.html">Blog</a></li>
 						<li><a href="contact.html">Coin시세정보</a></li>
-						<li><a href="contact.html">CoinMap</a></li>
+						<li><a href="/coinmap">CoinMap</a></li>
 						<li><a href="contact.html">Coin동향</a></li>
 						<li><a href="contact.html">Contact</a></li>
 					</ul>
