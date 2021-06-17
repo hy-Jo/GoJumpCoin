@@ -48,9 +48,8 @@
           <div id="chart_div_group" style="display: none;"></div>
         </div>
         <div class="col-sm-2 sidenav">
-          <div class="well">
-            <p>채팅창</p>
-          </div>
+        <script src="/index.html">
+          </script>
         </div>
   </body>
 
