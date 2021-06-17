@@ -6,8 +6,8 @@
 <head>
 <title>GoCoin</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="/css/chat.css" />
 </head>
 <body>
 	
@@ -26,7 +26,7 @@
 				</ul>
 			</nav>
 
-		<div id="username-page" class="colorlib-footer">
+		<div id="username-page">
         	<div class="username-page-container">
             <h1 class="title">Enter your username</h1>
             <form id="usernameForm" name="usernameForm">
@@ -43,7 +43,7 @@
     <div id="chat-page" class="hidden">
         <div class="chat-container">
             <div class="chat-header">
-                <h2>Welcome to Spring Boot Chat Application</h2>
+                <h2>GoJump Live Chat</h2>
             </div>
             <div class="connecting">
                 Connecting...

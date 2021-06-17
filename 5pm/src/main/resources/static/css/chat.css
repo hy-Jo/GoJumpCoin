@@ -22,7 +22,7 @@ body {
 }
 
 body:before {
-    height: 50%;
+    height: 70%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -216,6 +216,7 @@ button.accent {
 
 #chat-page .chat-message p {
     color: #43464b;
+    text-align: left
 }
 
 #messageForm .input-group input {
