@@ -6,7 +6,7 @@
 		<title>GoCoin</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<script defer src="/js/jquery.min.js"></script>
+		<!-- <script defer src="/js/jquery.min.js"></script>
 		<script defer src="/js/jquery-migrate-3.0.1.min.js"></script>
 		<script defer src="/js/popper.min.js"></script>
 		<script defer src="/js/bootstrap.min.js"></script>
@@ -22,15 +22,15 @@
 		<script defer src="/js/scrollax.min.js"></script>
 		<script
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-		<!-- <script defer src="/js/google-map.js"></script> -->
-		<script defer src="/js/main.js"></script>
+		<script defer src="/js/google-map.js"></script>
+		<script defer src="/js/main.js"></script> -->
 
 	</head>
 
 	<body>
 		<div id="colorlib-page">
 			<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-			<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+			<!-- <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
 				<h1 id="colorlib-logo"><a href="/home"><span class="img"
 							style="background-image: url(/images/bitcoin.jpg);"></span>Louie Smith</a></h1>
 				<nav id="colorlib-main-menu" role="navigation">
@@ -56,7 +56,7 @@
 						</form>
 					</div>
 				</div>
-			</aside> <!-- END COLORLIB-ASIDE -->
+			</aside> END COLORLIB-ASIDE -->
 			<div id="colorlib-main">
 				<section class="ftco-section-no-padding bg-light">
 					<div class="hero-wrap">
