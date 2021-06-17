@@ -67,140 +67,55 @@
 								<section class="home-slider js-fullheight owl-carousel">
 									<div class="slider-item js-fullheight" style="background-image:url(/images/bitcoin.jpg); ">
 									</div>
-									<div class="slider-item js-fullheight" style="background-image:url(/images/author-2.jpg);">
+									<div class="slider-item js-fullheight" style="background-image:url(/images/bitcoin_2.jpg);">
+									</div>
+									<div class="slider-item js-fullheight" style="background-image:url(/images/bitcoin_4.jpg);">
 									</div>
 								</section>
 							</div>
 
 							<div class="author-info text p-3 p-md-5">
 								<div class="desc">
-									<span class="subheading">Hello! I'm</span>
-									<h1 class="big-letter">Louie Smith</h1>
-									<h1 class="mb-4"><span>Louie Smith</span> A Photographer. <span>I Capture Life</span></h1>
-									<p class="mb-4">I am A Photographer from America Far far away, behind the word mountains, far from the
-										countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
-										right at the coast of the Semantics, a large language ocean.</p>
-									<h3 class="signature h1">Louie Smith</h3>
+									<span class="subheading">Welcome</span>
+									<h1 class="big-letter">GoJump<br>Coin</h1>
+									<h1 class="mb-4"><span>GoJumpCoin</span> Platform
+										<br>
+										<span>Please look around slowly</span>
+									</h1>
+									<p class="mb-4">
+										엔코아 교육브랜드 Playdata 교육과정 내 작업한 가상화폐정보플랫폼 프로젝트입니다.
+										실제 가상화폐 과련 투자에 있어 주식에 비해 가치있는 정보가 부족하다는 것을 느끼고 투자자의 관점에서 필요하다고 여겨지는 정보를 재구성해보았습니다.
+									</p>
+									<h3 class="signature h4">
+										J.H.Kim&nbsp;&nbsp;&nbsp;&nbsp;
+										K.J.Baek&nbsp;&nbsp;&nbsp;&nbsp;
+										S.J.Park&nbsp;&nbsp;&nbsp;&nbsp;
+										H.Y.Jo
+									</h3>
 									<ul class="ftco-social mt-3">
-										<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-										<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-										<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+										<li class="ftco-animate"><a href="/contact"><span class="icon-contacts"></span></a></li>
+										<!-- <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+										<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li> -->
 									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
 				</section>
-				<section class="ftco-section instagram">
-					<div class="container">
-						<div class="row justify-content-center mb-2 pb-3">
-							<div class="col-md-7 heading-section heading-section-2 text-center ftco-animate">
-								<h2 class="mb-4">Follow me on Instagram</h2>
-							</div>
-						</div>
-						<div class="row no-gutters">
-							<div class="col-sm-12 col-md ftco-animate">
-								<a href="/images/image_1.jpg" class="insta-img image-popup"
-									style="background-image: url(/images/image_1.jpg);">
-									<div class="icon d-flex justify-content-center">
-										<span class="icon-instagram align-self-center"></span>
-									</div>
-								</a>
-							</div>
-							<div class="col-sm-12 col-md ftco-animate">
-								<a href="/images/image_2.jpg" class="insta-img image-popup"
-									style="background-image: url(/images/image_2.jpg);">
-									<div class="icon d-flex justify-content-center">
-										<span class="icon-instagram align-self-center"></span>
-									</div>
-								</a>
-							</div>
-							<div class="col-sm-12 col-md ftco-animate">
-								<a href="/images/image_3.jpg" class="insta-img image-popup"
-									style="background-image: url(/images/image_3.jpg);">
-									<div class="icon d-flex justify-content-center">
-										<span class="icon-instagram align-self-center"></span>
-									</div>
-								</a>
-							</div>
-							<div class="col-sm-12 col-md ftco-animate">
-								<a href="/images/image_4.jpg" class="insta-img image-popup"
-									style="background-image: url(/images/image_4.jpg);">
-									<div class="icon d-flex justify-content-center">
-										<span class="icon-instagram align-self-center"></span>
-									</div>
-								</a>
-							</div>
-							<div class="col-sm-12 col-md ftco-animate">
-								<a href="/images/image_5.jpg" class="insta-img image-popup"
-									style="background-image: url(/images/image_5.jpg);">
-									<div class="icon d-flex justify-content-center">
-										<span class="icon-instagram align-self-center"></span>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</section>
-				<footer class="ftco-footer ftco-bg-dark ftco-section">
+				<!-- <footer class="ftco-footer ftco-bg-dark ftco-section">
 					<div class="container px-md-5">
-						<div class="row mb-5">
-							<div class="col-md">
-								<div class="ftco-footer-widget mb-4 ml-md-4">
-									<h2 class="ftco-heading-2">Recent Photos</h2>
-									<ul class="list-unstyled photo">
-										<li><a href="#" class="img" style="background-image: url(/images/image_1.jpg);"></a></li>
-										<li><a href="#" class="img" style="background-image: url(/images/image_2.jpg);"></a></li>
-										<li><a href="#" class="img" style="background-image: url(/images/image_3.jpg);"></a></li>
-										<li><a href="#" class="img" style="background-image: url(/images/image_4.jpg);"></a></li>
-										<li><a href="#" class="img" style="background-image: url(/images/image_5.jpg);"></a></li>
-										<li><a href="#" class="img" style="background-image: url(/images/image_6.jpg);"></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="col-md">
-								<div class="ftco-footer-widget mb-4">
-									<h2 class="ftco-heading-2">Archives</h2>
-									<ul class="list-unstyled categories">
-										<li><a href="#">November 2018 <span>(105)</span></a></li>
-										<li><a href="#">October 2018 <span>(212)</span></a></li>
-										<li><a href="#">September 2018 <span>(150)</span></a></li>
-										<li><a href="#">August 2018 <span>(100)</span></a></li>
-										<li><a href="#">July 2018 <span>(200)</span></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="col-md">
-								<div class="ftco-footer-widget mb-4">
-									<h2 class="ftco-heading-2">Have a Questions?</h2>
-									<div class="block-23 mb-3">
-										<ul>
-											<li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San
-													Francisco, California, USA</span></li>
-											<li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a>
-											</li>
-											<li><a href="#"><span class="icon icon-envelope"></span><span
-														class="text">info@yourdomain.com</span></a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
 						<div class="row">
 							<div class="col-md-12">
-
-								<p>
-									<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								<p style="text-align: center;">
 									Copyright &copy;
 									<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
 									with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
 										target="_blank">Colorlib</a>
-									<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 								</p>
 							</div>
 						</div>
 					</div>
-				</footer>
+				</footer> -->
 			</div><!-- END COLORLIB-MAIN -->
 		</div><!-- END COLORLIB-PAGE -->
 
