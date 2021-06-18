@@ -15,17 +15,20 @@
 		<div id="colorlib-page">
 			<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 			<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+
+
+
 				<nav id="colorlib-main-menu" role="navigation">
 					<ul>
-						<li class="colorlib-active"><a href="/">Home</a></li>
-						<li><a href="/coinchart">Coin 시세정보</a></li>
-						<li><a href="/coinmap">Coin Map</a></li>
-						<li><a href="contact.html">Coin 동향</a></li>
-						<li><a href="contact.html">Contact</a></li>
+						<li class="colorlib-active"><a href="/home">Home</a></li>
+						<li><a href="/coinchart">Coin시세정보</a></li>
+						<li><a href="/coinmap">CoinMap</a></li>
+						<li><a href="/coinflow">Coin동향</a></li>
+						<li><a href="/contact">Contact</a></li>
 					</ul>
 				</nav>
 
-				<div id="username-page" class="colorlib-footer">
+				<div id="username-page">
 					<div class="username-page-container">
 						<h1 class="title">Enter your username</h1>
 						<form id="usernameForm" name="usernameForm">
@@ -42,7 +45,7 @@
 				<div id="chat-page" class="hidden">
 					<div class="chat-container">
 						<div class="chat-header">
-							<h2>Welcome to Spring Boot Chat Application</h2>
+							<h1>GoJump Live Chat</h1>
 						</div>
 						<div class="connecting">
 							Connecting...
@@ -53,10 +56,11 @@
 						<form id="messageForm" name="messageForm">
 							<div class="form-group">
 								<div class="input-group clearfix">
-									<input type="text" id="message" placeholder="Type a message..." autocomplete="off"
-										class="form-control" />
-									<button type="submit" class="primary">Send</button>
+									<input type="text" class="form-control" id="message" placeholder="Type a message..."
+										autocomplete="off" />
+									<button type="submit" class="primary">></button>
 								</div>
+
 							</div>
 						</form>
 					</div>
