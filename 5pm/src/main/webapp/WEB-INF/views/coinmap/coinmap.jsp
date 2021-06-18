@@ -13,7 +13,7 @@
 					$('#chart_div_all').attr('style', 'display: none;');
 					$('#chart_div_group').removeAttr('style');
 					//location.reload();
-				});
+				}.);
 			});
 		</script>
 		<script defer src="/js/coinmap_cl.js"></script>
@@ -29,22 +29,22 @@
 					<div class="container">
 						<div class="row no-gutters slider-text justify-content-center align-items-center">
 							<div class="col-md-8 ftco-animate">
-								<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Services</span></p>
+								<p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>CoinMap</span></p>
 								<h1 class="bread">CoinMap</h1>
-								<div id="button_classification">
-									<br>
-									<p>
-										<input type="button" id="button_all" value="ALL">
-										<input type="button" id="button_group" value="GROUP">
-									</p>
-								</div>
 							</div>
 						</div>
 					</div>
 				</section>
 				<section class="ftco-section">
 					<div class="container">
-						<p>업데이트: <span id="chart_s"></span></p>
+						<div id="button_classification">
+							<p>
+								업데이트: <span id="chart_s"></span>&nbsp;
+								<input type="button" id="button_all" value="ALL">&nbsp;
+								<input type="button" id="button_group" onclick="drawChart_group()" value="GROUP">
+							</p>
+						</div>
+
 						<div id="chart_div_all"></div>
 						<div id="chart_div_group" style="display: none;"></div>
 					</div>

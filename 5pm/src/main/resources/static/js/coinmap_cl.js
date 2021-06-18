@@ -83,15 +83,14 @@ $(function () {
   });
 });
 */
-
 google.charts.load("current", { packages: ["treemap"] });
 
 function drawChart_group() {
   const data = google.visualization.arrayToDataTable(clist_group);
 
   const options = {
-    width: "100vmax",
-    height: "600",
+    width: "100%",
+    height: "100%",
     minColor: "#0652DD",
     minColorValue: "-20",
     midColor: "#FFF",
@@ -114,7 +113,7 @@ function drawChart_group() {
   function showStaticTooltip(row, size, value) {
     return "<div>" + data.getValue(row, 3) + "</div>";
   }
-
   window.addEventListener("resize", drawChart_group, false);
 }
+
 google.charts.setOnLoadCallback(drawChart_group);

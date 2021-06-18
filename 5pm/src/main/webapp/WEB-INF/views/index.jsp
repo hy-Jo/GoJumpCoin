@@ -29,7 +29,7 @@
 
 	<body>
 		<div id="colorlib-page">
-			<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+			<!-- <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a> -->
 			<!-- <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
 				<h1 id="colorlib-logo"><a href="/home"><span class="img"
 							style="background-image: url(/images/bitcoin.jpg);"></span>Louie Smith</a></h1>
