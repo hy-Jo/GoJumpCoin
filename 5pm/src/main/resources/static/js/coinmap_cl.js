@@ -89,8 +89,8 @@ function drawChart_group() {
   const data = google.visualization.arrayToDataTable(clist_group);
 
   const options = {
-    width: "100%",
-    height: "100%",
+    width: "100%" * 5,
+    height: 600,
     minColor: "#0652DD",
     minColorValue: "-20",
     midColor: "#FFF",

@@ -7,13 +7,17 @@
 			$(document).ready(function () {
 				$('#button_all').click(function () {
 					$('#chart_div_group').attr('style', 'display: none;');
-					$('#chart_div_all').removeAttr('style');
+					$('#chart_div_all').attr('style', 'display: block;');
 				});
 				$('#button_group').click(function () {
 					$('#chart_div_all').attr('style', 'display: none;');
-					$('#chart_div_group').removeAttr('style');
+					$('#chart_div_group').attr('style', 'display: block;');
 					//location.reload();
-				}.);
+				});
+				$(window).resize(function () {
+					drawChart_all();
+					drawChart_group();
+				});
 			});
 		</script>
 		<script defer src="/js/coinmap_cl.js"></script>
@@ -41,10 +45,9 @@
 							<p>
 								업데이트: <span id="chart_s"></span>&nbsp;
 								<input type="button" id="button_all" value="ALL">&nbsp;
-								<input type="button" id="button_group" onclick="drawChart_group()" value="GROUP">
+								<input type="button" id="button_group" value="GROUP">
 							</p>
 						</div>
-
 						<div id="chart_div_all"></div>
 						<div id="chart_div_group" style="display: none;"></div>
 					</div>

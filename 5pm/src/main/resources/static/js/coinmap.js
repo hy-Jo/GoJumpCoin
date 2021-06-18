@@ -73,8 +73,8 @@ function drawChart_all() {
   const data_all = google.visualization.arrayToDataTable(clist_all);
 
   const options_all = {
-    width: "100vmax",
-    height: "600",
+    width: "100%" * 5,
+    height: 600,
     minColor: "#0652DD",
     minColorValue: "-20",
     midColor: "#FFF",
