@@ -57,7 +57,7 @@ public class CoinmapRESTController {
 		List<CoinmapVO> list = service.getCoinmapList();
 //////////////////////////////////////////////////////
 		
-		//if you don't need a json data file, please delete this code below
+		//if you don't need a json data file, please comment the code below
 		
 //		JSONArray rdata = new JSONArray(); //new Empty JSON Array[]
 //		JSONObject obj = new JSONObject();//new json array including jsonobjects{}{}: in [{},{}.....] format 

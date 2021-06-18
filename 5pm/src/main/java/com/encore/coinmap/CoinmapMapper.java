@@ -9,7 +9,7 @@ public interface CoinmapMapper {
 	String getSector();
 	int classify(CoinmapVO vo);
 	int insert(CoinmapVO vo);
-	int deleteCoinmap(CoinmapVO vo);
-	int updateCoinmap(CoinmapVO vo);
+	int delete(CoinmapVO vo);
+	int update(CoinmapVO vo);
 	List<CoinmapVO> getCoinmapList();
 }

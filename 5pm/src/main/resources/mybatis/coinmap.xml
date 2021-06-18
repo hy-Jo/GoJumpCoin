@@ -20,14 +20,14 @@ SELECT * FROM coinmap
 		VALUES(#{cmc_rank},  #{symbol}, #{name},#{id}, #{last_updated}, #{percent_change_24h}, #{currency}, #{market_cap})
 </insert>
 
-<delete id="deleteCoinmap" parameterType="com.encore.coinmap.CoinmapVO">
+<delete id="delete" parameterType="com.encore.coinmap.CoinmapVO">
 		TRUNCATE TABLE coinmap
 </delete>
 
-<update id="updateCoinmap" parameterType="com.encore.coinmap.CoinmapVO">
+<update id="update" parameterType="com.encore.coinmap.CoinmapVO">
 		update coinmap
 		set 
-		cmc_rank =  #{cmc_rank},
+
 		symbol = #{symbol},
 		name = #{name},
 		id = #{id},

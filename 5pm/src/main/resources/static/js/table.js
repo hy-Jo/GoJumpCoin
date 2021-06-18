@@ -1,21 +1,4 @@
 
-//let coinData = null;
-
-/*$.ajax({
-        url: "/coinflow/get-coinflow",
-        type: "get",
-        dataType: "json",
-        contentType: "application/json",
-        success: function(data) {
-            coinData = data;
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // 에러 로그는 아래처럼 확인해볼 수 있다. 
-            alert("업로드 에러\ncode : " + jqXHR.status + "\nerror message : " + jqXHR.responseText);
-        }
-});*/
-
-
 $(document).ready(function() {
 
   
@@ -329,23 +312,5 @@ $(document).ready(function() {
 
     clearDom();
   }
-  showFullTable();
+  showPagingTable();
 });
-//$(document).foundation();
-
-/*
-*
-Done - 1.	Columns should be sortable, multi-sortable and should be able to custom sort functions
-Done - 2.	Columns should be rearrange able using DND
- 3.	Allow grouping by fields – multi level (currently expected to provide 2 level grouping)
- 4.	Custom row heights for groups vs rows
-Done - 5.	Virtual rendering (critical feature) handle up to 5000 rows with ease
-Done - 6.	Fixed headers
-Done - 7.	Columns can be toggled (hidden/shown) (using a column picker) ** Right click on search input for selector **
- 8.	Possible options are to provide an alternate paging feature (with 508 compatibility
- 9.	Internal state management – Highlighted rows, expanded, collapsed grouped rows
- 10.	Search within with highlighting of matched text + navigation via keyboard + 508 compatibility
- 11.	Feature for summary and aggregate rows that can be positions both at the top or bottom of the grids.
- 12.	Fixed columns
-
- */
