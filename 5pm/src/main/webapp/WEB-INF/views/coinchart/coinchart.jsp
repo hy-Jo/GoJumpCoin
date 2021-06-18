@@ -76,13 +76,14 @@
 									<th>코인</th>
 									<th>KRW(업비트)</th>
 									<th>USD(바이낸스)</th>
-									<th>거래량</th>
+									
 									<th>김치프리미엄</th>
 								</tr>
 							</thead>
 							<tbody id="cointable">
+								<script src=/js/dailycoin.js></script>
 								<script src=/js/coinkey.js></script>
-
+                
 							</tbody>
 						</table>
 					</div>
