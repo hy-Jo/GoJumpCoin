@@ -69,7 +69,7 @@
 									</div>
 									<div class="slider-item js-fullheight" style="background-image:url(/images/bitcoin_2.jpg);">
 									</div>
-									<div class="slider-item js-fullheight" style="background-image:url(/images/bitcoin_4.jpg);">
+									<div class="slider-item js-fullheight" style="background-image:url(/images/bitcoin_5.jpg);">
 									</div>
 								</section>
 							</div>
