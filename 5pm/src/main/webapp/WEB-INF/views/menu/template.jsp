@@ -58,8 +58,11 @@
 		<body>
 			<tiles:insertAttribute name="header"></tiles:insertAttribute>
 			<tiles:insertAttribute name="asides"></tiles:insertAttribute>
-			<tiles:insertAttribute name="body"></tiles:insertAttribute>
+			<div id="bodyTile">
+			<tiles:insertAttribute  name="body"> </tiles:insertAttribute>
+			</div>
 			<tiles:insertAttribute name="footer"></tiles:insertAttribute>
+			
 		</body>
 
 		</html>
