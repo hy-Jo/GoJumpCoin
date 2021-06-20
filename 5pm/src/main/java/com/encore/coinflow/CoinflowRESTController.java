@@ -1,9 +1,7 @@
 package com.encore.coinflow;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,15 +13,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.encore.coindata.CoinDailyVO;
 
 @RestController
+@RequestMapping("/api/coinflow")
 public class CoinflowRESTController {
 
 	@Autowired
@@ -35,7 +31,7 @@ public class CoinflowRESTController {
 	}
 
 	// [코인동향 DB create]
-	@RequestMapping(value = { "/coinflow/insert-db" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/init" }, method = RequestMethod.GET)
 	public ResponseEntity<?> insertCoinflow() {
 		Date now = new Date();
 		URL url = null;
@@ -87,7 +83,7 @@ public class CoinflowRESTController {
 	}
 
 	// [코인동향 API]
-	@RequestMapping(value = { "/coinflow/get-coinflow" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "" }, method = RequestMethod.GET)
 	public List<CoinflowVO> getAllCoinflow() {
 		JSONArray resultJson = null;
 		List<CoinflowVO> list = new ArrayList<CoinflowVO>();
@@ -137,7 +133,7 @@ public class CoinflowRESTController {
 	}
 
 	// [코인동향 DB update]
-	@RequestMapping(value = { "/coinflow/update-db" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/update" }, method = RequestMethod.GET)
 	@Scheduled(cron = "0 0 9 * * * ") // 초 분 시간 일 월 요일
 	public void updateCoinflow() {
 		Date now = new Date();
@@ -180,7 +176,7 @@ public class CoinflowRESTController {
 				e.printStackTrace();
 				System.out.print("CoinflowRESTController 코인API 호출 error : " + e);
 			} catch (JSONException e) {
-				service.create(vo);
+				service.update(vo);
 				System.out.println("null값이 들어갑니다");
 			}
 
