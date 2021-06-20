@@ -94,7 +94,7 @@ $(document).ready(function () {
         serverSide: false,
         processing: true,
         ajax: {
-          url: "/coinflow/get-coinflow",
+          url: "api/coinflow",
           type: "GET",
           //"dataType" : "JSON",
           dataSrc: "",
@@ -233,7 +233,7 @@ $(document).ready(function () {
         serverSide: false,
         processing: true,
         ajax: {
-          url: "/coinflow/get-coinflow",
+          url: "api/coinflow",
           type: "GET",
           //"dataType" : "JSON",
           dataSrc: "",
