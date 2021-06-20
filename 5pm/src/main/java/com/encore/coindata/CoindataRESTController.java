@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.encore.coinflow.CoinflowService;
 
 @RestController
+@RequestMapping("/api")
 public class CoindataRESTController {
 
 	@Autowired
@@ -41,7 +42,7 @@ public class CoindataRESTController {
 	 * [전날종가 API - 오늘의코인]
 	 * @return json market, trade_price
 	 */
-	@RequestMapping(value = { "/api/get-trade" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/trade" }, method = RequestMethod.GET)
 	public ResponseEntity<?> getTradePrice() {
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
@@ -68,7 +69,7 @@ public class CoindataRESTController {
 	 * @param amount
 	 * @return
 	 */
-	@RequestMapping(value = { "/api/get-cycle/{amount}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/cycle/{amount}" }, method = RequestMethod.GET)
 	public ResponseEntity<?> getCoinCycle(@PathVariable("amount") int amount) {
 		JSONArray resultJson = new JSONArray(); // 모든결과를 출력할 JSONArray
 		Map map = new HashMap();
@@ -99,7 +100,7 @@ public class CoindataRESTController {
 	 * @return db업데이트 한 결과
 	 * @throws InterruptedException
 	 */
-	@RequestMapping(value = { "/api/insert-daily/{amount}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/insert/{amount}" }, method = RequestMethod.GET)
 	public ResponseEntity<?> insertCoinDailyData(@PathVariable("amount") int amount) throws InterruptedException {
 		Date now = new Date();
 		URL url = null;
@@ -165,7 +166,7 @@ public class CoindataRESTController {
 	}
 	
 
-	@RequestMapping(value = { "/api/insert-daily-db" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/insert" }, method = RequestMethod.GET)
 	@Scheduled(cron = "0 0 9 * * * ") // 초 분 시간 일 월 요일
 	public void insertCoinDaily() throws InterruptedException {
 		System.out.println("정각실행테스트");
