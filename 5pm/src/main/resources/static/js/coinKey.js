@@ -1,58 +1,61 @@
 var exchange = 0;
 var BTCUSDT = 0;
-
-function key() {
+var coinSymbol = new Array();
+var request = new XMLHttpRequest();
+var addressIdx = 0;
+function coinkey() {
   /*
    */
 
-  var keyUrl = "https://api.upbit.com/v1/market/all";
-  var request = new XMLHttpRequest();
+  var keyUrl = 'https://api.upbit.com/v1/market/all';
+  
 
   request.open("GET", keyUrl, false);
   request.send();
 
   var obj = JSON.parse(request.responseText);
-  var jsonArray = new Array();
+
 
   var i = 1;
   for (var ele in obj) {
-    if (obj[ele].market.indexOf("KRW") == 0) {
-      jsonArray.push(obj[ele].market);
+    if (obj[ele].market.indexOf('KRW') == 0) {
+
+      coinSymbol.push(obj[ele].market);
       //console.log("index = " + i + "    T or F " + obj[ele].market.indexOf('KRW') + " key = " + ele + " / " + obj[ele].market + " / " + obj[ele].korean_name);
       i++;
     }
   }
-
+  //console.log(" 코인 심볼 길이" + coinSymbol.length);
   //console.log("function key ==> "+jsonArray);
-  return jsonArray;
+  return coinSymbol
 
   //console.log(obj);
 }
+coinkey();
 
-var keyArray = key();
 var addressArray = new Array();
-for (i in keyArray) {
-  //console.log("index = " + i + " --- " + keyArray[i]);
-  addressArray.push(
-    "https://api.upbit.com/v1/candles/minutes/1?market=" +
-      keyArray[i] +
-      "&count=1"
-  );
+
+for (i in coinSymbol) {
+  //console.log("index = " + i + " --- " + coinSymbol[i]);
+  addressArray.push('https://api.upbit.com/v1/candles/minutes/1?market=' + coinSymbol[i] + '&count=1');
 }
 
 function timer(ms) {
-  return new Promise((res) => setTimeout(res, ms));
+  return new Promise(res => setTimeout(res, ms));
 }
 
 //API 호출
 var index = 1;
 var pageBegin = 0;
 var pageEnd = 10;
-
+var nowBegin = 0;
+var nowEnd = 10;
+var symbol = "";
 async function coinprice() {
   //var boolean = false;
   //console.log(addressArray.length);
   //console.log(" begin : " + pageBegin + " / end : " + pageEnd);
+
 
   for (i = pageBegin; i < pageEnd; i++) {
     //console.log("i : " + i);
@@ -61,7 +64,9 @@ async function coinprice() {
       type: "GET",
       url: addressArray[i],
       dataType: "json",
-      success: function (data) {
+      success: function(data) {
+
+
         var coinName = data[0].market;
         var name = coinName.split("-")[1];
         var symbol = coinName.split("-")[1] + "USDT";
@@ -83,9 +88,11 @@ async function coinprice() {
           }
         }
 
+
         //console.log("binancePrice == " + binancePrice);
         if (binancePrice != null) {
-          var allbinance = (exchange * binancePrice).toFixed(2); //.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+          var allbinance = (exchange * binancePrice).toFixed(2);//.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           var premium = (coinPrice - allbinance).toFixed(2);
           var premiumPercent = ((premium / allbinance) * 100).toFixed(2);
 
@@ -93,30 +100,21 @@ async function coinprice() {
           var rightNum = binancePrice.toString().split(".")[1];
           //console.log(leftNum + "  <>   " + rightNum);
           if (leftNum.length > 3) {
-            binancePrice = Number(binancePrice)
-              .toFixed(2)
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            binancePrice = Number(binancePrice).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
           } else {
             binancePrice = Number(binancePrice).toFixed(4);
           }
 
-          var binanceTd =
-            "<td id='" + symbol + "binance'>" + binancePrice + "</td>";
-          var premiumTd =
-            "<td id='" +
-            symbol +
-            "premium'>" +
-            premium.replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-            "(" +
-            premiumPercent +
-            "%)</td>";
+          var binanceTd = "<td id='" + symbol + "binance'>" + binancePrice + "</td>";
+          var premiumTd = "<td id='" + symbol + "premium'>" + premium.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            + "(" + premiumPercent + "%)</td>"
         } else {
+
           var binanceTd = "<td>   </td>";
-          var premiumTd = "<td>   </td>";
+          var premiumTd = "<td>   </td>"
         }
-        var coinPrice = coinPrice
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        var coinPrice = coinPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
         /*console.log("premium = " + premium + "  coinPrice = " + coinPrice +
           "   exchange = " + exchange + "   binancePrice = " + binancePrice);
@@ -124,53 +122,60 @@ async function coinprice() {
 
 
         console.log(" price ===== " + binancePrice);*/
-        var str =
-          "<tr id='" +
-          symbol +
-          "' style='cursor:pointer' align='right'" +
-          "onclick='chart(this.id);'> <td>" +
-          index +
-          "</td>" +
-          "<td>" +
-          name +
-          "</td><td id='" +
-          symbol +
-          "price' >" +
-          coinPrice +
-          "</td>" +
-          binanceTd +
-          "<td> TBD</td>" +
-          premiumTd +
-          "</tr>";
+        var str = "<tr id='" + symbol + "' style='cursor:pointer' align='right'"
+          + "onclick='chart(this.id);'> <td>" + index + "</td>"
+          + "<td>" + name + "</td><td id='" + symbol + "price' >" + coinPrice + "</td>"
+          + binanceTd + premiumTd + "</tr>"
         //console.log(str);
         //HTML cointable id에 작성
         if (document.getElementById(symbol) == null) {
           $("#cointable").append(str);
           //console.log("테이블 작성");
           index++;
+       
         } else {
-          document.getElementById(symbol + "price").innerHTML = coinPrice;
+          //console.log("테이블 작성이 되어 있음");
 
-          if (document.getElementById(symbol + "binance") != null) {
-            document.getElementById(symbol + "binance").innerHTML =
-              binancePrice;
-            document.getElementById(symbol + "premium").innerHTML = premiumTd;
+   /*       if (Number(document.getElementById(symbol + 'binance').innerHTML) < Number(binancePrice)) {
+            console.log(document.getElementById(symbol + 'binance').innerHTML + " <> " + binancePrice + " 상승 ");
+            document.getElementById(symbol + 'binance').style.backgroundColor = "#4195F3";
+          } else if (Number(document.getElementById(symbol + 'binance').innerHTML) > Number(binancePrice)) {
+            console.log(document.getElementById(symbol + 'binance').innerHTML + " <> " + binancePrice + " 하락 ");
+            document.getElementById(symbol + 'binance').style.backgroundColor = "#F36141";
+          } else {
+            //document.getElementById(symbol + 'binance').style.backgroundColor="white";
+            console.log("else문");
+          }*/
+
+          document.getElementById(symbol + 'price').innerHTML = coinPrice;
+
+
+          if (document.getElementById(symbol + 'binance') != null) {
+            document.getElementById(symbol + 'binance').innerHTML = binancePrice;
+
+            //document.getElementById(symbol + 'binance').style.backgroundColor="#F36141";
+            document.getElementById(symbol + 'premium').innerHTML = premiumTd;
           }
           //setInterval("$('BTCUSD').fadeOut().fadeIn();", 1000);
           //$('#'+symbol).
           //document.getElementById(symbol).style.backgroundColor = "red";
           //console.log("가격 업데이트");
         }
+
+
+
       },
-      error: function (request, status, error) {
-        i--;
-        pageBegin--;
-        pageEnd--;
+      error: function(request, status, error) {
         //boolean = true;
-      },
-    }).always(function () {
+      }
+    }).always(function() {
+
       //console.log("요청완료 i : " + i);
+
     });
+
+
+
 
     /*    console.log("boolean :" + boolean);
         if (boolean) {
@@ -182,44 +187,75 @@ async function coinprice() {
           break;
         }*/
   }
+
 }
 
-$(".tableWrapper").scroll(async function () {
-  var scrollHeight = $(this).prop("scrollHeight");
+$(".tableWrapper").scroll(async function() {
+  //console.log("휠 on");
+  var scrollHeight = $(this).prop('scrollHeight');
   var scrollTop = $(this).scrollTop();
   var innerHeight = $(this).innerHeight();
   var scrollbottom = scrollTop + innerHeight;
-  //console.log("스크롤 높이 : " + scrollHeight + " 현재 높이 : " + innerHeight + " 가장 위의 위치 :" + scrollTop);
+  // tr height = 39.5
+  //console.log("총 스크롤 높이 : " + scrollHeight + " 현재 높이 : " + 
+  //innerHeight + " 가장 위의 위치 :" + scrollTop);
+  //var allTrHeight = ((scrollHeight)/39.5);
+  //allTrHeight = String(trHeight-1).split(".")[0]; // 총 tr 갯수
+
+  var trHeight = ((scrollTop) / 39.5).toFixed(0);
+  //console.log("이전 tr 번호 == " + trHeight);
+
   if (scrollbottom >= scrollHeight) {
-    pageBegin = pageBegin + 10;
-    pageEnd = pageEnd + 10;
+    pageBegin = Number(trHeight) + 8
+    pageEnd = Number(pageBegin) + 9;
+    //console.log("맨 밑 pageBegin : " + pageBegin + "  /  pageEnd : " + pageEnd);
     if (pageBegin <= addressArray.length) {
       if (pageBegin != 0) await timer(500);
+      await timer(1000);
       coinprice();
 
-      console.log(" pageBegin : " + pageBegin + "  /  pageEnd : " + pageEnd);
+      //console.log(" pageBegin : " + pageBegin + "  /  pageEnd : " + pageEnd);
     }
+  } else {
+    nowBegin = trHeight;
+    nowEnd = Number(trHeight) + 9;
+    //console.log(" pageBegin : " + pageBegin + "  /  pageEnd : " + pageEnd);
   }
+  pageBegin = nowBegin;
+  pageEnd = nowEnd;
+
 });
 
 async function secondsPrice() {
+
   while (1) {
     coinprice();
+    await timer(3000);
 
-    await timer(1000);
+    coinDailyPrice();
+    //console.log("길이 = "+todayPercentArray.length);
+    //console.log("호출 " + pageBegin + " / " + pageEnd);
   }
+
 }
 
+
+
+
+
 function binance(symbol) {
-  var url = "https://api.binance.com/api/v1/ticker/price?symbol=" + symbol;
-  var request = new XMLHttpRequest();
+
+  var url = 'https://api.binance.com/api/v1/ticker/price?symbol=' + symbol;
+
   var binancePrice = null;
   try {
     request.open("GET", url, false);
     request.send();
     var binancePrice = JSON.parse(request.responseText).price;
     //console.log("binancePrice == " + binancePrice + "  symbol == " + symbol);
+
   } catch (e) {
+
     //console.log("에러남");
   }
   if (symbol == "BTCUSDT") {
@@ -233,8 +269,8 @@ function USDKRW() {
   /*
    */
 
-  var url = "https://exchange.jaeheon.kr:23490/query/USDKRW";
-  var request = new XMLHttpRequest();
+  var url = 'https://exchange.jaeheon.kr:23490/query/USDKRW';
+
 
   request.open("GET", url, false);
   request.send();
@@ -243,6 +279,8 @@ function USDKRW() {
   //console.log("USDKRW ==== " + obj);
   exchange = obj;
 }
+
+
 
 USDKRW();
 secondsPrice();

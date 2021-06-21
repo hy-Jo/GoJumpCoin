@@ -25,6 +25,13 @@
 				text-align: right;
 				background-color: #f0f0f1 !important;
 			}
+			#todayCoin th{ 
+			  text-align: center;
+			}
+			
+			#todayCoinRow {
+			  text-align: center;
+			}
 		</style>
 		<script defer src=/js/coinkey.js></script>
 		<script defer type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -60,7 +67,6 @@
 												<th>코인</th>
 												<th>KRW(업비트)</th>
 												<th>USD(바이낸스)</th>
-												<th>거래량</th>
 												<th>김치프리미엄</th>
 											</tr>
 										</thead>
@@ -71,25 +77,13 @@
 								<br>
 							</div>
 							<div class="col-lg-4 sidebar ftco-animate bg-light">
-								<table class="table table-bordered table-dark">
-									<thead>
+								<table class="table" id="todayCoin">
+									<thead class="thead-dark">
 										<tr>
-											<th scope="col" colspan="4" align="right">금일의 코인</th>
+											<th scope="col" colspan="3" width='100%'>금일의 코인(업비트)</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<th scope="col">1</th>
-											<td colspan="3">TBD</td>
-										</tr>
-										<tr>
-											<th scope="col">2</th>
-											<td colspan="3">TBD</td>
-										</tr>
-										<tr>
-											<th scope="col">3</th>
-											<td colspan="3">TBD</td>
-										</tr>
+									<tbody id="todayCoinRow">
 									</tbody>
 								</table>
 							</div><!-- END COL -->
