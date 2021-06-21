@@ -29,6 +29,7 @@
 		<script defer src=/js/coinkey.js></script>
 		<script defer type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 		<script defer src=/js/coinchart.js></script>
+		<script defer src=/js/coindaily.js></script>
 	</head>
 
 	<body>
