@@ -56,10 +56,13 @@
 		</head>
 
 		<body>
-			<tiles:insertAttribute name="header"></tiles:insertAttribute>
-			<tiles:insertAttribute name="asides"></tiles:insertAttribute>
-			<tiles:insertAttribute name="body"></tiles:insertAttribute>
-			<tiles:insertAttribute name="footer"></tiles:insertAttribute>
+			<tiles:insertAttribute name="header" />
+			<tiles:insertAttribute name="asides"/>
+			<div id="bodyTile">
+			<tiles:insertAttribute  name="body"/> 
+			</div>
+			<tiles:insertAttribute name="footer"/>
+			
 		</body>
 
 		</html>

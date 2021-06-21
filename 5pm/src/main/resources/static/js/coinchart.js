@@ -1,5 +1,10 @@
 function chart(id) {
   var symbol = id;
+  
+  if(symbol.indexOf("KRW")<0 && symbol.indexOf("USDT")<0){
+    symbol=symbol+"KRW";
+  }
+  //alert(symbol);
   $(".chart").append(
     new TradingView.widget({
       width: "100%",
@@ -17,4 +22,4 @@ function chart(id) {
     })
   );
 }
-chart("BTCUSD");
+chart("BTCUSDT");
