@@ -1,5 +1,7 @@
 var request = new XMLHttpRequest();
-("http://http://15.164.101.252:8000/api/get-cycle/180");
+var url =
+  window.location.protocol + "//" + window.location.host + "/api/cycle/180";
+// var url = "http://15.164.101.252:8000/api/cycle/180";
 
 request.open("GET", url, false);
 
