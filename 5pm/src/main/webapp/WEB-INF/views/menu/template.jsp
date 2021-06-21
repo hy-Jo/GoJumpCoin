@@ -57,12 +57,12 @@
 
 		<body>
 			<tiles:insertAttribute name="header" />
-			<tiles:insertAttribute name="asides"/>
+			<tiles:insertAttribute name="asides" />
 			<div id="bodyTile">
-			<tiles:insertAttribute  name="body"/> 
+				<tiles:insertAttribute name="body" />
 			</div>
-			<tiles:insertAttribute name="footer"/>
-			
+			<tiles:insertAttribute name="footer" />
+
 		</body>
 
 		</html>

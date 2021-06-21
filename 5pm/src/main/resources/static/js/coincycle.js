@@ -1,5 +1,7 @@
 var request = new XMLHttpRequest();
-var url = 'http://localhost:8000/api/get-cycle/180';
+var url =
+  window.location.protocol + "//" + window.location.host + "/api/cycle/180";
+// var url = "http://15.164.101.252:8000/api/cycle/180";
 
 request.open("GET", url, false);
 
@@ -17,76 +19,80 @@ const input =
 let market_list = new Array();
 let inc_cycle_list = new Array();
 const hash = obj.reduce((acc, o) => {
-    //console.log(acc,o,o.market,o.inc_cycle);
-    market_list.push(o.market);
-    inc_cycle_list.push(o.inc_cycle);
-    acc[o.market] ? acc[o.market].push(o.inc_cycle) : acc[o.market] = [o.inc_cycle]
-    return acc
-}, {})
+  //console.log(acc,o,o.market,o.inc_cycle);
+  market_list.push(o.market);
+  inc_cycle_list.push(o.inc_cycle);
+  acc[o.market]
+    ? acc[o.market].push(o.inc_cycle)
+    : (acc[o.market] = [o.inc_cycle]);
+  return acc;
+}, {});
 
 //console.log(coinData);
 console.log(market_list, inc_cycle_list);
-const categories = Object.keys(hash)
-const series = Object.values(hash).map((a) => ({ data: a }))
+const categories = Object.keys(hash);
+const series = Object.values(hash).map((a) => ({ data: a }));
 
-Highcharts.chart('container', {
-    chart: {
-        type: 'bar'
-    },
+Highcharts.chart("container", {
+  chart: {
+    type: "bar",
+  },
+  title: {
+    text: "평균 급등 주기 차트",
+  },
+  subtitle: {
+    text: "Source: 업비트 기준",
+  },
+
+  xAxis: {
+    categories: market_list,
+    max: 15,
     title: {
-        text: '평균 급등 주기 차트',
+      text: null,
     },
-    subtitle: {
-        text: 'Source: 업비트 기준'
+    scrollbar: {
+      enabled: true,
     },
-
-    xAxis: {
-        categories: market_list,
-        max: 15,
-        title: {
-            text: null
-        },
-        scrollbar: {
-            enabled: true
-        }
-
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: "주기 (일)",
+      align: "high",
     },
-    yAxis: {
-        min: 0,
-        title: {
-            text: '주기 (일)',
-            align: 'high'
-        },
-        labels: {
-            overflow: 'justify'
-        }
+    labels: {
+      overflow: "justify",
     },
-    tooltip: {
-        valueSuffix: ' 일'
+  },
+  tooltip: {
+    valueSuffix: " 일",
+  },
+  plotOptions: {
+    bar: {
+      dataLabels: {
+        enabled: true,
+      },
     },
-    plotOptions: {
-        bar: {
-            dataLabels: {
-                enabled: true
-            }
-        }
+  },
+  legend: {
+    layout: "vertical",
+    align: "right",
+    verticalAlign: "top",
+    x: -40,
+    y: 80,
+    floating: true,
+    borderWidth: 1,
+    backgroundColor:
+      Highcharts.defaultOptions.legend.backgroundColor || "#FFFFFF",
+    shadow: true,
+  },
+  credits: {
+    enabled: false,
+  },
+  series: [
+    {
+      name: "평균 급등 주기",
+      data: inc_cycle_list,
     },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-        shadow: true
-    },
-    credits: {
-        enabled: false
-    },
-    series: [{
-        name: '평균 급등 주기',
-        data: inc_cycle_list
-    }]
+  ],
 });

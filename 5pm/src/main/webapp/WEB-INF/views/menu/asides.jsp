@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="/css/chat.css" />
 		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 		<script defer src="/js/chat.js"></script>
 	</head>
 
@@ -21,7 +21,8 @@
 					<nav id="colorlib-main-menu" role="navigation">
 						<ul>
 							<li class="colorlib-active">
-							<a href="/"  onClick="switchContent('');">Home</a></li>
+								<a href="/" onClick="switchContent('');">Home</a>
+							</li>
 							<li><a href="/coinchart" onClick="switchContent('coinchart');">Coin시세정보</a></li>
 							<li><a href="/coinmap" onClick="switchContent('coinmap');">CoinMap</a></li>
 							<li><a href="/coinflow" onClick="switchContent('coinflow');">Coin동향</a></li>
@@ -29,29 +30,29 @@
 						</ul>
 					</nav>
 					<script>
-					function switchContent(bodyName){
-					    $('#bodyTile').children().remove();
-					    $('#bodyTile').load(bodyName);
-					} 
-					
-/* 				    function switchContent(bodyName){
-				        $.ajax({
-				          type : "GET",
-				          url : bodyName+".jsp",
-				          dataType : "text",
-				          error : function() {
-				            alert('통신실패!!');
-				          },
-				          success : function(data) {
-				            $('#bodyTile').load("/"+bodyName);
-				          }
-				   
-				        });
-				      } */
-				   
+						function switchContent(bodyName) {
+							$('#bodyTile').children().remove();
+							$('#bodyTile').load(bodyName);
+						}
+
+						/* 				    function switchContent(bodyName){
+														$.ajax({
+															type : "GET",
+															url : bodyName+".jsp",
+															dataType : "text",
+															error : function() {
+																alert('통신실패!!');
+															},
+															success : function(data) {
+																$('#bodyTile').load("/"+bodyName);
+															}
+											 
+														});
+													} */
 
 
-				  출처: https://boxfoxs.tistory.com/293 [박스여우 - BoxFox]
+
+						출처: https://boxfoxs.tistory.com/293 [박스여우 - BoxFox]
 					</script>
 				</div>
 				<div id="_chat">
