@@ -17,11 +17,11 @@
   </definition>
   <definition name="/coinflow" extends="main">
     <put-attribute name="title" value="코인동향"/>
-    <put-attribute name="body"  value="/WEB-INF/views/coinflow/coinflow.jsp" />
+    <put-attribute name="body"  value="/WEB-INF/views/coinflow.jsp" />
   </definition>
   <definition name="/coinmap" extends="main">
     <put-attribute name="title" value="코인맵"/>
-    <put-attribute name="body"  value="/WEB-INF/views/coinmap/coinmap.jsp" />
+    <put-attribute name="body"  value="/WEB-INF/views/coinmap.jsp" />
   </definition>
   <definition name="/contact" extends="main">
     <put-attribute name="title" value="contact"/>
@@ -29,6 +29,6 @@
   </definition>
    <definition name="/coinchart" extends="main">
     <put-attribute name="title" value="코인차트"/>
-    <put-attribute name="body"  value="/WEB-INF/views/coinchart/coinchart.jsp" />
+    <put-attribute name="body"  value="/WEB-INF/views/coinchart.jsp" />
   </definition>
 </tiles-definitions>
