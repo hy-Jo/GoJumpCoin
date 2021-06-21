@@ -1,6 +1,5 @@
 function chart(id) {
   var symbol = id;
-  
   if(symbol.indexOf("KRW")<0 && symbol.indexOf("USDT")<0){
     symbol=symbol+"KRW";
   }

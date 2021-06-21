@@ -68,7 +68,7 @@ function percentList() {
     })
   }
   for (j in todayPercentArray) {
-    console.log("정렬 후 " + todayPercentArray[j]);  
+    //console.log(todayPercentArray[j]);  
     if (todayPercentArray.length > 5) {
       //console.log(" j ===>>> " + j);
       //console.log(" todayIndex ===>>> " + todayIndex);

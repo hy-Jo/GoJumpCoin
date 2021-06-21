@@ -97,8 +97,7 @@
 								<div class="tradingview-widget-container">
 									<div id="tradingview_cef4d"></div>
 									<div class="chart"></div>
-									<!-- coin chart BEGIN-->
-									<!--coin chart END-->
+					
 								</div>
 							</div>
 							<div class="col-lg-4 sidebar ftco-animate bg-light">
