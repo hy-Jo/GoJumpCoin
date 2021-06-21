@@ -21,18 +21,37 @@
 					<nav id="colorlib-main-menu" role="navigation">
 						<ul>
 							<li class="colorlib-active">
-							<a href="#"  onClick="switchContent('');">Home</a></li>
-							<li><a href="" onClick="switchContent('coinchart');">Coin시세정보</a></li>
-							<li><a href="" onClick="switchContent('coinmap');">CoinMap</a></li>
-							<li><a href="" onClick="switchContent('coinflow');">Coin동향</a></li>
-							<li><a href="" onClick="switchContent('contact');">Contact</a></li>
+							<a href="/"  onClick="switchContent('');">Home</a></li>
+							<li><a href="/coinchart" onClick="switchContent('coinchart');">Coin시세정보</a></li>
+							<li><a href="/coinmap" onClick="switchContent('coinmap');">CoinMap</a></li>
+							<li><a href="/coinflow" onClick="switchContent('coinflow');">Coin동향</a></li>
+							<li><a href="/contact" onClick="switchContent('contact');">Contact</a></li>
 						</ul>
 					</nav>
 					<script>
 					function switchContent(bodyName){
 					    $('#bodyTile').children().remove();
-					    $('#bodyTile').load("/"+bodyName);
-					}
+					    $('#bodyTile').load(bodyName);
+					} 
+					
+/* 				    function switchContent(bodyName){
+				        $.ajax({
+				          type : "GET",
+				          url : bodyName+".jsp",
+				          dataType : "text",
+				          error : function() {
+				            alert('통신실패!!');
+				          },
+				          success : function(data) {
+				            $('#bodyTile').load("/"+bodyName);
+				          }
+				   
+				        });
+				      } */
+				   
+
+
+				  출처: https://boxfoxs.tistory.com/293 [박스여우 - BoxFox]
 					</script>
 				</div>
 				<div id="_chat">
