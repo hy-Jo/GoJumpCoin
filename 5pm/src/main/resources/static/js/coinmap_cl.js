@@ -28,7 +28,7 @@ let ltime_group = "";
 //RestController
 $(function () {
   $.ajax({
-    url: "/coinmap/get",
+    url: "/api/coinmap/get",
     dataType: "json",
     success: function (result_group) {
       console.log(result_group);

@@ -31,7 +31,7 @@ public class CoinmapRESTController {
 
 	// [스케쥴러로 매일 한번씩 DB초기화 할 컨트롤러]
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@RequestMapping(value = {"/coinmap/update"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/api/coinmap/update"}, method = RequestMethod.GET)
 	@Scheduled(cron = "0 0 9 * * * ") // 초 분 시간 일 월 요일
 	public ResponseEntity<?> updateCoinmap() { 
 //		Date now = new Date();
@@ -52,7 +52,7 @@ public class CoinmapRESTController {
 	
 	// [DB에서 정보를 요청하는 컨트롤러]
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@RequestMapping(value = {"/coinmap/get"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/api/coinmap/get"}, method = RequestMethod.GET)
 	public List<CoinmapVO> getCoinmapData() {		
 		List<CoinmapVO> list = service.getCoinmapList();
 //////////////////////////////////////////////////////
